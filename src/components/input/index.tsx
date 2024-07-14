@@ -4,12 +4,13 @@ import { validateEmail, validatePassword, validateVerifyPassword } from '@/utils
 import { useState } from 'react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  variant: 'email' | 'password' | 'passwordVerify';
-  // eslint-disable-next-line react/require-default-props
+  variant: 'email' | 'password' | 'passwordVerify' | 'price';
   originalPassword?: string;
 }
 
-export default function Input({ variant, originalPassword, ...props }: InputProps) {
+export default function Input({ variant, originalPassword, className, ...rest }: InputProps) {
+  const { ...restProps } = rest;
+
   const [inputValue, setInputValue] = useState('');
   const [errMsg, setErrMsg] = useState('');
 
@@ -21,6 +22,8 @@ export default function Input({ variant, originalPassword, ...props }: InputProp
       errorMsg = validatePassword(value);
     } else if (variant === 'passwordVerify') {
       errorMsg = validateVerifyPassword(originalPassword || '', value);
+    } else {
+      errorMsg = '';
     }
     setErrMsg(errorMsg);
   };
@@ -44,14 +47,28 @@ export default function Input({ variant, originalPassword, ...props }: InputProp
     }
   };
 
+  if (variant === 'price') {
+    return (
+      <div className="flex justify-between relative ">
+        <input
+          {...restProps}
+          placeholder="입력"
+          value={inputValue}
+          onChange={handleChange}
+          className={`w-[350px] mb-2 px-4 py-5 rounded-md border border-gray20 focus:border-black ${className}`}
+        />
+        <p className="absolute left-[315px] top-5 text-4 text-black leading-[26px]">원</p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <input
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        {...props}
-        className={`mb-2 px-4 py-5 rounded-md border ${
+        {...restProps}
+        className={`w-[350px] mb-2 px-4 py-5 rounded-md border ${
           errMsg ? 'border-red40' : 'border-gray30'
-        } focus:border-black focus:outline-none`}
+        } focus:border-black focus:outline-none ${className}`}
         value={inputValue}
         onChange={handleChange}
         placeholder={getPlaceholder()}

@@ -2,8 +2,8 @@ import Image from 'next/image';
 
 const Footer = () => {
   return (
-    <div className="flex lg:px-[238px] md:px-[32px] sm:px-[20px] pt-[32px] pb-[16px] md:py-[37px] flex-col items-start gap-[8px] bg-gray10">
-      <div className="md:flex sm:hidden justify-between items-center self-stretch">
+    <div className="flex w-[100%] lg:px-[238px] md:px-[32px] px-[20px] pt-[32px] pb-[16px] md:py-[37px] flex-col items-start gap-[8px] bg-gray10 fixed bottom-0">
+      <div className="md:flex hidden justify-between items-center self-stretch">
         <span className=" text-gray50 text-[16px]">©codeit - 2023</span>
         <div className="flex gap-[30px] items-start">
           <span className=" text-gray50 text-[16px]">Privacy Policy</span>

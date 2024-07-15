@@ -1,11 +1,11 @@
+'use client';
+
 import Image from 'next/image';
+import { useState } from 'react';
 
-interface NavigationBarProps {
-  isAuthorized: boolean;
-  isNotification: boolean;
-}
-
-const NavigationBar = ({ isAuthorized, isNotification }: NavigationBarProps) => {
+const NavigationBar = () => {
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(true);
+  const [isNotification, setIsNotification] = useState<boolean>(false);
   return (
     <div className="lg:h-[70px] md:h-[70px] h-[102px] bg-white pt-[15px] pb-[15px] pl-[20px] pr-[20px] lg:pl-[208px] lg:pr-[208px] md:pl-[32px] md:pr-[32px] ">
       <div className="flex-col">

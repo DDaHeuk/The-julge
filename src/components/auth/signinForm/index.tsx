@@ -1,6 +1,6 @@
 'use client';
 
-import FilledButton from '@/components/button/filledButton';
+import Button from '@/components/button/indext';
 import Input from '@/components/input';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -19,6 +19,9 @@ export default function SignInForm() {
       [name]: value,
     });
   };
+
+  const isFormValid = signinInfo.email !== '' && signinInfo.password !== '';
+
   return (
     <div className="flex flex-col items-center">
       <div className="relative flex justify-center mb-10 w-[208px] h-[38px] md:w-[248px] md:h-[45px]">
@@ -36,7 +39,9 @@ export default function SignInForm() {
           <Input variant="password" name="password" onChange={handleChange} />
         </div>
         <div>
-          <FilledButton width={350} name="로그인 하기" />
+          <Button color="filled" className="w-[350px]" disabled={!isFormValid}>
+            로그인 하기
+          </Button>
         </div>
       </form>
       <p>

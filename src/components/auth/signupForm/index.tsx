@@ -1,6 +1,6 @@
 'use client';
 
-import FilledButton from '@/components/button/filledButton';
+import Button from '@/components/button/indext';
 import Input from '@/components/input';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -35,6 +35,9 @@ export default function SignUpForm() {
       memberType: type,
     });
   };
+
+  const isFormValid =
+    userInfo.email !== '' && userInfo.password !== '' && userInfo.passwordVerify !== ''; // 임시
 
   return (
     <div className="flex flex-col items-center">
@@ -76,7 +79,9 @@ export default function SignUpForm() {
           </div>
         </div>
         <div>
-          <FilledButton width={350} name="가입하기" />
+          <Button color="filled" disabled={!isFormValid} className="w-[350px]">
+            가입하기
+          </Button>
         </div>
       </form>
       <p>

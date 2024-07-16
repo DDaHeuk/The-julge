@@ -8,8 +8,8 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   originalPassword?: string;
 }
 
-export default function Input({ variant, originalPassword, className, ...rest }: InputProps) {
-  const { ...restProps } = rest;
+export default function Input({ variant, originalPassword, ...rest }: InputProps) {
+  const { onChange, className, ...restProps } = rest;
 
   const [inputValue, setInputValue] = useState('');
   const [errMsg, setErrMsg] = useState('');
@@ -32,6 +32,9 @@ export default function Input({ variant, originalPassword, className, ...rest }:
     const newValue = e.target.value;
     setInputValue(newValue);
     validate(newValue);
+    if (onChange) {
+      onChange(e);
+    }
   };
 
   const getPlaceholder = () => {

@@ -19,7 +19,9 @@ export default function myShop() {
       </div>
       <div className="flex  px-[12px] pt-[40px] pb-[80px] md:px-[32px] md:pt-[60px] md:pb-[120px] lg:px-[237px]  flex-col items-start gap-[8px]">
         <div className="flex-col w-[100%]">
-          <span className="text-black font-bold text-[20px] md:text-[28px]">등록한 공고</span>
+          <span className="text-black font-bold text-[20px] md:text-[28px]">
+            {post ? '내가 등록한 공고' : '등록한 공고'}
+          </span>
           {post ? <MyShopInfo /> : <NoticeAssignPost />}
         </div>
       </div>

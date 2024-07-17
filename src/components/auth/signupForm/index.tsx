@@ -2,6 +2,7 @@
 
 import Button from '@/components/button/indext';
 import Input from '@/components/input';
+import { validateEmail } from '@/utils/validation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChangeEvent, useState } from 'react';
@@ -36,8 +37,16 @@ export default function SignUpForm() {
     });
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(userInfo);
+  };
+
   const isFormValid =
-    userInfo.email !== '' && userInfo.password !== '' && userInfo.passwordVerify !== ''; // 임시
+    userInfo.email !== '' &&
+    validateEmail(userInfo.email) === '' &&
+    userInfo.password === userInfo.passwordVerify &&
+    userInfo.memberType !== '';
 
   return (
     <div className="flex flex-col items-center">
@@ -46,7 +55,7 @@ export default function SignUpForm() {
           <Image src="/images/logo.svg" alt="logo" fill />
         </Link>
       </div>
-      <form className="flex flex-col gap-7 mb-5">
+      <form className="flex flex-col gap-7 mb-5" onSubmit={handleSubmit}>
         <div>
           <p className="mb-2">이메일</p>
           <Input variant="email" name="email" onChange={handleChange} />
@@ -57,7 +66,12 @@ export default function SignUpForm() {
         </div>
         <div>
           <p className="mb-2">비밀번호 확인</p>
-          <Input variant="passwordVerify" name="passwordVerify" onChange={handleChange} />
+          <Input
+            variant="passwordVerify"
+            originalPassword={userInfo.password}
+            name="passwordVerify"
+            onChange={handleChange}
+          />
         </div>
         <div className="flex flex-col gap-2">
           <p className="mb-2">회원 유형</p>
@@ -79,7 +93,7 @@ export default function SignUpForm() {
           </div>
         </div>
         <div>
-          <Button color="filled" disabled={!isFormValid} className="w-[350px]">
+          <Button type="submit" color="filled" disabled={!isFormValid} className="w-[350px]">
             가입하기
           </Button>
         </div>

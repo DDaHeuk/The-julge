@@ -7,8 +7,8 @@ export const validateEmail = (value: string): string => {
 };
 
 export const validatePassword = (value: string): string => {
-  if (value.length < 6) {
-    return '비밀번호는 6자리 이상이여야 합니다.';
+  if (value.length < 8) {
+    return '비밀번호는 8자리 이상이여야 합니다.';
   }
   return '';
 };

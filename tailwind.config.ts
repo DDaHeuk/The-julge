@@ -14,6 +14,7 @@ const config: Config = {
       // => @media (min-width: 1440px) PC
     },
     colors: {
+      primary: '#EA3C12',
       black: '#111322',
       gray50: '#7D7986',
       gray40: '#A4A1AA',
@@ -30,6 +31,7 @@ const config: Config = {
       blue10: '#CCE6FF',
       green20: '#20A81E',
       green10: '#D4F7D4',
+      violet: '#5534DA',
       kakao: '#FEE500',
     },
     extend: {

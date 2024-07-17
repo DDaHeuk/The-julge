@@ -4,12 +4,12 @@ import { validateEmail, validatePassword, validateVerifyPassword } from '@/utils
 import { useState } from 'react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  variant: 'email' | 'password' | 'passwordVerify' | 'price';
+  variant: 'normal' | 'email' | 'password' | 'passwordVerify' | 'price';
   originalPassword?: string;
 }
 
-export default function Input({ variant, originalPassword, className, ...rest }: InputProps) {
-  const { ...restProps } = rest;
+export default function Input({ variant, originalPassword, ...rest }: InputProps) {
+  const { onChange, className, ...restProps } = rest;
 
   const [inputValue, setInputValue] = useState('');
   const [errMsg, setErrMsg] = useState('');
@@ -32,6 +32,9 @@ export default function Input({ variant, originalPassword, className, ...rest }:
     const newValue = e.target.value;
     setInputValue(newValue);
     validate(newValue);
+    if (onChange) {
+      onChange(e);
+    }
   };
 
   const getPlaceholder = () => {
@@ -43,7 +46,7 @@ export default function Input({ variant, originalPassword, className, ...rest }:
       case 'passwordVerify':
         return '비밀번호를 한번더 입력해주세요. ';
       default:
-        return '';
+        return '입력';
     }
   };
 
@@ -72,7 +75,7 @@ export default function Input({ variant, originalPassword, className, ...rest }:
         value={inputValue}
         onChange={handleChange}
         placeholder={getPlaceholder()}
-        type={variant === 'email' ? 'text' : 'password'}
+        type={variant === 'email' && 'normal' ? 'text' : 'password'}
       />
       {errMsg && <p className="ml-2 text-[12px] text-red40">{errMsg}</p>}
     </div>

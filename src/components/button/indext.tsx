@@ -1,3 +1,6 @@
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/jsx-no-comment-textnodes */
+
 'use client';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -24,7 +27,6 @@ export default function Button({ children, color, className, ...rest }: ButtonPr
   return (
     <div>
       <button
-        type="button"
         onClick={handleClick}
         disabled={disabled}
         className={` h-[32px] md:h-[37px] lg:h-[48px]  rounded-[6px] text-white font-bold text-[12px] md:text-[14px] lg:text-[16px] inline-flex py-[14px] justify-center items-center gap-[8px] ${className} ${getColorClass()}`}

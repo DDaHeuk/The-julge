@@ -3,9 +3,10 @@ import { useState, useRef, useEffect } from 'react';
 
 interface DropDownProps {
   menuItems: string[];
+  className?: string;
 }
 
-export default function DropDown({ menuItems }: DropDownProps) {
+export default function DropDown({ menuItems, className }: DropDownProps) {
   const dropDownRef = useRef<HTMLUListElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
@@ -30,7 +31,7 @@ export default function DropDown({ menuItems }: DropDownProps) {
 
   return (
     <div>
-      <div className="relative w-[351px]">
+      <div className={`relative w-[350px] h-[58px] ${className}`}>
         <button
           type="button"
           className="flex items-center justify-between px-5 py-4 w-full rounded-md border border-gray30"
@@ -57,7 +58,7 @@ export default function DropDown({ menuItems }: DropDownProps) {
         </button>
         <ul
           ref={dropDownRef}
-          className={`absolute top-[62px] w-full rounded-md border border-gray20 ${isOpen ? 'block' : 'hidden'}`}
+          className={`absolute top-[62px] w-full bg-white rounded-md border border-gray20 max-h-[230px] overflow-y-auto ${isOpen ? 'block' : 'hidden'}`}
         >
           {menuItems.map((item: string, index: number) => (
             <>

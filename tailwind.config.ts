@@ -7,6 +7,12 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    screens: {
+      md: '744px',
+      // => @media (min-width: 744px) 태블릿
+      lg: '1440px',
+      // => @media (min-width: 1440px) PC
+    },
     colors: {
       primary: '#EA3C12',
       black: '#111322',

@@ -1,12 +1,17 @@
 import Input from '../input';
 import Image from 'next/image';
+import DropDown from '../dropdown';
+import { FOOD_CATEGORIES } from '@/types/foodCategory';
 
 const AssignMyShopInfo = () => {
   return (
     <div className="flex flex-col gap-[20px] md:gap-[24px] w-[100%]">
       <div className="inline-flex flex-col md:flex-row items-start gap-[20px]">
         <Input className="w-[100%]" variant="normal" label="가게 이름" />
-        <Input className="w-[100%]" variant="normal" label="분류" />
+        <div className="flex flex-col items-start gap-[8px] w-[100%]">
+          <label>분류</label>
+          <DropDown menuItems={FOOD_CATEGORIES} className="w-[100%]" />
+        </div>
       </div>
       <div className="md:hidden inline-flex flex-col items-start gap-[20px]">
         <Input className="w-[100%]" variant="normal" label="주소" />

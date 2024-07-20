@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 
@@ -7,7 +9,7 @@ interface DropDownProps {
 }
 
 export default function DropDown({ menuItems, className }: DropDownProps) {
-  const dropDownRef = useRef<HTMLUListElement>(null);
+  const dropDownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
@@ -30,14 +32,15 @@ export default function DropDown({ menuItems, className }: DropDownProps) {
   }, []);
 
   return (
-    <div>
-      <div className={`relative w-[350px] h-[58px] ${className}`}>
+    <div ref={dropDownRef} className={`${className}`}>
+      <div className={`relative w-[100%] h-[58px] bg-white`}>
         <button
           type="button"
           className="flex items-center justify-between px-5 py-4 w-full rounded-md border border-gray30"
           onClick={() => setIsOpen(!isOpen)}
         >
-          <p>{selectedItem || '선택'}</p>
+          {selectedItem ? <p>{selectedItem}</p> : <p className="text-gray40">{'선택'}</p>}
+
           <div>
             {isOpen ? (
               <Image
@@ -57,7 +60,6 @@ export default function DropDown({ menuItems, className }: DropDownProps) {
           </div>
         </button>
         <ul
-          ref={dropDownRef}
           className={`absolute top-[62px] w-full bg-white rounded-md border border-gray20 max-h-[230px] overflow-y-auto ${isOpen ? 'block' : 'hidden'}`}
         >
           {menuItems.map((item: string, index: number) => (

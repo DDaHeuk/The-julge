@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-const AssignMyShopHeader = () => {
+const AssignHeader = () => {
   return (
     <div className="flex justify-between items-start self-stretch">
       <span className="text-black text-[20px] md:text-[28px] font-bold">가게 정보</span>
@@ -15,4 +15,4 @@ const AssignMyShopHeader = () => {
   );
 };
 
-export default AssignMyShopHeader;
+export default AssignHeader;

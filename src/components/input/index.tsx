@@ -71,7 +71,7 @@ export default function Input({ variant, originalPassword, label, ...rest }: Inp
       <p>{label}</p>
       <input
         {...restProps}
-        className={` mb-2 px-4 py-5 rounded-md border ${
+        className={` h-[58px] mb-2 px-4 py-5 rounded-md border ${
           errMsg ? 'border-red40' : 'border-gray30'
         } focus:border-black focus:outline-none `}
         value={inputValue}

@@ -68,7 +68,7 @@ export default function Input({ variant, originalPassword, label, ...rest }: Inp
 
   return (
     <div className={`flex flex-col gap-2 ${className}`}>
-      <label>{label}</label>
+      <p>{label}</p>
       <input
         {...restProps}
         className={` h-[58px] mb-2 px-4 py-5 rounded-md border ${
@@ -77,7 +77,7 @@ export default function Input({ variant, originalPassword, label, ...rest }: Inp
         value={inputValue}
         onChange={handleChange}
         placeholder={getPlaceholder()}
-        type={variant === 'email' || 'normal' ? 'text' : 'password'}
+        type={variant === 'email' || variant === 'normal' ? 'text' : 'password'}
       />
       {errMsg && <p className="ml-2 text-[12px] text-red40">{errMsg}</p>}
     </div>

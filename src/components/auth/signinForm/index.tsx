@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/button/indext';
+import Button from '@/components/button';
 import Input from '@/components/input';
 import { validateEmail, validatePassword } from '@/utils/validation';
 import Image from 'next/image';

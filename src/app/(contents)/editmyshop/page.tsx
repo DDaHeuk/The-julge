@@ -1,6 +1,6 @@
 import AssignHeader from '@/components/assignHeader';
 import EditMyShopInfo from '@/components/editMyShopInfo';
-import Button from '@/components/button/indext';
+import Button from '@/components/button';
 
 const editMyShop = () => {
   return (

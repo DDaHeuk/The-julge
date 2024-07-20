@@ -67,13 +67,13 @@ export default function Input({ variant, originalPassword, label, ...rest }: Inp
   }
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className={`flex flex-col gap-2 ${className}`}>
       <label>{label}</label>
       <input
         {...restProps}
-        className={`w-[350px] mb-2 px-4 py-5 rounded-md border ${
+        className={` mb-2 px-4 py-5 rounded-md border ${
           errMsg ? 'border-red40' : 'border-gray30'
-        } focus:border-black focus:outline-none ${className}`}
+        } focus:border-black focus:outline-none `}
         value={inputValue}
         onChange={handleChange}
         placeholder={getPlaceholder()}

@@ -1,4 +1,4 @@
-import Button from '@/components/button/indext';
+import Button from '@/components/button';
 import MyPostInfo from '@/components/myPostInfo';
 import MyShopInfo from '@/components/myShopInfo';
 

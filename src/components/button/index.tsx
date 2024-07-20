@@ -19,7 +19,7 @@ export default function Button({ children, color, className, ...rest }: ButtonPr
 
   const getColorClass = () => {
     if (disabled) {
-      return 'bg-gray40';
+      return 'text-white bg-gray40';
     }
     return color === 'filled'
       ? 'bg-primary text-white'
@@ -27,11 +27,11 @@ export default function Button({ children, color, className, ...rest }: ButtonPr
   };
 
   return (
-    <div>
+    <div className={`${className}`}>
       <button
         onClick={handleClick}
         disabled={disabled}
-        className={`rounded-[6px] font-bold text-[12px] md:text-[14px] lg:text-[16px] py-[14px] ${className} ${getColorClass()}`}
+        className={`rounded-[6px] font-bold text-[12px] md:text-[14px] lg:text-[16px] py-[14px] gap-[8px] w-full  ${getColorClass()}`}
         {...restProps}
       >
         {children}

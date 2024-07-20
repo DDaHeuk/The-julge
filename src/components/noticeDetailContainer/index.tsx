@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Button from '../button';
 
-export default function AnnouncementDetailContainer() {
+export default function NoticeDetailContainer() {
   return (
     <div className="flex flex-col">
       <div className="flex flex-col gap-3 px-[12px] py-[40px] md:px-[32px] md:py-[60px] md:gap-6">
@@ -13,14 +13,20 @@ export default function AnnouncementDetailContainer() {
 
           <div className="w-full p-5 bg-white rounded-[12px] md:p-6">
             <div className="relative overflow-hidden w-full h-[200px]">
-              <Image src="/images/logo.svg" alt="공고이미지" fill />
+              <Image src="/icons/marker.svg" alt="공고이미지" fill />
             </div>
             <div className="flex flex-col gap-6 gap-10">
               <div className="flex flex-col gap-2 md:gap-3">
                 <p className="text-[14px] text-primary font-bold md:text-[16px]">시급</p>
                 <p className="text-[24px] text-black font-bold md:text-[28px]">15,000원</p>
-                <p className="text-[14px] text-gray50 md:text-[16px]">2000.00.00 15:00-18:00</p>
-                <p className="text-[14px] text-gray50 md:text-[16px]">서울시 송파구</p>
+                <div className="flex gap-[6px]">
+                  <Image src="/icons/clock.svg" alt="시계 아이콘" width={20} height={20} />
+                  <p className="text-[14px] text-gray50 md:text-[16px]">2000.00.00 15:00-18:00</p>
+                </div>
+                <div className="flex gap-[6px]">
+                  <Image src="/icons/marker.svg" alt="마커 표시" width={20} height={20} />
+                  <p className="text-[14px] text-gray50 md:text-[16px]">서울시 송파구</p>
+                </div>
                 <p className="text-[14px text-black md:text-[16px]">
                   설명입니다 길게해볼게요 설명입니다 길게해볼게요설명입니다 길게해볼게요설명입니다
                   길게해볼게요

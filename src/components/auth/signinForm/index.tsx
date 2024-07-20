@@ -30,7 +30,7 @@ export default function SignInForm() {
     signinInfo.email !== '' &&
     validateEmail(signinInfo.email) === '' &&
     signinInfo.password !== '' &&
-    validatePassword(signinInfo.password);
+    validatePassword(signinInfo.password) === '';
 
   return (
     <div className="flex flex-col items-center">
@@ -41,12 +41,10 @@ export default function SignInForm() {
       </div>
       <form className="flex flex-col gap-7 mb-5" onSubmit={handleSubmit}>
         <div>
-          <p className="mb-2">이메일</p>
-          <Input variant="email" name="email" onChange={handleChange} />
+          <Input label="이메일" variant="email" name="email" onChange={handleChange} />
         </div>
         <div>
-          <p className="mb-2">비밀번호</p>
-          <Input variant="password" name="password" onChange={handleChange} />
+          <Input label="비밀번호" variant="password" name="password" onChange={handleChange} />
         </div>
         <div>
           <Button color="filled" type="submit" className="w-[350px]" disabled={!isFormValid}>

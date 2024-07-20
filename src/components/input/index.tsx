@@ -5,10 +5,11 @@ import { useState } from 'react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   variant: 'normal' | 'email' | 'password' | 'passwordVerify' | 'price';
+  label?: string;
   originalPassword?: string;
 }
 
-export default function Input({ variant, originalPassword, ...rest }: InputProps) {
+export default function Input({ variant, originalPassword, label, ...rest }: InputProps) {
   const { onChange, className, ...restProps } = rest;
 
   const [inputValue, setInputValue] = useState('');
@@ -66,16 +67,17 @@ export default function Input({ variant, originalPassword, ...rest }: InputProps
   }
 
   return (
-    <div>
+    <div className={`flex flex-col gap-2 ${className}`}>
+      <p>{label}</p>
       <input
         {...restProps}
-        className={`w-[350px] mb-2 px-4 py-5 rounded-md border ${
+        className={` mb-2 px-4 py-5 rounded-md border ${
           errMsg ? 'border-red40' : 'border-gray30'
-        } focus:border-black focus:outline-none ${className}`}
+        } focus:border-black focus:outline-none `}
         value={inputValue}
         onChange={handleChange}
         placeholder={getPlaceholder()}
-        type={variant === 'email' && 'normal' ? 'text' : 'password'}
+        type={variant === 'email' || variant === 'normal' ? 'text' : 'password'}
       />
       {errMsg && <p className="ml-2 text-[12px] text-red40">{errMsg}</p>}
     </div>

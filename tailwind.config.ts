@@ -27,6 +27,7 @@ const config: Config = {
       red30: '#FF8D72',
       red20: '#FFAF9B',
       red10: '#FFEBE7',
+      pink: '#FEF7F6',
       blue20: '#0080FF',
       blue10: '#CCE6FF',
       green20: '#20A81E',

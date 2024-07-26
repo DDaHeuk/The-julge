@@ -1,6 +1,5 @@
 import DropDown from '../dropdown';
 import Input from '../input';
-import Image from 'next/image';
 
 const localList: string[] = [
   '서울특별시 송파구',

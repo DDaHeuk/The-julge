@@ -1,4 +1,4 @@
-export default function userDetail() {
+export default function myProfil() {
   return (
     <div className="flex  px-[12px] py-[40px] md:px-[32px] md:py-[60px] lg:px-[237px] lg:py-[60px] flex-col items-start gap-[8px]">
       <div className="flex-col w-[100%]">

@@ -9,7 +9,6 @@ import { useState } from 'react';
 export default function myProfile() {
   const [profile, setProfile] = useState<boolean>(true);
   const [list, setList] = useState<boolean>(true);
-
   return (
     <div className="flex flex-col">
       <div className="flex px-[12px] py-[40px] md:px-[32px] md:py-[60px] lg:px-[238px] lg:py-[60px] flex-col items-start gap-[8px]">

@@ -10,7 +10,7 @@ const tableData = [
 export default function NoticeDetailPage() {
   return (
     <div className="bg-gray5">
-      <NoticeDetailContainer>
+      <NoticeDetailContainer memberType="owner">
         <div className="flex flex-col gap-3">
           <h2 className="text-black text-5 font-bold md:text-[28px]">신청자목록</h2>
           <ApplicantList data={tableData} />

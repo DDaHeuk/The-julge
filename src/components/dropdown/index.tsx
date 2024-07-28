@@ -32,11 +32,11 @@ export default function DropDown({ menuItems, className }: DropDownProps) {
   }, []);
 
   return (
-    <div ref={dropDownRef} className={`${className}`}>
-      <div className={`relative w-[100%] h-[58px] bg-white`}>
+    <div ref={dropDownRef} className="w-full">
+      <div className={`relative w-[100%] ${className}`}>
         <button
           type="button"
-          className="flex items-center justify-between px-5 py-4 w-full rounded-md border border-gray30"
+          className="flex items-center justify-between w-full  gap-[10px]"
           onClick={() => setIsOpen(!isOpen)}
         >
           {selectedItem ? <p>{selectedItem}</p> : <p className="text-gray40">{'선택'}</p>}
@@ -60,7 +60,7 @@ export default function DropDown({ menuItems, className }: DropDownProps) {
           </div>
         </button>
         <ul
-          className={`absolute top-[62px] w-full bg-white rounded-md border border-gray20 max-h-[230px] overflow-y-auto ${isOpen ? 'block' : 'hidden'}`}
+          className={`absolute top-[110%] left-0 w-full bg-white rounded-md border border-gray20 max-h-[230px] z-10 overflow-y-auto ${isOpen ? 'block' : 'hidden'}`}
         >
           {menuItems.map((item: string, index: number) => (
             <>

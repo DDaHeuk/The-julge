@@ -10,7 +10,10 @@ const AssignMyShopInfo = () => {
         <Input className="w-[100%]" variant="normal" label="가게 이름" />
         <div className="flex flex-col items-start gap-[8px] w-[100%]">
           <label>분류</label>
-          <DropDown menuItems={FOOD_CATEGORIES} className="w-[100%]" />
+          <DropDown
+            menuItems={FOOD_CATEGORIES}
+            className="w-[100%] bg-white h-[58px] border rounded-[6px] border-gray30 py-[16px] px-[20px]"
+          />
         </div>
       </div>
       <div className="md:hidden inline-flex flex-col items-start gap-[20px]">

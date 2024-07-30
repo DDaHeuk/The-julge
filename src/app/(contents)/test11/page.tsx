@@ -5,6 +5,7 @@ import Button from '@/components/button';
 import MyPostInfo from '@/components/myPostInfo';
 import MyShopInfo from '@/components/myShopInfo';
 import Pagination from 'react-js-pagination';
+import DetailedFilter from '@/components/detailedFilter';
 
 export default function test11() {
   const [activePage, setActivePage] = useState(1);
@@ -33,6 +34,7 @@ export default function test11() {
           activeLinkClass="bg-red20 text-white "
         />
       </div>
+      <DetailedFilter />
     </div>
   );
 }

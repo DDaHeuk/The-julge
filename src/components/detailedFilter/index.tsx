@@ -59,7 +59,7 @@ const DetailedFilter = ({ onClose }: DetailedFilterProps) => {
   return (
     <div className="bg-white  fixed top-0 h-full w-full left-0 md:w-[390px] md:h-auto md:absolute md:top-[120%] md:right-0 md:left-auto z-50 flex py-[24px] px-[12px] md:px-[20px] flex-col items-start gap-[24px] rounded-[10px] border border-gray20 shadow-gray20">
       <div className="flex justify-between items-center self-stretch">
-        <span className="text-[20px] font-bold">상세 필터</span>
+        <p className="text-[20px] font-bold">상세 필터</p>
         <Image
           onClick={() => onClose()}
           src="/icons/close.svg"

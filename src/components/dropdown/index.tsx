@@ -39,7 +39,7 @@ export default function DropDown({ menuItems, className }: DropDownProps) {
           className="flex items-center justify-between w-full  gap-[10px]"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {selectedItem ? <p>{selectedItem}</p> : <p className="text-gray40">{'선택'}</p>}
+          {selectedItem ? <p>{selectedItem}</p> : <p className="text-gray40">선택</p>}
 
           <div>
             {isOpen ? (

@@ -2,16 +2,21 @@
 
 import Button from '@/components/button';
 import Input from '@/components/input';
+import useSignIn from '@/hooks/useSignInMutation';
 import { validateEmail, validatePassword } from '@/utils/validation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChangeEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 export default function SignInForm() {
   const [signinInfo, setSigninInfo] = useState({
     email: '',
     password: '',
   });
+
+  const { mutate: signIn } = useSignIn();
+  const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -21,9 +26,20 @@ export default function SignInForm() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(signinInfo);
+    signIn(
+      {
+        email: signinInfo.email,
+        password: signinInfo.password,
+      },
+      {
+        onSuccess: (data) => {
+          localStorage.setItem('token', data.item.token);
+          router.push('/');
+        },
+      },
+    );
   };
 
   const isFormValid =
@@ -31,6 +47,14 @@ export default function SignInForm() {
     validateEmail(signinInfo.email) === '' &&
     signinInfo.password !== '' &&
     validatePassword(signinInfo.password) === '';
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      router.push('/');
+    }
+  }, [router]);
 
   return (
     <div className="flex flex-col items-center">

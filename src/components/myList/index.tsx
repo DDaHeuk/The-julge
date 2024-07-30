@@ -1,3 +1,5 @@
+import Status from '../status';
+
 interface StoreInfo {
   name: string;
   date: string;
@@ -41,8 +43,8 @@ const MyList = ({ data }: StoreInfoListProps) => {
               <td className="text-[14px] leading-[22px] md:leading-[26px] md:text-[16px] text-left hidden lg:table-cell px-[8px] py-[12px] md:px-[12px] md:py-[20px] border-r border-gray20">
                 {item.pay}
               </td>
-              <td className="text-[14px] leading-[22px] md:leading-[26px] md:text-[16px] text-left px-[8px] py-[12px] md:px-[12px] md:py-[20px]">
-                {item.status}
+              <td className="text-[12px] md:text-[14px] text-left px-[8px] py-[9px] md:px-[12px] md:py-[20px]">
+                <Status stat={item.status} />
               </td>
             </tr>
           ))}

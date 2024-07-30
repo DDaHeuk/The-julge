@@ -12,7 +12,7 @@ const localList: string[] = [
   'dsgsgdg',
 ];
 
-const AssignMyProfilInfo = () => {
+const AssignMyProfileInfo = () => {
   return (
     <form className="flex flex-col gap-[20px] md:gap-[24px] w-[100%]">
       <div className="inline-grid grid-cols-1 md:grid-cols-2 gap-[20px] lg:grid-cols-3">
@@ -34,4 +34,4 @@ const AssignMyProfilInfo = () => {
   );
 };
 
-export default AssignMyProfilInfo;
+export default AssignMyProfileInfo;

@@ -13,7 +13,7 @@ export default function ApplicantList({ data }: ApplicantListProps) {
     <div className="border border-gray20 rounded-xl">
       <table className="w-full">
         <thead>
-          <tr className="bg-pink border-b border-gray20">
+          <tr className="bg-red10 border-b border-pink">
             <th className="text-left text-[12px] font-normal rounded-tl-xl px-[8px] py-[12px] md:px-[12px] md:py-[20px] border-r border-gray20">
               신청자
             </th>

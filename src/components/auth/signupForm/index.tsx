@@ -2,16 +2,18 @@
 
 import Button from '@/components/button';
 import Input from '@/components/input';
+import useSignUp from '@/hooks/useSignUpMutation';
 import { validateEmail } from '@/utils/validation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChangeEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 interface UserInfoType {
   email: string;
   password: string;
   passwordVerify: string;
-  memberType: string;
+  type: string;
 }
 
 export default function SignUpForm() {
@@ -19,8 +21,11 @@ export default function SignUpForm() {
     email: '',
     password: '',
     passwordVerify: '',
-    memberType: '',
+    type: '',
   });
+
+  const { mutate: signUp } = useSignUp();
+  const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -33,20 +38,39 @@ export default function SignUpForm() {
   const handleMemberType = (type: string) => {
     setUserInfo({
       ...userInfo,
-      memberType: type,
+      type,
     });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(userInfo);
+    signUp(
+      {
+        email: userInfo.email,
+        password: userInfo.password,
+        type: userInfo.type,
+      },
+      {
+        onSuccess: () => {
+          router.push('/signin');
+        },
+      },
+    );
   };
 
   const isFormValid =
     userInfo.email !== '' &&
     validateEmail(userInfo.email) === '' &&
     userInfo.password === userInfo.passwordVerify &&
-    userInfo.memberType !== '';
+    userInfo.type !== '';
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      router.push('/');
+    }
+  }, [router]);
 
   return (
     <div className="flex flex-col items-center">
@@ -76,15 +100,15 @@ export default function SignUpForm() {
           <div className="flex justify-between gap-4 w-full">
             <button
               type="button"
-              className={`w-full h-[50px] border border-gray20 rounded-[30px] ${userInfo.memberType === 'employee' ? 'bg-primary text-white' : ''}`}
+              className={`w-full h-[50px] border border-gray20 rounded-[30px] ${userInfo.type === 'employee' ? 'bg-primary text-white' : ''}`}
               onClick={() => handleMemberType('employee')}
             >
               알바님
             </button>
             <button
               type="button"
-              className={`w-full h-[50px] border border-gray20 rounded-[30px] ${userInfo.memberType === 'owner' ? 'bg-primary text-white' : ''}`}
-              onClick={() => handleMemberType('owner')}
+              className={`w-full h-[50px] border border-gray20 rounded-[30px] ${userInfo.type === 'employer' ? 'bg-primary text-white' : ''}`}
+              onClick={() => handleMemberType('employer')}
             >
               사장님
             </button>

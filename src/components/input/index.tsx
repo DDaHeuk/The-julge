@@ -2,9 +2,11 @@
 
 import { validateEmail, validatePassword, validateVerifyPassword } from '@/utils/validation';
 import { useState } from 'react';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  variant: 'normal' | 'email' | 'password' | 'passwordVerify' | 'unit';
+  variant: 'normal' | 'email' | 'password' | 'passwordVerify' | 'unit' | 'dateTime' | 'date';
   label?: string;
   unitLabel?: string;
   originalPassword?: string;
@@ -21,6 +23,7 @@ export default function Input({
 
   const [inputValue, setInputValue] = useState('');
   const [errMsg, setErrMsg] = useState('');
+  const [showCalendar, setShowCalendar] = useState(false);
 
   const validate = (value: string) => {
     let errorMsg = '';
@@ -58,6 +61,10 @@ export default function Input({
     }
   };
 
+  const handleCalendar = () => {
+    setShowCalendar(!showCalendar);
+  };
+
   if (variant === 'unit') {
     return (
       <div className={`flex flex-col gap-2 ${className}`}>
@@ -74,6 +81,39 @@ export default function Input({
             <span className="flex items-center text-4 text-black leading-[26px]">{unitLabel}</span>
           </div>
         </div>
+      </div>
+    );
+  }
+
+  if (variant === 'dateTime') {
+    return (
+      <div className={`flex flex-col gap-2 ${className}`}>
+        <p>{label}</p>
+        <input
+          {...restProps}
+          className={` h-[58px] mb-2 px-4 py-5 rounded-md border ${
+            errMsg ? 'border-red40' : 'border-gray30'
+          } focus:border-black focus:outline-none `}
+          value={inputValue}
+          onChange={handleChange}
+          onClick={handleCalendar}
+          placeholder={getPlaceholder()}
+          readOnly
+        />
+        {showCalendar && (
+          <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="relative">
+              <Calendar className="bg-white p-4 rounded-lg shadow-lg" />
+              <button
+                onClick={handleCalendar}
+                className="absolute top-2 right-2 text-xl font-bold text-gray-600"
+              >
+                &times;
+              </button>
+            </div>
+          </div>
+        )}
+        {errMsg && <p className="ml-2 text-[12px] text-red40">{errMsg}</p>}
       </div>
     );
   }

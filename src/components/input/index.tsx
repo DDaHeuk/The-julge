@@ -4,12 +4,19 @@ import { validateEmail, validatePassword, validateVerifyPassword } from '@/utils
 import { useState } from 'react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  variant: 'normal' | 'email' | 'password' | 'passwordVerify' | 'price';
+  variant: 'normal' | 'email' | 'password' | 'passwordVerify' | 'unit';
   label?: string;
+  unitLabel: string;
   originalPassword?: string;
 }
 
-export default function Input({ variant, originalPassword, label, ...rest }: InputProps) {
+export default function Input({
+  variant,
+  originalPassword,
+  label,
+  unitLabel,
+  ...rest
+}: InputProps) {
   const { onChange, className, ...restProps } = rest;
 
   const [inputValue, setInputValue] = useState('');
@@ -51,7 +58,7 @@ export default function Input({ variant, originalPassword, label, ...rest }: Inp
     }
   };
 
-  if (variant === 'price') {
+  if (variant === 'unit') {
     return (
       <div className={`flex flex-col gap-2 ${className}  `}>
         <p>{label}</p>
@@ -63,7 +70,7 @@ export default function Input({ variant, originalPassword, label, ...rest }: Inp
             onChange={handleChange}
             className={`w-full mb-2 px-4 py-5 border border-gray30 focus:border-black rounded-md  `}
           />
-          <p className="absolute left-[93%] top-5 text-4 text-black leading-[26px]">원</p>
+          <p className="absolute left-[93%] top-5 text-4 text-black leading-[26px]">{unitLabel}</p>
         </div>
       </div>
     );

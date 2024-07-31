@@ -53,15 +53,18 @@ export default function Input({ variant, originalPassword, label, ...rest }: Inp
 
   if (variant === 'price') {
     return (
-      <div className={`flex relative ${className}  `}>
-        <input
-          {...restProps}
-          placeholder="입력"
-          value={inputValue}
-          onChange={handleChange}
-          className={`w-full mb-2 px-4 py-5 border border-gray20 focus:border-black rounded-md  `}
-        />
-        <p className="absolute left-[93%] top-5 text-4 text-black leading-[26px]">원</p>
+      <div className={`flex flex-col gap-2 ${className}  `}>
+        <p>{label}</p>
+        <div className="relative">
+          <input
+            {...restProps}
+            placeholder="입력"
+            value={inputValue}
+            onChange={handleChange}
+            className={`w-full mb-2 px-4 py-5 border border-gray30 focus:border-black rounded-md  `}
+          />
+          <p className="absolute left-[93%] top-5 text-4 text-black leading-[26px]">원</p>
+        </div>
       </div>
     );
   }

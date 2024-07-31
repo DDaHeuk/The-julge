@@ -19,14 +19,14 @@ const AssignMyShopInfo = () => {
       <div className="md:hidden inline-flex flex-col items-start gap-[20px]">
         <Input className="w-[100%]" variant="normal" label="주소" />
         <Input className="w-[100%]" variant="normal" label="상세주소" />
-        <Input variant="price" label="기본 시급" />
+        <Input className="w-full" variant="price" label="기본 시급" />
       </div>
       <div className="hidden md:inline-flex flex-row items-start gap-[20px]">
         <Input className="w-[100%]" variant="normal" label="주소" />
         <Input className="w-[100%]" variant="normal" label="상세주소" />
       </div>
       <div className="hidden md:inline-flex flex-col items-start gap-[20px]">
-        <Input variant="price" label="기본 시급" />
+        <Input className="w-full" variant="price" label="기본 시급" />
       </div>
       <div className="inline-flex flex-col items-start gap-[8px] md:w-[483px]">
         <span className="text-black text-[16px]">가게 이미지</span>

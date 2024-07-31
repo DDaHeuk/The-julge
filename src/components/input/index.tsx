@@ -70,7 +70,9 @@ export default function Input({
             onChange={handleChange}
             className={`w-full mb-2 px-4 py-5 border border-gray30 focus:border-black rounded-md  `}
           />
-          <p className="absolute left-[93%] top-5 text-4 text-black leading-[26px]">{unitLabel}</p>
+          <p className="absolute left-[90%] md:left-[93%] top-5 text-4 text-black leading-[26px]">
+            {unitLabel}
+          </p>
         </div>
       </div>
     );

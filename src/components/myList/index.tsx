@@ -1,3 +1,4 @@
+import PaginationComponent from '../pagination';
 import Status from '../status';
 
 interface StoreInfo {
@@ -52,7 +53,7 @@ const MyList = ({ data }: StoreInfoListProps) => {
         <tfoot>
           <tr>
             <td colSpan={4} className="text-center">
-              <div className="flex justify-center px-[12px] py-[8px]">페이지네이션부분</div>
+              <PaginationComponent totalPage={40} />
             </td>
           </tr>
         </tfoot>

@@ -60,19 +60,32 @@ export default function Input({
 
   if (variant === 'unit') {
     return (
-      <div className={`flex flex-col gap-2 ${className}  `}>
+      //   <div className={`flex flex-col gap-2 ${className}`}>
+      //     <p>{label}</p>
+      //     <div className="flex justify-between items-center w-full h-[58px] border border-gray30 focus:border-black rounded-md">
+      //       <input
+      //         {...restProps}
+      //         placeholder="입력"
+      //         value={inputValue}
+      //         onChange={handleChange}
+      //         className="w-full mb-2 px-4 py-5 rounded-md"
+      //       />
+      //       <p className=" text-4 text-black leading-[26px]">{unitLabel}</p>
+      //     </div>
+      //   </div>
+      <div className="flex flex-col gap-2">
         <p>{label}</p>
-        <div className="relative">
+        <div className={`relative rounded-md ${className}`}>
           <input
             {...restProps}
-            placeholder="입력"
             value={inputValue}
             onChange={handleChange}
-            className={`w-full mb-2 px-4 py-5 border border-gray30 focus:border-black rounded-md  `}
+            placeholder="입력"
+            className="w-full h-[58px] mb-2 px-4 py-5 rounded-md border border-gray30 focus:border-black"
           />
-          <p className="absolute left-[90%] md:left-[93%] top-5 text-4 text-black leading-[26px]">
-            {unitLabel}
-          </p>
+          <div className="h-[58px] pointer-events-none absolute inset-y-0 right-2 flex items-center pl-3">
+            <span className="flex items-center text-4 text-black leading-[26px]">{unitLabel}</span>
+          </div>
         </div>
       </div>
     );

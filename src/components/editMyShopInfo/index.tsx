@@ -7,6 +7,7 @@ import { LOCATION } from '@/constant/location';
 const EditMyShopInfo = () => {
   return (
     <div className="flex flex-col gap-[20px] md:gap-[24px] w-[100%]">
+      {/* 가게 이름 + 분류 input */}
       <div className="inline-flex flex-col md:flex-row items-start gap-[20px]">
         <Input className="w-[100%]" variant="normal" label="가게 이름" />
         <div className="flex flex-col items-start gap-[8px] w-[100%]">
@@ -17,6 +18,9 @@ const EditMyShopInfo = () => {
           />
         </div>
       </div>
+      {/* 가게 이름 + 분류 input */}
+
+      {/* 주소 + 상세주소 + 기본시급에 관한 input 테블릿,PC버전 */}
       <div className="md:hidden inline-flex flex-col items-start gap-[20px]">
         <div className="flex flex-col items-start gap-[8px] w-[100%]">
           <label>주소</label>
@@ -26,8 +30,11 @@ const EditMyShopInfo = () => {
           />
         </div>
         <Input className="w-[100%]" variant="normal" label="상세주소" />
-        <Input className="w-full" variant="price" label="기본 시급" />
+        <Input className="w-full" variant="unit" unitLabel="원" label="기본 시급" />
       </div>
+      {/* 주소 + 상세주소 + 기본시급에 관한 input 테블릿,PC버전 */}
+
+      {/* 주소 + 상세주소 + 기본시급에 관한 input 모바일버전 */}
       <div className="hidden md:inline-flex flex-row items-start gap-[20px]">
         <div className="flex flex-col items-start gap-[8px] w-[100%]">
           <label>주소</label>
@@ -38,10 +45,13 @@ const EditMyShopInfo = () => {
         </div>
         <Input className="w-[100%]" variant="normal" label="상세주소" />
       </div>
+
       <div className="hidden md:inline-flex flex-row items-start gap-[20px]">
-        <Input className="w-full" variant="price" label="기본 시급" />
+        <Input className="w-full" variant="unit" unitLabel="원" label="기본 시급" />
         <div className="w-full" />
       </div>
+      {/* 주소 + 상세주소 + 기본시급에 관한 input 모바일버전 */}
+
       <div className="inline-flex flex-col items-start gap-[8px] md:w-[483px]">
         <span className="text-black text-[16px]">가게 이미지</span>
         <div className="cursor-pointer rounded-[12px] border border-gray30 bg-gray10 w-[100%] h-[200px] py-[68px]">

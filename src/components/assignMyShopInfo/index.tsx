@@ -2,6 +2,7 @@ import Input from '../input';
 import Image from 'next/image';
 import DropDown from '../dropdown';
 import { FOOD_CATEGORIES } from '@/types/foodCategory';
+import { LOCATION } from '@/constant/location';
 
 const AssignMyShopInfo = () => {
   return (
@@ -17,16 +18,29 @@ const AssignMyShopInfo = () => {
         </div>
       </div>
       <div className="md:hidden inline-flex flex-col items-start gap-[20px]">
-        <Input className="w-[100%]" variant="normal" label="주소" />
+        <div className="flex flex-col items-start gap-[8px] w-[100%]">
+          <label>주소</label>
+          <DropDown
+            menuItems={LOCATION}
+            className="w-[100%] bg-white h-[58px] border rounded-[6px] border-gray30 py-[16px] px-[20px]"
+          />
+        </div>
         <Input className="w-[100%]" variant="normal" label="상세주소" />
         <Input className="w-full" variant="price" label="기본 시급" />
       </div>
       <div className="hidden md:inline-flex flex-row items-start gap-[20px]">
-        <Input className="w-[100%]" variant="normal" label="주소" />
+        <div className="flex flex-col items-start gap-[8px] w-[100%]">
+          <label>주소</label>
+          <DropDown
+            menuItems={LOCATION}
+            className="w-[100%] bg-white h-[58px] border rounded-[6px] border-gray30 py-[16px] px-[20px]"
+          />
+        </div>
         <Input className="w-[100%]" variant="normal" label="상세주소" />
       </div>
-      <div className="hidden md:inline-flex flex-col items-start gap-[20px]">
+      <div className="hidden md:inline-flex flex-row items-start gap-[20px]">
         <Input className="w-full" variant="price" label="기본 시급" />
+        <div className="w-full" />
       </div>
       <div className="inline-flex flex-col items-start gap-[8px] md:w-[483px]">
         <span className="text-black text-[16px]">가게 이미지</span>

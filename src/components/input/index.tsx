@@ -6,7 +6,7 @@ import { useState } from 'react';
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   variant: 'normal' | 'email' | 'password' | 'passwordVerify' | 'unit';
   label?: string;
-  unitLabel: string;
+  unitLabel?: string;
   originalPassword?: string;
 }
 

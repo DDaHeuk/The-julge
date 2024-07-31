@@ -60,22 +60,9 @@ export default function Input({
 
   if (variant === 'unit') {
     return (
-      //   <div className={`flex flex-col gap-2 ${className}`}>
-      //     <p>{label}</p>
-      //     <div className="flex justify-between items-center w-full h-[58px] border border-gray30 focus:border-black rounded-md">
-      //       <input
-      //         {...restProps}
-      //         placeholder="입력"
-      //         value={inputValue}
-      //         onChange={handleChange}
-      //         className="w-full mb-2 px-4 py-5 rounded-md"
-      //       />
-      //       <p className=" text-4 text-black leading-[26px]">{unitLabel}</p>
-      //     </div>
-      //   </div>
-      <div className="flex flex-col gap-2">
+      <div className={`flex flex-col gap-2 ${className}`}>
         <p>{label}</p>
-        <div className={`relative rounded-md ${className}`}>
+        <div className={`relative rounded-md`}>
           <input
             {...restProps}
             value={inputValue}

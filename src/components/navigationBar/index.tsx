@@ -2,10 +2,20 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import NotificationModal from '../notificationModal';
 
 const NavigationBar = () => {
   const [isAuthorized, setIsAuthorized] = useState<boolean>(true);
-  const [isNotification, setIsNotification] = useState<boolean>(false);
+  const [isNotification, setIsNotification] = useState<boolean>(true);
+  const [isOpenNotification, setIsOpenNotification] = useState<boolean>(false);
+
+  const handleNotiifcation = () => {
+    setIsOpenNotification(!isOpenNotification);
+  };
+
+  const handleCloseNotification = () => {
+    setIsOpenNotification(false);
+  };
   return (
     <div className="lg:h-[70px] md:h-[70px] h-[102px] bg-white pt-[15px] pb-[15px] pl-[20px] pr-[20px] lg:pl-[208px] lg:pr-[208px] md:pl-[32px] md:pr-[32px] ">
       <div className="flex-col">
@@ -33,11 +43,12 @@ const NavigationBar = () => {
             />
           </div>
           {isAuthorized ? (
-            <div className=" ml-auto inline-flex justify-center items-center gap-[40px]">
+            <div className="relative ml-auto inline-flex justify-center items-center gap-[40px]">
               <span className=" text-black text-[14px] md:text-[16px] font-bold">내 가게</span>
               <span className=" text-black text-[14px] md:text-[16px] font-bold">로그아웃</span>
               {isNotification ? (
                 <Image
+                  onClick={handleNotiifcation}
                   className="md:w-[24px] md:h-[24px]"
                   src="/icons/notification/active.svg"
                   alt="알림 활성화 아이콘"
@@ -48,11 +59,12 @@ const NavigationBar = () => {
                 <Image
                   className="md:w-[24px] md:h-[24px]"
                   src="/icons/notification/inactive.svg"
-                  alt="알림 활성화 아이콘"
+                  alt="알림 비활성화 아이콘"
                   width={20}
                   height={20}
                 />
               )}
+              {isOpenNotification && <NotificationModal onClose={handleCloseNotification} />}
             </div>
           ) : (
             <div className=" ml-auto inline-flex justify-center items-center gap-[40px]">

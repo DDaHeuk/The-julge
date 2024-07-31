@@ -4,12 +4,19 @@ import { validateEmail, validatePassword, validateVerifyPassword } from '@/utils
 import { useState } from 'react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  variant: 'normal' | 'email' | 'password' | 'passwordVerify' | 'price';
+  variant: 'normal' | 'email' | 'password' | 'passwordVerify' | 'unit';
   label?: string;
+  unitLabel?: string;
   originalPassword?: string;
 }
 
-export default function Input({ variant, originalPassword, label, ...rest }: InputProps) {
+export default function Input({
+  variant,
+  originalPassword,
+  label,
+  unitLabel,
+  ...rest
+}: InputProps) {
   const { onChange, className, ...restProps } = rest;
 
   const [inputValue, setInputValue] = useState('');
@@ -51,17 +58,35 @@ export default function Input({ variant, originalPassword, label, ...rest }: Inp
     }
   };
 
-  if (variant === 'price') {
+  if (variant === 'unit') {
     return (
-      <div className={`flex relative ${className}  `}>
-        <input
-          {...restProps}
-          placeholder="입력"
-          value={inputValue}
-          onChange={handleChange}
-          className={`w-full mb-2 px-4 py-5 border border-gray20 focus:border-black rounded-md  `}
-        />
-        <p className="absolute left-[93%] top-5 text-4 text-black leading-[26px]">원</p>
+      //   <div className={`flex flex-col gap-2 ${className}`}>
+      //     <p>{label}</p>
+      //     <div className="flex justify-between items-center w-full h-[58px] border border-gray30 focus:border-black rounded-md">
+      //       <input
+      //         {...restProps}
+      //         placeholder="입력"
+      //         value={inputValue}
+      //         onChange={handleChange}
+      //         className="w-full mb-2 px-4 py-5 rounded-md"
+      //       />
+      //       <p className=" text-4 text-black leading-[26px]">{unitLabel}</p>
+      //     </div>
+      //   </div>
+      <div className="flex flex-col gap-2">
+        <p>{label}</p>
+        <div className={`relative rounded-md ${className}`}>
+          <input
+            {...restProps}
+            value={inputValue}
+            onChange={handleChange}
+            placeholder="입력"
+            className="w-full h-[58px] mb-2 px-4 py-5 rounded-md border border-gray30 focus:border-black"
+          />
+          <div className="h-[58px] pointer-events-none absolute inset-y-0 right-2 flex items-center pl-3">
+            <span className="flex items-center text-4 text-black leading-[26px]">{unitLabel}</span>
+          </div>
+        </div>
       </div>
     );
   }

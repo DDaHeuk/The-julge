@@ -14,7 +14,7 @@ export default function test22() {
       <Input variant="email" />
       <Input variant="password" onChange={(e) => setPassword(e.target.value)} />
       <Input variant="passwordVerify" originalPassword={password} className="w-[500px]" />
-      <Input variant="unit" unitLabel="시간" className="w-full" />
+      <Input variant="unit" unitLabel="시간" className="w-[500px]" />
       <DropDown menuItems={menuList} className="w-[500px]" />
       <Input variant="normal" className="w-[500px]" />
     </form>

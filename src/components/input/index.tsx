@@ -152,7 +152,7 @@ export default function Input({
                 <div>
                   <DropDown
                     menuItems={TIME}
-                    className="flex mt-2 w-full h-[50px] items-center justify-center text-[18px] px-4 py-2 rounded-md border bg-white border-gray30"
+                    className="flex mt-2 w-full h-[50px] items-center justify-center text-[14px] md:text-[18px]  px-4 py-2 rounded-md border bg-white border-gray30"
                     onSelect={handleTimeChange}
                     initialValue="시작 시간을 선택해주세요!!"
                   />

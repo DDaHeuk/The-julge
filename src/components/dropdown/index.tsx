@@ -75,7 +75,7 @@ export default function DropDown({ menuItems, className, onSelect, initialValue 
                 onClick={() => handleItemClick(item)}
                 className="flex justify-center cursor-pointer my-3"
               >
-                <p>{item}</p>
+                <p className="text-[14px] md:text-[18px]">{item}</p>
               </li>
               {index < menuItems.length - 1 && <hr className="border border-gray20" />}
             </React.Fragment>

@@ -126,14 +126,13 @@ export const StyledInputCalendar = styled.div`
   .react-calendar__tile--now {
     background-color: #32cd32;
     font-weight: 700;
-    border: 1px solid #32cd32;
   }
 
   /* 선택된 날짜 스타일 */
   .react-calendar__tile--active {
-    background-color: #32cd32;
-    color: '#333333';
-    font-weight: 700;
+    background-color: #ff4500 !important; /* 주황색 */
+    color: #ffffff !important; /* 글자색 */
+    font-weight: 700 !important;
   }
 
   /* 오늘 날짜 호버 스타일 */

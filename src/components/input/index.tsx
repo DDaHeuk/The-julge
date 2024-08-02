@@ -5,6 +5,9 @@ import { validateEmail, validatePassword, validateVerifyPassword } from '@/utils
 import React, { useState, useRef, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import DropDown from '../dropdown';
+import { TIME } from '@/constant/time';
+import Button from '../button';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   variant: 'normal' | 'email' | 'password' | 'passwordVerify' | 'unit' | 'dateTime' | 'date';
@@ -121,6 +124,17 @@ export default function Input({
               <StyledInputCalendar>
                 <Calendar className="bg-white p-4 rounded-lg shadow-lg" />
               </StyledInputCalendar>
+              {variant === 'dateTime' && (
+                <div>
+                  <DropDown
+                    menuItems={TIME}
+                    className="mt-2 w-full h-10 px-4 py-2 rounded-md border bg-white border-gray30"
+                  />
+                  <Button className="mt-2" color="filled">
+                    적용하기
+                  </Button>
+                </div>
+              )}
               <button
                 onClick={handleCalendar}
                 className=" w-[25px] h-[25px] absolute top-2 right-2 text-xl font-bold text-gray-600"

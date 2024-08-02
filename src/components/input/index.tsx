@@ -9,6 +9,7 @@ import DropDown from '../dropdown';
 import { TIME } from '@/constant/time';
 import Button from '../button';
 import { SelectedDate } from '@/types/date';
+import { dateTimeToString } from '@/utils/dateTimeToString';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   variant: 'normal' | 'email' | 'password' | 'passwordVerify' | 'unit' | 'dateTime' | 'date';
@@ -94,13 +95,9 @@ export default function Input({
     setSelectedTime(time);
   };
 
-  const handleApply = () => {
+  const handleApply = (selectedDate: SelectedDate, selectedTime: string) => {
     if (selectedDate && selectedTime) {
-      const formattedDate = Array.isArray(selectedDate)
-        ? `${selectedDate[0]?.toISOString().split('T')[0]} - ${selectedDate[1]?.toISOString().split('T')[0]}`
-        : selectedDate?.toISOString().split('T')[0] || '';
-      const formattedDateTime = `${formattedDate} ${selectedTime}`;
-      setInputValue(formattedDateTime);
+      setInputValue(dateTimeToString(selectedDate, selectedTime));
       setShowCalendar(false);
     }
   };
@@ -156,7 +153,11 @@ export default function Input({
                     className="mt-2 w-full h-10 px-4 py-2 rounded-md border bg-white border-gray30"
                     onSelect={handleTimeChange}
                   />
-                  <Button className="mt-2" color="filled" onClick={handleApply}>
+                  <Button
+                    className="mt-2"
+                    color="filled"
+                    onClick={() => handleApply(selectedDate, selectedTime)}
+                  >
                     적용하기
                   </Button>
                 </div>

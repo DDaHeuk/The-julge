@@ -1,7 +1,8 @@
 'use client';
 
+import { StyledInputCalendar } from '@/styles/StyledCalendar';
 import { validateEmail, validatePassword, validateVerifyPassword } from '@/utils/validation';
-import { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
@@ -24,6 +25,20 @@ export default function Input({
   const [inputValue, setInputValue] = useState('');
   const [errMsg, setErrMsg] = useState('');
   const [showCalendar, setShowCalendar] = useState(false);
+  const calendarRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (calendarRef.current && !calendarRef.current.contains(event.target as Node)) {
+      setShowCalendar(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const validate = (value: string) => {
     let errorMsg = '';
@@ -102,11 +117,13 @@ export default function Input({
         />
         {showCalendar && (
           <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="relative">
-              <Calendar className="bg-white p-4 rounded-lg shadow-lg" />
+            <div ref={calendarRef} className="relative">
+              <StyledInputCalendar>
+                <Calendar className="bg-white p-4 rounded-lg shadow-lg" />
+              </StyledInputCalendar>
               <button
                 onClick={handleCalendar}
-                className="absolute top-2 right-2 text-xl font-bold text-gray-600"
+                className=" w-[25px] h-[25px] absolute top-2 right-2 text-xl font-bold text-gray-600"
               >
                 &times;
               </button>

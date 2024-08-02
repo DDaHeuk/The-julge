@@ -8,6 +8,7 @@ import 'react-calendar/dist/Calendar.css';
 import DropDown from '../dropdown';
 import { TIME } from '@/constant/time';
 import Button from '../button';
+import { SelectedDate } from '@/types/date';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   variant: 'normal' | 'email' | 'password' | 'passwordVerify' | 'unit' | 'dateTime' | 'date';
@@ -28,6 +29,8 @@ export default function Input({
   const [inputValue, setInputValue] = useState('');
   const [errMsg, setErrMsg] = useState('');
   const [showCalendar, setShowCalendar] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<SelectedDate>(null);
+  const [selectedTime, setSelectedTime] = useState('');
   const calendarRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -83,6 +86,25 @@ export default function Input({
     setShowCalendar(!showCalendar);
   };
 
+  const handleDateChange = (date: SelectedDate) => {
+    setSelectedDate(date);
+  };
+
+  const handleTimeChange = (time: string) => {
+    setSelectedTime(time);
+  };
+
+  const handleApply = () => {
+    if (selectedDate && selectedTime) {
+      const formattedDate = Array.isArray(selectedDate)
+        ? `${selectedDate[0]?.toISOString().split('T')[0]} - ${selectedDate[1]?.toISOString().split('T')[0]}`
+        : selectedDate?.toISOString().split('T')[0] || '';
+      const formattedDateTime = `${formattedDate} ${selectedTime}`;
+      setInputValue(formattedDateTime);
+      setShowCalendar(false);
+    }
+  };
+
   if (variant === 'unit') {
     return (
       <div className={`flex flex-col gap-2 ${className}`}>
@@ -122,15 +144,19 @@ export default function Input({
           <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50">
             <div ref={calendarRef} className="relative">
               <StyledInputCalendar>
-                <Calendar className="bg-white p-4 rounded-lg shadow-lg" />
+                <Calendar
+                  className="bg-white p-4 rounded-lg shadow-lg"
+                  onChange={handleDateChange}
+                />
               </StyledInputCalendar>
               {variant === 'dateTime' && (
                 <div>
                   <DropDown
                     menuItems={TIME}
                     className="mt-2 w-full h-10 px-4 py-2 rounded-md border bg-white border-gray30"
+                    onSelect={handleTimeChange}
                   />
-                  <Button className="mt-2" color="filled">
+                  <Button className="mt-2" color="filled" onClick={handleApply}>
                     적용하기
                   </Button>
                 </div>

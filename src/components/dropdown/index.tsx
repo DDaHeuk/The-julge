@@ -6,9 +6,10 @@ import React, { useState, useRef, useEffect } from 'react';
 interface DropDownProps {
   menuItems: string[];
   className?: string;
+  onSelect?: (item: string) => void;
 }
 
-export default function DropDown({ menuItems, className }: DropDownProps) {
+export default function DropDown({ menuItems, className, onSelect }: DropDownProps) {
   const dropDownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<string | null>(menuItems[0]);
@@ -16,6 +17,9 @@ export default function DropDown({ menuItems, className }: DropDownProps) {
   const handleItemClick = (item: string) => {
     setSelectedItem(item);
     setIsOpen(false);
+    if (onSelect) {
+      onSelect(item); // 선택된 항목을 onSelect 콜백으로 전달
+    }
   };
 
   const handleClickOutside = (event: MouseEvent) => {

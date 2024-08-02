@@ -7,12 +7,13 @@ interface DropDownProps {
   menuItems: string[];
   className?: string;
   onSelect?: (item: string) => void;
+  initialValue?: string;
 }
 
-export default function DropDown({ menuItems, className, onSelect }: DropDownProps) {
+export default function DropDown({ menuItems, className, onSelect, initialValue }: DropDownProps) {
   const dropDownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<string | null>(menuItems[0]);
+  const [selectedItem, setSelectedItem] = useState<string | null>(initialValue || menuItems[0]);
 
   const handleItemClick = (item: string) => {
     setSelectedItem(item);

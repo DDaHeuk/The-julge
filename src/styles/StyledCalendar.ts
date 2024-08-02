@@ -20,7 +20,7 @@ export const StyledInputCalendar = styled.div`
   .react-calendar__navigation {
     width: 100%;
     padding: 10px 0;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 20px;
     display: flex;
     justify-content: space-between;
@@ -62,7 +62,7 @@ export const StyledInputCalendar = styled.div`
   /* 요일 스타일 */
   .react-calendar__month-view__weekdays__weekday abbr {
     text-decoration: none;
-    font-weight: 700;
+    font-weight: 500;
     color: '#666666';
   }
 
@@ -80,7 +80,7 @@ export const StyledInputCalendar = styled.div`
   .react-calendar__month-view__days__day-names,
   .react-calendar__month-view__days__day {
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     color: '#333333';
     padding: 10px;
     text-align: center;

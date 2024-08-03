@@ -1,3 +1,6 @@
+'use client';
+
+import { ChangeEvent, useRef } from 'react';
 import Input from '../input';
 import Image from 'next/image';
 import DropDown from '../dropdown';
@@ -5,6 +8,22 @@ import { FOOD_CATEGORIES } from '@/types/foodCategory';
 import { LOCATION } from '@/constant/location';
 
 const AssignMyShopInfo = () => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleImageClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      // 파일이 선택된 경우 처리할 로직을 여기에 추가
+      console.log(file);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-[20px] md:gap-[24px] w-[100%]">
       {/* 가게 이름 + 분류 input */}
@@ -36,15 +55,27 @@ const AssignMyShopInfo = () => {
       </div>
       {/* 주소 + 상세주소 + 기본시급에 관한 input 테블릿,PC버전 */}
 
+      {/* 이미지 업로드 */}
       <div className="inline-flex flex-col items-start gap-[8px] md:w-[49%]">
         <span className="text-black text-[16px]">가게 이미지</span>
-        <div className="cursor-pointer rounded-[12px] border border-gray30 bg-gray10 w-[100%] h-[200px] py-[68px]">
+        <div
+          className="cursor-pointer rounded-[12px] border border-gray30 bg-gray10 w-[100%] h-[200px] py-[68px]"
+          onClick={handleImageClick}
+        >
           <div className="flex flex-col items-center  gap-[11px]">
             <Image src="/icons/camera.svg" alt="카메라 아이콘" width={32} height={32} />
             <span className="text-gray40 text-center text-[16px] font-bold">이미지 추가하기</span>
           </div>
         </div>
+        <input
+          type="file"
+          ref={fileInputRef}
+          accept="image/*"
+          style={{ display: 'none' }}
+          onChange={handleFileChange}
+        />
       </div>
+      {/* 이미지 업로드 */}
       <div className="inline-flex flex-col items-start gap-[8px]">
         <span className="text-black text-[16px]">가게 설명</span>
         <textarea

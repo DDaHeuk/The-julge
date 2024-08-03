@@ -98,7 +98,10 @@ export default function Input({
   };
 
   const handleApply = (selectedDate: SelectedDate, selectedTime: string) => {
-    if (selectedDate && selectedTime) {
+    if (variant === 'dateTime' && selectedDate && selectedTime) {
+      setInputValue(dateTimeToString(selectedDate, selectedTime));
+      setShowCalendar(false);
+    } else if (variant === 'date' && selectedDate) {
       setInputValue(dateTimeToString(selectedDate, selectedTime));
       setShowCalendar(false);
     }
@@ -124,7 +127,7 @@ export default function Input({
     );
   }
 
-  if (variant === 'dateTime') {
+  if (variant === 'dateTime' || variant === 'date') {
     return (
       <div className={`flex flex-col gap-2 ${className}`}>
         <p>{label}</p>
@@ -148,23 +151,23 @@ export default function Input({
                   onChange={handleDateChange}
                 />
               </StyledInputCalendar>
-              {variant === 'dateTime' && (
-                <div>
+              <div>
+                {variant === 'dateTime' && (
                   <DropDown
                     menuItems={TIME}
                     className="flex mt-2 w-full h-[50px] items-center justify-center text-[14px] md:text-[18px]  px-4 py-2 rounded-md border bg-white border-gray30"
                     onSelect={handleTimeChange}
                     initialValue="시작 시간을 선택해주세요!!"
                   />
-                  <Button
-                    className="mt-2"
-                    color="noFilled"
-                    onClick={() => handleApply(selectedDate, selectedTime)}
-                  >
-                    적용하기
-                  </Button>
-                </div>
-              )}
+                )}
+                <Button
+                  className="mt-2"
+                  color="noFilled"
+                  onClick={() => handleApply(selectedDate, selectedTime)}
+                >
+                  적용하기
+                </Button>
+              </div>
               <button
                 onClick={handleCalendar}
                 className=" w-[25px] h-[25px] absolute top-2 right-2 text-xl font-bold text-gray-600"

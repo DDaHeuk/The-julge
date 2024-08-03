@@ -1,6 +1,6 @@
 import { SelectedDate } from '@/types/date';
 
-export const dateTimeToString = (selectedDate: SelectedDate, selectedTime: string) => {
+export const dateTimeToString = (selectedDate: SelectedDate, selectedTime?: string) => {
   const addOneDay = (date: Date) => {
     const newDate = new Date(date);
     newDate.setDate(newDate.getDate() + 1);
@@ -21,5 +21,9 @@ export const dateTimeToString = (selectedDate: SelectedDate, selectedTime: strin
         .split('T')[0] || '';
 
   // 최종 입력 값 포맷
-  return `${adjustedDate} ${selectedTime}`;
+  if (selectedTime) {
+    return `${adjustedDate} ${selectedTime}`;
+  } else {
+    return `${adjustedDate}`;
+  }
 };

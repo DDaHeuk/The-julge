@@ -1,18 +1,24 @@
 import axios from 'axios';
+import { AssignShopInfoData } from '@/types/assignShopInfoData';
 
-interface AssignShopInfoData {
-  name: string;
-  category: string;
-  address1: string;
-  address2: string;
-  description: string;
-  imageUrl: string;
-  originalHourlyPay: number;
-}
+const assignShop = async (data: AssignShopInfoData) => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    throw new Error('No token found');
+  }
 
-const assignShopInfo = async (data: AssignShopInfoData) => {
-  const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/shops`, data);
-  return response.data;
+  try {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/shops`, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
-export default assignShopInfo;
+export default assignShop;

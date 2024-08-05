@@ -8,19 +8,22 @@ import { FOOD_CATEGORIES } from '@/types/foodCategory';
 import { LOCATION } from '@/constant/location';
 import imageUpload from '@/apis/imageUpload/imageUpload';
 import Button from '@/components/button';
+import useAssignShop from '@/hooks/useAssignShopMutation';
 
 const AssignMyShopInfo = () => {
   const [imageUrl, setImageUrl] = useState<string>('');
   const [assignShopInfo, setAssignShopInfo] = useState({
     name: '',
-    category: '',
-    address1: '',
+    category: FOOD_CATEGORIES[0],
+    address1: LOCATION[0],
     address2: '',
     description: '',
     imageUrl: '',
     originalHourlyPay: 0,
   });
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const { mutate: assignShop } = useAssignShop();
 
   //Input 컴포넌트에 관한 데이터 저장
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,6 +54,7 @@ const AssignMyShopInfo = () => {
   //테스트용 함수
   const testFunc = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    //assignShop(assignShopInfo);
     console.log(assignShopInfo);
   };
 
@@ -93,7 +97,6 @@ const AssignMyShopInfo = () => {
           <label>분류</label>
           <DropDown
             menuItems={FOOD_CATEGORIES}
-            name="category"
             className="w-[100%] bg-white h-[58px] border rounded-[6px] border-gray30 py-[16px] px-[20px]"
             onSelect={(value) => handleDropDownChange('category', value)}
           />
@@ -108,7 +111,6 @@ const AssignMyShopInfo = () => {
             <label>주소</label>
             <DropDown
               menuItems={LOCATION}
-              name="address1"
               className="w-[100%] bg-white h-[58px] border rounded-[6px] border-gray30 py-[16px] px-[20px]"
               onSelect={(value) => handleDropDownChange('address1', value)}
             />

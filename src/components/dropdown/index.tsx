@@ -8,7 +8,6 @@ interface DropDownProps {
   className?: string;
   onSelect?: (item: string) => void;
   initialValue?: string;
-  name?: string;
 }
 
 export default function DropDown({ menuItems, className, onSelect, initialValue }: DropDownProps) {
@@ -35,12 +34,6 @@ export default function DropDown({ menuItems, className, onSelect, initialValue 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
-
-  useEffect(() => {
-    if (selectedItem && onSelect) {
-      onSelect(selectedItem);
-    }
   }, []);
 
   return (

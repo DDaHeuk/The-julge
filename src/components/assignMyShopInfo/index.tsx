@@ -49,7 +49,8 @@ const AssignMyShopInfo = () => {
   };
 
   //테스트용 함수
-  const testFunc = () => {
+  const testFunc = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     console.log(assignShopInfo);
   };
 
@@ -78,7 +79,7 @@ const AssignMyShopInfo = () => {
   };
 
   return (
-    <div className="flex flex-col gap-[20px] md:gap-[24px] w-[100%]">
+    <form onSubmit={testFunc} className="flex flex-col gap-[20px] md:gap-[24px] w-[100%]">
       {/* 가게 이름 + 분류 input */}
       <div className="inline-flex flex-col md:flex-row items-start gap-[20px]">
         <Input
@@ -174,12 +175,12 @@ const AssignMyShopInfo = () => {
 
       {/* 등록 버튼*/}
       <div className="flex justify-center">
-        <Button className="w-[100%] md:w-[312px]" color="filled" onClick={testFunc}>
+        <Button type="submit" className="w-[100%] md:w-[312px]" color="filled">
           등록하기
         </Button>
       </div>
       {/* 등록 버튼 */}
-    </div>
+    </form>
   );
 };
 

@@ -37,6 +37,12 @@ export default function DropDown({ menuItems, className, onSelect, initialValue 
     };
   }, []);
 
+  useEffect(() => {
+    if (selectedItem && onSelect) {
+      onSelect(selectedItem);
+    }
+  }, []);
+
   return (
     <div ref={dropDownRef} className="w-full">
       <div className={`relative w-[100%] ${className}`}>

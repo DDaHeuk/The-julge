@@ -7,6 +7,7 @@ import DropDown from '../dropdown';
 import { FOOD_CATEGORIES } from '@/types/foodCategory';
 import { LOCATION } from '@/constant/location';
 import imageUpload from '@/apis/imageUpload/imageUpload';
+import Button from '@/components/button';
 
 const AssignMyShopInfo = () => {
   const [imageUrl, setImageUrl] = useState<string>('');
@@ -90,6 +91,8 @@ const AssignMyShopInfo = () => {
         />
       </div>
       {/* 이미지 업로드 */}
+
+      {/* 가게 설명 */}
       <div className="inline-flex flex-col items-start gap-[8px]">
         <span className="text-black text-[16px]">가게 설명</span>
         <textarea
@@ -97,6 +100,15 @@ const AssignMyShopInfo = () => {
           className="flex resize-none h-[153px] px-[20px] py-[16px] items-start self-stretch rounded-[5px] border border-gray30 bg-white "
         />
       </div>
+      {/* 가게 설명 */}
+
+      {/* 등록 버튼*/}
+      <div className="flex justify-center">
+        <Button className="w-[100%] md:w-[312px]" color="filled">
+          등록하기
+        </Button>
+      </div>
+      {/* 등록 버튼 */}
     </div>
   );
 };

@@ -34,7 +34,6 @@ export default function test11() {
           activeLinkClass="bg-red20 text-white "
         />
       </div>
-      <DetailedFilter />
     </div>
   );
 }

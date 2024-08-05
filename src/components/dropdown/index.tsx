@@ -8,6 +8,7 @@ interface DropDownProps {
   className?: string;
   onSelect?: (item: string) => void;
   initialValue?: string;
+  name?: string;
 }
 
 export default function DropDown({ menuItems, className, onSelect, initialValue }: DropDownProps) {

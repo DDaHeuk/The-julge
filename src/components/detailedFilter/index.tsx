@@ -73,11 +73,11 @@ const DetailedFilter = ({ onClose }: DetailedFilterProps) => {
         </div>
       </div>
       <hr className="h-[2px] self-stretch border-gray10" />
-      <Input variant="normal" label="시작일" className="w-full" />
+      <Input variant="date" label="시작일" className="w-full" />
       <hr className="h-[2px] self-stretch border-gray10" />
-      <div className="flex justify-end items-end">
-        <Input variant="normal" label="가격" className="w-[169px]" />
-        <span className="ml-3 mb-2">이상부터</span>
+      <div className="flex justify-center items-center">
+        <Input variant="unit" unitLabel="원" label="가격" className="w-[169px]" />
+        <span className="ml-3 mt-5">이상부터</span>
       </div>
       <hr className="h-[2px] self-stretch border-gray10" />
       <div className="flex items-start gap-2 w-full md:mt-[16px]">

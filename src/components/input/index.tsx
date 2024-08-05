@@ -1,10 +1,18 @@
 'use client';
 
+import { StyledInputCalendar } from '@/styles/StyledCalendar';
 import { validateEmail, validatePassword, validateVerifyPassword } from '@/utils/validation';
-import { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import DropDown from '../dropdown';
+import { TIME } from '@/constant/time';
+import Button from '../button';
+import { SelectedDate } from '@/types/date';
+import { dateTimeToString } from '@/utils/dateTimeToString';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  variant: 'normal' | 'email' | 'password' | 'passwordVerify' | 'unit';
+  variant: 'normal' | 'email' | 'password' | 'passwordVerify' | 'unit' | 'dateTime' | 'date';
   label?: string;
   unitLabel?: string;
   originalPassword?: string;
@@ -21,6 +29,23 @@ export default function Input({
 
   const [inputValue, setInputValue] = useState('');
   const [errMsg, setErrMsg] = useState('');
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<SelectedDate>(null);
+  const [selectedTime, setSelectedTime] = useState('');
+  const calendarRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (calendarRef.current && !calendarRef.current.contains(event.target as Node)) {
+      setShowCalendar(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const validate = (value: string) => {
     let errorMsg = '';
@@ -58,24 +83,35 @@ export default function Input({
     }
   };
 
+  const handleCalendar = () => {
+    setShowCalendar(!showCalendar);
+    setSelectedDate(null);
+    setSelectedTime('');
+  };
+
+  const handleDateChange = (date: SelectedDate) => {
+    setSelectedDate(date);
+  };
+
+  const handleTimeChange = (time: string) => {
+    setSelectedTime(time);
+  };
+
+  const handleApply = (selectedDate: SelectedDate, selectedTime: string) => {
+    if (variant === 'dateTime' && selectedDate && selectedTime) {
+      setInputValue(dateTimeToString(selectedDate, selectedTime));
+      setShowCalendar(false);
+    } else if (variant === 'date' && selectedDate) {
+      setInputValue(dateTimeToString(selectedDate, selectedTime));
+      setShowCalendar(false);
+    }
+  };
+
   if (variant === 'unit') {
     return (
-      //   <div className={`flex flex-col gap-2 ${className}`}>
-      //     <p>{label}</p>
-      //     <div className="flex justify-between items-center w-full h-[58px] border border-gray30 focus:border-black rounded-md">
-      //       <input
-      //         {...restProps}
-      //         placeholder="입력"
-      //         value={inputValue}
-      //         onChange={handleChange}
-      //         className="w-full mb-2 px-4 py-5 rounded-md"
-      //       />
-      //       <p className=" text-4 text-black leading-[26px]">{unitLabel}</p>
-      //     </div>
-      //   </div>
-      <div className="flex flex-col gap-2">
+      <div className={`flex flex-col gap-2 ${className}`}>
         <p>{label}</p>
-        <div className={`relative rounded-md ${className}`}>
+        <div className={`relative rounded-md`}>
           <input
             {...restProps}
             value={inputValue}
@@ -87,6 +123,61 @@ export default function Input({
             <span className="flex items-center text-4 text-black leading-[26px]">{unitLabel}</span>
           </div>
         </div>
+      </div>
+    );
+  }
+
+  if (variant === 'dateTime' || variant === 'date') {
+    return (
+      <div className={`flex flex-col gap-2 ${className}`}>
+        <p>{label}</p>
+        <input
+          {...restProps}
+          className={` h-[58px] mb-2 px-4 py-5 rounded-md border ${
+            errMsg ? 'border-red40' : 'border-gray30'
+          } focus:border-black focus:outline-none `}
+          value={inputValue}
+          onChange={handleChange}
+          onClick={handleCalendar}
+          placeholder={getPlaceholder()}
+          readOnly
+        />
+        {showCalendar && (
+          <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50">
+            <div ref={calendarRef} className="relative">
+              <StyledInputCalendar>
+                <Calendar
+                  className="bg-white p-4 rounded-lg shadow-lg"
+                  onChange={handleDateChange}
+                />
+              </StyledInputCalendar>
+              <div>
+                {variant === 'dateTime' && (
+                  <DropDown
+                    menuItems={TIME}
+                    className="flex mt-2 w-full h-[50px] items-center justify-center text-[14px] md:text-[18px]  px-4 py-2 rounded-md border bg-white border-gray30"
+                    onSelect={handleTimeChange}
+                    initialValue="시작 시간을 선택해주세요!!"
+                  />
+                )}
+                <Button
+                  className="mt-2"
+                  color="noFilled"
+                  onClick={() => handleApply(selectedDate, selectedTime)}
+                >
+                  적용하기
+                </Button>
+              </div>
+              <button
+                onClick={handleCalendar}
+                className=" w-[25px] h-[25px] absolute top-2 right-2 text-xl font-bold text-gray-600"
+              >
+                &times;
+              </button>
+            </div>
+          </div>
+        )}
+        {errMsg && <p className="ml-2 text-[12px] text-red40">{errMsg}</p>}
       </div>
     );
   }

@@ -6,16 +6,21 @@ import React, { useState, useRef, useEffect } from 'react';
 interface DropDownProps {
   menuItems: string[];
   className?: string;
+  onSelect?: (item: string) => void;
+  initialValue?: string;
 }
 
-export default function DropDown({ menuItems, className }: DropDownProps) {
+export default function DropDown({ menuItems, className, onSelect, initialValue }: DropDownProps) {
   const dropDownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<string | null>(menuItems[0]);
+  const [selectedItem, setSelectedItem] = useState<string | null>(initialValue || menuItems[0]);
 
   const handleItemClick = (item: string) => {
     setSelectedItem(item);
     setIsOpen(false);
+    if (onSelect) {
+      onSelect(item); // 선택된 항목을 onSelect 콜백으로 전달
+    }
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -70,7 +75,7 @@ export default function DropDown({ menuItems, className }: DropDownProps) {
                 onClick={() => handleItemClick(item)}
                 className="flex justify-center cursor-pointer my-3"
               >
-                <p>{item}</p>
+                <p className="text-[14px] md:text-[18px]">{item}</p>
               </li>
               {index < menuItems.length - 1 && <hr className="border border-gray20" />}
             </React.Fragment>

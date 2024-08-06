@@ -54,8 +54,7 @@ const AssignMyShopInfo = () => {
   //테스트용 함수
   const testFunc = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //assignShop(assignShopInfo);
-    console.log(assignShopInfo);
+    assignShop(assignShopInfo);
   };
 
   //이미지 부분 클릭시

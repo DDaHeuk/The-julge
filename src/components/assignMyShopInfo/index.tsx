@@ -7,24 +7,74 @@ import DropDown from '../dropdown';
 import { FOOD_CATEGORIES } from '@/types/foodCategory';
 import { LOCATION } from '@/constant/location';
 import imageUpload from '@/apis/imageUpload/imageUpload';
+import Button from '@/components/button';
+import useAssignShop from '@/hooks/useAssignShopMutation';
 
 const AssignMyShopInfo = () => {
   const [imageUrl, setImageUrl] = useState<string>('');
+  const [assignShopInfo, setAssignShopInfo] = useState({
+    name: '',
+    category: FOOD_CATEGORIES[0],
+    address1: LOCATION[0],
+    address2: '',
+    description: '',
+    imageUrl: '',
+    originalHourlyPay: 0,
+  });
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const { mutate: assignShop } = useAssignShop();
+
+  //Input 컴포넌트에 관한 데이터 저장
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setAssignShopInfo({
+      ...assignShopInfo,
+      [name]: value,
+    });
+  };
+
+  //드롭다운 컴포넌트에 관한 데이터 저장
+  const handleDropDownChange = (name: string, value: string) => {
+    setAssignShopInfo({
+      ...assignShopInfo,
+      [name]: value,
+    });
+  };
+
+  //textarea 컴포넌트에 관한 데이터 저장
+  const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setAssignShopInfo({
+      ...assignShopInfo,
+      [name]: value,
+    });
+  };
+
+  //테스트용 함수
+  const testFunc = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    assignShop(assignShopInfo);
+  };
+
+  //이미지 부분 클릭시
   const handleImageClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
   };
 
+  // 파일이 선택된 경우, 이미지 업로드 처리
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       try {
-        // 파일이 선택된 경우, 이미지 업로드 처리
         const url = await imageUpload(file);
         setImageUrl(url);
+        setAssignShopInfo({
+          ...assignShopInfo,
+          imageUrl: url,
+        });
       } catch (error) {
         console.error('Error uploading image:', error);
       }
@@ -32,15 +82,22 @@ const AssignMyShopInfo = () => {
   };
 
   return (
-    <div className="flex flex-col gap-[20px] md:gap-[24px] w-[100%]">
+    <form onSubmit={testFunc} className="flex flex-col gap-[20px] md:gap-[24px] w-[100%]">
       {/* 가게 이름 + 분류 input */}
       <div className="inline-flex flex-col md:flex-row items-start gap-[20px]">
-        <Input className="w-[100%]" variant="normal" label="가게 이름" />
+        <Input
+          className="w-[100%]"
+          variant="normal"
+          name="name"
+          label="가게 이름"
+          onChange={handleInputChange}
+        />
         <div className="flex flex-col items-start gap-[8px] w-[100%]">
           <label>분류</label>
           <DropDown
             menuItems={FOOD_CATEGORIES}
             className="w-[100%] bg-white h-[58px] border rounded-[6px] border-gray30 py-[16px] px-[20px]"
+            onSelect={(value) => handleDropDownChange('category', value)}
           />
         </div>
       </div>
@@ -54,11 +111,25 @@ const AssignMyShopInfo = () => {
             <DropDown
               menuItems={LOCATION}
               className="w-[100%] bg-white h-[58px] border rounded-[6px] border-gray30 py-[16px] px-[20px]"
+              onSelect={(value) => handleDropDownChange('address1', value)}
             />
           </div>
-          <Input className="w-[100%] " variant="normal" label="상세주소" />
+          <Input
+            className="w-[100%] "
+            variant="normal"
+            name="address2"
+            label="상세주소"
+            onChange={handleInputChange}
+          />
         </div>
-        <Input className="w-full md:w-[49%]" variant="unit" unitLabel="원" label="기본 시급" />
+        <Input
+          className="w-full md:w-[49%]"
+          variant="unit"
+          name="originalHourlyPay"
+          unitLabel="원"
+          label="기본 시급"
+          onChange={handleInputChange}
+        />
       </div>
       {/* 주소 + 상세주소 + 기본시급에 관한 input 테블릿,PC버전 */}
 
@@ -90,14 +161,27 @@ const AssignMyShopInfo = () => {
         />
       </div>
       {/* 이미지 업로드 */}
+
+      {/* 가게 설명 */}
       <div className="inline-flex flex-col items-start gap-[8px]">
         <span className="text-black text-[16px]">가게 설명</span>
         <textarea
           placeholder="입력"
+          name="description"
           className="flex resize-none h-[153px] px-[20px] py-[16px] items-start self-stretch rounded-[5px] border border-gray30 bg-white "
+          onChange={handleTextAreaChange}
         />
       </div>
-    </div>
+      {/* 가게 설명 */}
+
+      {/* 등록 버튼*/}
+      <div className="flex justify-center">
+        <Button type="submit" className="w-[100%] md:w-[312px]" color="filled">
+          등록하기
+        </Button>
+      </div>
+      {/* 등록 버튼 */}
+    </form>
   );
 };
 

@@ -114,6 +114,7 @@ export default function Input({
         <div className={`relative rounded-md`}>
           <input
             {...restProps}
+            type="number"
             value={inputValue}
             onChange={handleChange}
             placeholder="입력"

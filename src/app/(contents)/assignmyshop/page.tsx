@@ -1,6 +1,5 @@
 import AssignHeader from '@/components/assignHeader';
 import AssignMyShopInfo from '@/components/assignMyShopInfo';
-import Button from '@/components/button';
 
 const assignMyShop = () => {
   return (
@@ -8,9 +7,6 @@ const assignMyShop = () => {
       <div className="flex flex-col items-center gap-[24px] md:gap-[32px] w-[100%]">
         <AssignHeader title="가게 정보" />
         <AssignMyShopInfo />
-        <Button className="w-[100%] md:w-[312px]" color="filled">
-          등록하기
-        </Button>
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 import AssignHeader from '@/components/assignHeader';
 import AssignNoticeInfo from '@/components/assignNoticeInfo';
-import Button from '@/components/button';
 
 const assignNotice = () => {
   return (
@@ -8,9 +7,6 @@ const assignNotice = () => {
       <div className="flex flex-col items-center gap-[24px] md:gap-[32px] w-[100%]">
         <AssignHeader title="공고 등록" />
         <AssignNoticeInfo />
-        <Button className="w-[100%] md:w-[312px]" color="filled">
-          등록하기
-        </Button>
       </div>
     </div>
   );

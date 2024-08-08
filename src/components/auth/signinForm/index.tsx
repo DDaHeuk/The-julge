@@ -8,9 +8,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { SignInData } from '@/types/signInData';
 
 export default function SignInForm() {
-  const [signinInfo, setSigninInfo] = useState({
+  const [signinInfo, setSigninInfo] = useState<SignInData>({
     email: '',
     password: '',
   });
@@ -35,8 +36,9 @@ export default function SignInForm() {
       },
       {
         onSuccess: (data) => {
+          const userId = data.item.user.item.id;
           localStorage.setItem('token', data.item.token);
-          console.log(data.item.user.item.id);
+          localStorage.setItem('userId', userId);
           router.push('/');
         },
       },

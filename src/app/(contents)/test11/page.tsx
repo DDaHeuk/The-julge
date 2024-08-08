@@ -14,8 +14,6 @@ export default function test11() {
     setActivePage(pageNumber);
   };
 
-  const userId = localStorage.getItem('userId');
-
   return (
     <div>
       <MyShopInfo />
@@ -36,7 +34,6 @@ export default function test11() {
           activeLinkClass="bg-red20 text-white "
         />
       </div>
-      <p>{userId}</p>
     </div>
   );
 }

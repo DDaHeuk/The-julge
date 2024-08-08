@@ -36,6 +36,7 @@ export default function SignInForm() {
       {
         onSuccess: (data) => {
           localStorage.setItem('token', data.item.token);
+          console.log(data.item.user.item.id);
           router.push('/');
         },
       },

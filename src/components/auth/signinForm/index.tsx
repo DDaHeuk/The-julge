@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { SignInData } from '@/types/signInData';
+import { useMyType, useUserId } from '@/stores/storeUserInfo';
 
 export default function SignInForm() {
   const [signinInfo, setSigninInfo] = useState<SignInData>({
@@ -17,6 +18,8 @@ export default function SignInForm() {
   });
 
   const { mutate: signIn } = useSignIn();
+  const { setMyType } = useMyType();
+  const { setUserId } = useUserId();
   const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -37,8 +40,10 @@ export default function SignInForm() {
       {
         onSuccess: (data) => {
           const userId = data.item.user.item.id;
+          const type = data.item.user.item.type;
           localStorage.setItem('token', data.item.token);
-          localStorage.setItem('userId', userId);
+          setUserId(userId);
+          setMyType(type);
           router.push('/');
         },
       },

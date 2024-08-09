@@ -62,9 +62,11 @@ const NavigationBar = () => {
           </div>
           {isAuthorized ? (
             <div className="relative inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[40px]">
-              <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]">
-                내 가게
-              </span>
+              <Link href={'/myshop'}>
+                <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]">
+                  내 가게
+                </span>
+              </Link>
               <span
                 className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]"
                 role="button"

@@ -1,6 +1,5 @@
 import AssignHeader from '@/components/assignHeader';
 import AssignMyProfileInfo from '@/components/assignMyProfileInfo';
-import Button from '@/components/button';
 
 export default function assignMyProfile() {
   return (
@@ -8,9 +7,6 @@ export default function assignMyProfile() {
       <div className="flex flex-col items-center gap-[24px] md:gap-[32px] w-[100%]">
         <AssignHeader title="내 프로필" />
         <AssignMyProfileInfo />
-        <Button className="w-[100%] md:w-[312px]" color="filled">
-          등록하기
-        </Button>
       </div>
     </div>
   );

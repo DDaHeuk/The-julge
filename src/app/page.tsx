@@ -1,20 +1,20 @@
-import Button from '@/components/button';
-import Link from 'next/link';
+import AllNotices from '@/components/allNotices';
+import CustomNotice from '@/components/customNotice';
+import NavigationBar from '@/components/navigationBar';
+import Footer from '@/components/footer';
 
-export default function Home() {
+const Home = () => {
   return (
-    <div className="flex">
-      {' '}
-      <Link href="/signup">
-        <Button type="button" className="w-[300px]">
-          회원가입
-        </Button>
-      </Link>
-      <Link href="/signin">
-        <Button type="button" className="w-[300px]">
-          로그인
-        </Button>
-      </Link>{' '}
+    <div className=" flex-col min-h-screen">
+      <div className=" flex-col min-h-[calc(100vh-126px)] md:min-h-[calc(100vh-100px)]">
+        <NavigationBar />
+        <div className="flex flex-col w-[100%]">
+          <CustomNotice />
+          <AllNotices />
+        </div>
+      </div>
+      <Footer />
     </div>
   );
-}
+};
+export default Home;

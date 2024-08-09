@@ -19,7 +19,8 @@
     "react-js-pagination": "^3.0.3",
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1",
-    "styled-components": "^6.1.12"
+    "styled-components": "^6.1.12",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@types/node": "^20",

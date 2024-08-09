@@ -1,16 +1,7 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import signIn from '@/apis/auth/signIn';
-
-interface SignInData {
-  email: string;
-  password: string;
-}
-
-interface SignInResponse {
-  item: {
-    token: string;
-  };
-}
+import { SignInData } from '@/types/signInData';
+import { SignInResponse } from '@/types/signInData';
 
 const useSignIn = (): UseMutationResult<SignInResponse, Error, SignInData> => {
   return useMutation<SignInResponse, Error, SignInData>({

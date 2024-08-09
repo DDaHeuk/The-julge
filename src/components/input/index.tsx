@@ -99,10 +99,24 @@ export default function Input({
 
   const handleApply = (selectedDate: SelectedDate, selectedTime: string) => {
     if (variant === 'dateTime' && selectedDate && selectedTime) {
-      setInputValue(dateTimeToString(selectedDate, selectedTime));
+      const dateTimeString = dateTimeToString(selectedDate, selectedTime);
+      setInputValue(dateTimeString);
+      if (onChange) {
+        const event = {
+          target: { value: dateTimeString, name: restProps.name },
+        } as React.ChangeEvent<HTMLInputElement>;
+        onChange(event);
+      }
       setShowCalendar(false);
     } else if (variant === 'date' && selectedDate) {
-      setInputValue(dateTimeToString(selectedDate, selectedTime));
+      const dateTimeString = dateTimeToString(selectedDate, selectedTime);
+      setInputValue(dateTimeString);
+      if (onChange) {
+        const event = {
+          target: { value: dateTimeString, name: restProps.name },
+        } as React.ChangeEvent<HTMLInputElement>;
+        onChange(event);
+      }
       setShowCalendar(false);
     }
   };
@@ -138,7 +152,6 @@ export default function Input({
             errMsg ? 'border-red40' : 'border-gray30'
           } focus:border-black focus:outline-none `}
           value={inputValue}
-          onChange={handleChange}
           onClick={handleCalendar}
           placeholder={getPlaceholder()}
           readOnly

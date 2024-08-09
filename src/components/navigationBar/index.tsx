@@ -1,13 +1,23 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import NotificationModal from '../notificationModal';
+import Link from 'next/link';
 
 const NavigationBar = () => {
   const [isAuthorized, setIsAuthorized] = useState<boolean>(true);
   const [isNotification, setIsNotification] = useState<boolean>(true);
   const [isOpenNotification, setIsOpenNotification] = useState<boolean>(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthorized(true);
+    } else {
+      setIsAuthorized(false);
+    }
+  }, [isAuthorized]);
 
   const handleNotiifcation = () => {
     setIsOpenNotification(!isOpenNotification);
@@ -16,18 +26,26 @@ const NavigationBar = () => {
   const handleCloseNotification = () => {
     setIsOpenNotification(false);
   };
+
+  const handleRemoveToken = () => {
+    localStorage.clear();
+    setIsAuthorized(false);
+  };
+
   return (
     <div className="bg-white h-[102px] md:h-[70px] py-[10px] px-[20px] md:px-[32px] md:py-[15px] lg:px-[208px]">
       <div className="flex flex-col">
         <div className="flex justify-between">
           <div className="pr-[2.362px] md:pr-[3.15px] py-[7.5px] md:py-[10px] inline-flex justify-center items-center shrink-0">
-            <Image
-              className="md:w-[108.851px] md:h-[20px]"
-              src="/images/logo.svg"
-              alt="로고 이미지"
-              width={81.638}
-              height={15}
-            />
+            <Link href={'/'}>
+              <Image
+                className="md:w-[108.851px] md:h-[20px]"
+                src="/images/logo.svg"
+                alt="로고 이미지"
+                width={81.638}
+                height={15}
+              />
+            </Link>
           </div>
           <div className="hidden w-[100%] md:flex lg:max-w-[450px] md:max-w-[344px] p-[10px] items-start gap-[10px] rounded-[10px] bg-gray10 ml-[10px]">
             <Image
@@ -47,7 +65,11 @@ const NavigationBar = () => {
               <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]">
                 내 가게
               </span>
-              <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]">
+              <span
+                className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]"
+                role="button"
+                onClick={handleRemoveToken}
+              >
                 로그아웃
               </span>
               {isNotification ? (
@@ -72,12 +94,16 @@ const NavigationBar = () => {
             </div>
           ) : (
             <div className="inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[40px]">
-              <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]">
-                로그인
-              </span>
-              <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]">
-                회원가입
-              </span>
+              <Link href={'/signin'}>
+                <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px] cursor-pointer">
+                  로그인
+                </span>
+              </Link>
+              <Link href={'/signup'}>
+                <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px] cursor-pointer">
+                  회원가입
+                </span>
+              </Link>
             </div>
           )}
         </div>

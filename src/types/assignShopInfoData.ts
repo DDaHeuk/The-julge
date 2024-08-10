@@ -7,3 +7,9 @@ export type AssignShopInfoData = {
   imageUrl: string;
   originalHourlyPay: number;
 };
+
+export type AssignShopResponse = {
+  item: {
+    id: string;
+  };
+};

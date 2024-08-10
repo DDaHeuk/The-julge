@@ -34,3 +34,20 @@ export const useUserId = create(
     },
   ),
 );
+
+interface ShopID {
+  shopId: string;
+  setShopId: (newShopId: string) => void;
+}
+
+export const useShopId = create(
+  persist<ShopID>(
+    (set) => ({
+      shopId: '',
+      setShopId: (newShopId: string) => set({ shopId: newShopId }),
+    }),
+    {
+      name: 'userShopIdStorage',
+    },
+  ),
+);

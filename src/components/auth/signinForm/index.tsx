@@ -40,7 +40,7 @@ export default function SignInForm() {
       {
         onSuccess: (data) => {
           const userId = data.item.user.item.id;
-          const type = data.item.user.item.type;
+          const { type } = data.item.user.item;
           localStorage.setItem('token', data.item.token);
           setUserId(userId);
           setMyType(type);

@@ -9,7 +9,7 @@ import DropDown from '../dropdown';
 import { TIME } from '@/constant/time';
 import Button from '../button';
 import { SelectedDate } from '@/types/date';
-import { dateTimeToString } from '@/utils/dateTimeToString';
+import { dateTimeToString, dateTimeToISO } from '@/utils/dateTimeFormat';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   variant: 'normal' | 'email' | 'password' | 'passwordVerify' | 'unit' | 'dateTime' | 'date';
@@ -99,11 +99,12 @@ export default function Input({
 
   const handleApply = (selectedDate: SelectedDate, selectedTime: string) => {
     if (variant === 'dateTime' && selectedDate && selectedTime) {
-      const dateTimeString = dateTimeToString(selectedDate, selectedTime);
-      setInputValue(dateTimeString);
+      const displayString = dateTimeToString(selectedDate, selectedTime);
+      const isoString = dateTimeToISO(selectedDate, selectedTime);
+      setInputValue(displayString);
       if (onChange) {
         const event = {
-          target: { value: dateTimeString, name: restProps.name },
+          target: { value: isoString, name: restProps.name },
         } as React.ChangeEvent<HTMLInputElement>;
         onChange(event);
       }

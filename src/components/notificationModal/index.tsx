@@ -34,6 +34,7 @@ const NotificationModal = ({ onClose }: NotificationModalProps) => {
         <p className="text-[20px] font-bold">알림 6개</p>
         <Image
           onClick={() => onClose()}
+          className="cursor-pointer"
           src="/icons/close.svg"
           alt="닫기 버튼"
           width={24}

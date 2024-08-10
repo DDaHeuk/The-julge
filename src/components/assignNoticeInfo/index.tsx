@@ -1,10 +1,13 @@
 'use client';
 
-import { ChangeEvent, useState, useEffect } from 'react';
+import { ChangeEvent, useState } from 'react';
 import Input from '../input';
 import Button from '@/components/button';
+import useAssignNotice from '@/hooks/useAssignNoticeMutation';
 
 const AssignNoticeInfo = () => {
+  const { mutate: assignNotice } = useAssignNotice();
+
   const [assignNoticeInfo, setAssignNoticeInfo] = useState({
     hourlyPay: 0,
     startsAt: '',
@@ -28,13 +31,14 @@ const AssignNoticeInfo = () => {
     });
   };
 
-  const test = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitNotice = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(assignNoticeInfo);
+    assignNotice(assignNoticeInfo);
   };
 
   return (
-    <form onSubmit={test} className="flex flex-col gap-[20px] md:gap-[24px] w-[100%]">
+    <form onSubmit={handleSubmitNotice} className="flex flex-col gap-[20px] md:gap-[24px] w-[100%]">
       {/* 시급 + 시작 일시 + 업무시간에 관한 input */}
       <div className="inline-flex flex-col lg:flex-row items-start gap-[20px]">
         <div className="w-[100%] lg:w-[66.9%] flex flex-col md:flex-row gap-[20px]">

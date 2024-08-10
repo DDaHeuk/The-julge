@@ -7,7 +7,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { TIME } from '@/constant/time';
 import { SelectedDate } from '@/types/date';
-import { dateTimeToString } from '@/utils/dateTimeToString';
+import { dateTimeToString, dateTimeToISO } from '@/utils/dateTimeFormat';
 import Button from '../button';
 import DropDown from '../dropdown';
 
@@ -99,11 +99,12 @@ export default function Input({
 
   const handleApply = (selectedDate: SelectedDate, selectedTime: string) => {
     if (variant === 'dateTime' && selectedDate && selectedTime) {
-      const dateTimeString = dateTimeToString(selectedDate, selectedTime);
-      setInputValue(dateTimeString);
+      const displayString = dateTimeToString(selectedDate, selectedTime);
+      const isoString = dateTimeToISO(selectedDate, selectedTime);
+      setInputValue(displayString);
       if (onChange) {
         const event = {
-          target: { value: dateTimeString, name: restProps.name },
+          target: { value: isoString, name: restProps.name },
         } as React.ChangeEvent<HTMLInputElement>;
         onChange(event);
       }

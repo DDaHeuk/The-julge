@@ -5,11 +5,11 @@ import { validateEmail, validatePassword, validateVerifyPassword } from '@/utils
 import React, { useState, useRef, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import DropDown from '../dropdown';
 import { TIME } from '@/constant/time';
-import Button from '../button';
 import { SelectedDate } from '@/types/date';
 import { dateTimeToString, dateTimeToISO } from '@/utils/dateTimeFormat';
+import Button from '../button';
+import DropDown from '../dropdown';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   variant: 'normal' | 'email' | 'password' | 'passwordVerify' | 'unit' | 'dateTime' | 'date';
@@ -126,7 +126,7 @@ export default function Input({
     return (
       <div className={`flex flex-col gap-2 ${className}`}>
         <p>{label}</p>
-        <div className={`relative rounded-md`}>
+        <div className="relative rounded-md">
           <input
             {...restProps}
             type="number"
@@ -185,6 +185,7 @@ export default function Input({
               </div>
               <button
                 onClick={handleCalendar}
+                type="button"
                 className=" w-[25px] h-[25px] absolute top-2 right-2 text-xl font-bold text-gray-600"
               >
                 &times;

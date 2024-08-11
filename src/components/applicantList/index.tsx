@@ -1,3 +1,5 @@
+'use client';
+
 interface Applicant {
   name: string;
   intro: string;

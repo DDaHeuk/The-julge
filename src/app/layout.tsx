@@ -16,10 +16,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ReactQueryProvider>
-      <html lang="ko">
-        <body className={inter.className}>{children}</body>
-      </html>
-    </ReactQueryProvider>
+    <html lang="ko">
+      <body className={inter.className}>
+        <ReactQueryProvider>{children}</ReactQueryProvider>
+      </body>
+    </html>
   );
 }

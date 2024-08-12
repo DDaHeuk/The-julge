@@ -5,10 +5,23 @@ import MyShopInfo from '@/components/myShopInfo';
 import NoticeAssignShop from '@/components/noticeAssignShop';
 import NoticeAssignPost from '@/components/noticeAssignPost';
 import MyPost from '@/components/myPost';
-import { useShopId } from '@/stores/storeUserInfo';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import getShopDetail from '@/apis/shop/shopDetail';
 
-const ShopDetailContainer = () => {
-  const { shopId } = useShopId();
+interface ShopDetailContainerProps {
+  shopId?: string;
+}
+
+const ShopDetailContainer = ({ shopId }: ShopDetailContainerProps) => {
+  const { data } = useSuspenseQuery({
+    queryKey: ['shopDetail', shopId],
+    queryFn: () => {
+      if (shopId) {
+        return getShopDetail(shopId);
+      }
+      throw new Error('Shop ID is required');
+    },
+  });
   const [post] = useState<boolean>(false);
 
   return (
@@ -16,7 +29,7 @@ const ShopDetailContainer = () => {
       <div className="flex  px-[12px] py-[40px] md:px-[32px] md:py-[60px] lg:px-[237px] lg:py-[60px] flex-col items-start gap-[8px]">
         <div className="flex-col w-[100%]">
           <span className="text-black font-bold text-[20px] md:text-[28px]">내 가게</span>
-          {shopId ? <MyShopInfo /> : <NoticeAssignShop />}
+          {shopId ? <MyShopInfo shopInfo={data.item} /> : <NoticeAssignShop />}
         </div>
       </div>
       {shopId && (

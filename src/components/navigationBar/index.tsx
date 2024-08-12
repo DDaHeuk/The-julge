@@ -10,6 +10,8 @@ const NavigationBar = () => {
   const [isNotification, setIsNotification] = useState<boolean>(true);
   const [isOpenNotification, setIsOpenNotification] = useState<boolean>(false);
 
+  //shopId를 가져와야함. 주스탄드
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {

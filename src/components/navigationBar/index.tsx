@@ -4,13 +4,14 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import NotificationModal from '../notificationModal';
 import Link from 'next/link';
+import { useShopId } from '@/stores/storeUserInfo';
 
 const NavigationBar = () => {
   const [isAuthorized, setIsAuthorized] = useState<boolean>(true);
   const [isNotification, setIsNotification] = useState<boolean>(true);
   const [isOpenNotification, setIsOpenNotification] = useState<boolean>(false);
 
-  //shopId를 가져와야함. 주스탄드
+  const { shopId } = useShopId();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -64,7 +65,7 @@ const NavigationBar = () => {
           </div>
           {isAuthorized ? (
             <div className="relative inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[40px]">
-              <Link href={'/myshop'}>
+              <Link href={`/myshop/${shopId}`}>
                 <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]">
                   내 가게
                 </span>

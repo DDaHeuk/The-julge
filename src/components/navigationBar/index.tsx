@@ -4,14 +4,16 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import NotificationModal from '../notificationModal';
 import Link from 'next/link';
-import { useShopId } from '@/stores/storeUserInfo';
+import { useShopId, useMyType, useUserId } from '@/stores/storeUserInfo';
 
 const NavigationBar = () => {
   const [isAuthorized, setIsAuthorized] = useState<boolean>(true);
   const [isNotification, setIsNotification] = useState<boolean>(true);
   const [isOpenNotification, setIsOpenNotification] = useState<boolean>(false);
 
-  const { shopId } = useShopId();
+  const { shopId, setShopId } = useShopId();
+  const { setMyType } = useMyType();
+  const { setUserId } = useUserId();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -32,6 +34,9 @@ const NavigationBar = () => {
 
   const handleRemoveToken = () => {
     localStorage.clear();
+    setShopId('');
+    setMyType('');
+    setUserId('');
     setIsAuthorized(false);
   };
 

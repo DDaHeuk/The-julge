@@ -7,8 +7,8 @@ import NoticeAssignPost from '@/components/noticeAssignPost';
 import MyPost from '@/components/myPost';
 
 export default function myShop() {
-  const [shop, setShop] = useState<boolean>(false);
-  const [post, setPost] = useState<boolean>(true);
+  const [shop] = useState<boolean>(false);
+  const [post] = useState<boolean>(true);
 
   return (
     <div className="flex flex-col">

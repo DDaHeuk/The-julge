@@ -7,26 +7,35 @@ import NoticeAssignPost from '@/components/noticeAssignPost';
 import MyPost from '@/components/myPost';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import getShopDetail from '@/apis/shop/shopDetail';
+import getMyNotices from '@/apis/notice/myNotice';
 
 interface ShopDetailContainerProps {
   shopId?: string;
 }
 
 const ShopDetailContainer = ({ shopId }: ShopDetailContainerProps) => {
-  const { data } = shopId
+  const { data: myShopData } = shopId
     ? useSuspenseQuery({
         queryKey: ['shopDetail', shopId],
         queryFn: () => getShopDetail(shopId),
       })
     : { data: null }; // shopId가 없을 때 data는 null로 설정
-  const [post] = useState<boolean>(false);
+
+  const { data: myNoticesData } = shopId
+    ? useSuspenseQuery({
+        queryKey: ['myNotices', shopId],
+        queryFn: () => getMyNotices(shopId, 0, 6),
+      })
+    : { data: null }; // shopId가 없을 때 data는 null로 설정
+
+  const [post] = useState<boolean>(true);
 
   return (
     <div className="flex flex-col">
       <div className="flex  px-[12px] py-[40px] md:px-[32px] md:py-[60px] lg:px-[237px] lg:py-[60px] flex-col items-start gap-[8px]">
         <div className="flex-col w-[100%]">
           <span className="text-black font-bold text-[20px] md:text-[28px]">내 가게</span>
-          {shopId && data ? <MyShopInfo shopInfo={data.item} /> : <NoticeAssignShop />}
+          {shopId && myShopData ? <MyShopInfo shopInfo={myShopData.item} /> : <NoticeAssignShop />}
         </div>
       </div>
       {shopId && (

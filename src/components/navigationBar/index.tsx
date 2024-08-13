@@ -37,6 +37,7 @@ const NavigationBar = () => {
     setShopId('');
     setMyType('');
     setUserId('');
+    document.cookie = 'shopId=; path=/; max-age=0;';
     setIsAuthorized(false);
   };
 

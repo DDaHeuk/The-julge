@@ -12,7 +12,7 @@ export default async function myShop({ params }: MyShopProps) {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ['shopDetail'],
+    queryKey: ['shopDetail', params.shopId],
     queryFn: () => getShopDetail(params.shopId),
   });
 

@@ -13,15 +13,12 @@ interface ShopDetailContainerProps {
 }
 
 const ShopDetailContainer = ({ shopId }: ShopDetailContainerProps) => {
-  const { data } = useSuspenseQuery({
-    queryKey: ['shopDetail', shopId],
-    queryFn: () => {
-      if (shopId) {
-        return getShopDetail(shopId);
-      }
-      throw new Error('Shop ID is required');
-    },
-  });
+  const { data } = shopId
+    ? useSuspenseQuery({
+        queryKey: ['shopDetail', shopId],
+        queryFn: () => getShopDetail(shopId),
+      })
+    : { data: null }; // shopId가 없을 때 data는 null로 설정
   const [post] = useState<boolean>(false);
 
   return (
@@ -29,7 +26,7 @@ const ShopDetailContainer = ({ shopId }: ShopDetailContainerProps) => {
       <div className="flex  px-[12px] py-[40px] md:px-[32px] md:py-[60px] lg:px-[237px] lg:py-[60px] flex-col items-start gap-[8px]">
         <div className="flex-col w-[100%]">
           <span className="text-black font-bold text-[20px] md:text-[28px]">내 가게</span>
-          {shopId ? <MyShopInfo shopInfo={data.item} /> : <NoticeAssignShop />}
+          {shopId && data ? <MyShopInfo shopInfo={data.item} /> : <NoticeAssignShop />}
         </div>
       </div>
       {shopId && (

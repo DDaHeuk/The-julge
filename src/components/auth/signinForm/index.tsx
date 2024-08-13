@@ -53,6 +53,8 @@ export default function SignInForm() {
             try {
               const response = await getUserInfo(userId);
               setShopId(response.item.shop.item.id);
+
+              document.cookie = `shopId=${response.item.shop.item.id}; path=/; max-age=${60 * 60 * 24}`;
             } catch (error) {
               console.error('Failed to fetch user info:', error);
             }

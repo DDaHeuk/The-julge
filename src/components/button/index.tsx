@@ -31,7 +31,7 @@ export default function Button({ children, color, className, ...rest }: ButtonPr
       <button
         onClick={handleClick}
         disabled={disabled}
-        className={`rounded-[6px] font-bold text-[12px] md:text-[14px] lg:text-[16px] py-[14px] gap-[8px] w-full  ${getColorClass()}`}
+        className={`flex justify-center items-center rounded-[6px] font-bold text-[12px] md:text-[14px] lg:text-[16px] py-[14px] gap-[8px] w-full h-full ${getColorClass()}`}
         {...restProps}
       >
         {children}

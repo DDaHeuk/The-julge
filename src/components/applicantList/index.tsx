@@ -1,16 +1,48 @@
 'use client';
 
-interface Applicant {
-  name: string;
-  intro: string;
-  phone: string;
-  status: string;
-}
-interface ApplicantListProps {
-  data: Applicant[];
+import fetchNoticeApplication from '@/apis/notice/fetchNoticeApplication';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import useApplicationProcess from '@/hooks/useApplicationMutation';
+import Status from '../status';
+
+interface ApplicationItem {
+  id: string;
+  status: 'pending' | 'accepted' | 'rejected' | 'canceled';
+  item: {
+    id: string;
+    status: 'pending' | 'accepted' | 'rejected' | 'canceled';
+    user: {
+      item: {
+        name: string;
+        intro: string;
+        phone: string;
+      };
+    };
+  };
 }
 
-export default function ApplicantList({ data }: ApplicantListProps) {
+interface ApplicationData {
+  items: ApplicationItem[];
+}
+
+export default function ApplicantList() {
+  const { data } = useSuspenseQuery<ApplicationData>({
+    queryKey: ['noticeApplication'],
+    queryFn: fetchNoticeApplication,
+  });
+  console.log('신청자', data.items);
+  const applicationFetchData = data.items;
+
+  const { mutate: applicationProcess } = useApplicationProcess();
+
+  const handleAccept = (applicationId: string) => {
+    applicationProcess({ applicationId, status: 'accepted' });
+  };
+
+  const handleReject = (applicationId: string) => {
+    applicationProcess({ applicationId, status: 'rejected' });
+  };
+
   return (
     <div className="border border-gray20 rounded-xl">
       <table className="w-full">
@@ -31,19 +63,23 @@ export default function ApplicantList({ data }: ApplicantListProps) {
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
-            <tr key={item.phone} className="border-b border-gray20">
-              <td className="text-[14px] text-left px-[8px] py-[12px] md:px-[12px] md:py-[20px] border-r border-gray20">
-                {item.name}
+          {applicationFetchData.map((applications) => (
+            <tr key={applications.item.id} className="border-b border-gray20">
+              <td className="w-[50%] md:w-[33.3%] lg:w-[23.6%] text-[14px] text-left px-[8px] py-[12px] md:px-[12px] md:py-[20px] border-r border-gray20">
+                {applications.item.user.item.name}
               </td>
-              <td className="text-[14px] text-left hidden md:table-cell px-[8px] py-[12px] md:px-[12px] md:py-[20px] border-r border-gray20">
-                {item.intro}
+              <td className="text-[14px] text-left hidden md:w-[33.3%] lg:w-[31.1%] md:table-cell px-[8px] py-[12px] md:px-[12px] md:py-[20px] border-r border-gray20">
+                {applications.item.user.item.intro}
               </td>
-              <td className="text-[14px] text-left hidden lg:table-cell px-[8px] py-[12px] md:px-[12px] md:py-[20px] border-r border-gray20">
-                {item.phone}
+              <td className="text-[14px] text-left hidden lg:w-[20.7%] lg:table-cell px-[8px] py-[12px] md:px-[12px] md:py-[20px] border-r border-gray20">
+                {applications.item.user.item.phone}
               </td>
-              <td className="text-[14px] text-left px-[8px] py-[12px] md:px-[12px] md:py-[20px]">
-                {item.status}
+              <td className="text-[14px] text-left px-[8px] py-[12px] md:w-[33.3%] md:px-[12px] md:py-[20px] lg:w-[24.4%]">
+                <Status
+                  stat={applications.item.status}
+                  onAccept={() => handleAccept(applications.item.id)}
+                  onReject={() => handleReject(applications.item.id)}
+                />
               </td>
             </tr>
           ))}

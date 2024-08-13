@@ -76,13 +76,15 @@ const NavigationBar = () => {
                   내 가게
                 </span>
               </Link>
-              <span
-                className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]"
-                role="button"
-                onClick={handleRemoveToken}
-              >
-                로그아웃
-              </span>
+              <Link href={`/`}>
+                <span
+                  className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]"
+                  role="button"
+                  onClick={handleRemoveToken}
+                >
+                  로그아웃
+                </span>
+              </Link>
               {isNotification ? (
                 <Image
                   onClick={handleNotiifcation}

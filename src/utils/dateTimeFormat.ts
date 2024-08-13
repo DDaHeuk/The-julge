@@ -9,7 +9,7 @@ export const dateTimeToString = (selectedDate: SelectedDate, selectedTime?: stri
 
   const formatToDisplay = (date: Date, time?: string) => {
     const dateString = date.toISOString().split('T')[0]; // YYYY-MM-DD
-    const timeString = time ? time : '00:00';
+    const timeString = time || '00:00';
     return `${dateString} ${timeString}`;
   };
 
@@ -45,4 +45,21 @@ export const dateTimeToISO = (selectedDate: SelectedDate, selectedTime?: string)
 
   // 저장할 때 사용하는 포맷
   return adjustedDate;
+};
+
+// 일하는 시간 포맷
+export const formatWorkSchedule = (isoDateString: string, workhour: number) => {
+  const startDate = new Date(isoDateString);
+
+  const startYear = startDate.getFullYear();
+  const startMonth = String(startDate.getMonth() + 1).padStart(2, '0');
+  const startDay = String(startDate.getDate()).padStart(2, '0');
+  const startHours = String(startDate.getHours()).padStart(2, '0');
+  const startMinutes = String(startDate.getMinutes()).padStart(2, '0');
+
+  const endDate = new Date(startDate.getTime() + workhour * 60 * 60 * 1000);
+  const endHours = String(endDate.getHours()).padStart(2, '0');
+  const endMinutes = String(endDate.getMinutes()).padStart(2, '0');
+
+  return `${startYear}-${startMonth}-${startDay} ${startHours}:${startMinutes}~${endHours}:${endMinutes} (${workhour}시간)`;
 };

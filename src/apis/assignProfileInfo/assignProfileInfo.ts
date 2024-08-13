@@ -1,9 +1,8 @@
 import axios from 'axios';
 import { AssignProfileInfoData } from '@/types/assignProfileInfoData';
 
-const assignProfile = async (data: AssignProfileInfoData) => {
+const assignProfile = async (userId: string, data: AssignProfileInfoData) => {
   const token = localStorage.getItem('token');
-  const userId = JSON.parse(localStorage.getItem('userIdStorage')!).state.userId;
   if (!token) {
     throw new Error('No token found');
   }

@@ -1,14 +1,24 @@
 import assignProfile from '@/apis/assignProfileInfo/assignProfileInfo';
-import { useMutation } from '@tanstack/react-query';
+import { useUserId } from '@/stores/storeUserInfo';
+import { AssignProfileInfoData, AssignProfileResponse } from '@/types/assignProfileInfoData';
+import { useMutation, UseMutationResult } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
-const useAssignProfile = () => {
+const useAssignProfile = (): UseMutationResult<
+  AssignProfileResponse,
+  Error,
+  AssignProfileInfoData
+> => {
+  const { userId } = useUserId();
+  const router = useRouter();
   return useMutation({
-    mutationFn: assignProfile,
+    mutationFn: (data: AssignProfileInfoData) => assignProfile(userId, data),
     onSuccess: () => {
-      console.log('가게 등록 성공');
+      console.log('프로필 수정 성공');
+      router.push('/');
     },
     onError: (error) => {
-      console.error('가게 등록 실패', error);
+      console.error('프로필 수정 실패', error);
     },
   });
 };

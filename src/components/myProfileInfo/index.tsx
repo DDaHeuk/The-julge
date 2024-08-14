@@ -1,6 +1,11 @@
 import Image from 'next/image';
+import { AssignProfileResponse as ProfileDetailData } from '@/types/assignProfileInfoData';
+import { formatPhoneNumber } from '@/utils/phoneUtils';
 
-const MyProfileInfo = () => {
+interface MyProfileInfoProps {
+  profileInfo: ProfileDetailData['item'];
+}
+const MyProfileInfo = ({ profileInfo }: MyProfileInfoProps) => {
   return (
     <div className="flex flex-col p-[20px] lg:w-[665px] md:p-[32px] items-start gap-[8px] rounded-[12px] bg-red10 mt-[16px] md:mt-[24px] lg:mt-[0px]">
       <div className="flex items-start self-stretch">
@@ -9,7 +14,7 @@ const MyProfileInfo = () => {
             <div className="flex flex-col items-start gap-[8px]">
               <span className="text-[14px] text-primary font-bold leading-normal">이름</span>
               <span className="text-[24px] text-black font-bold leading-normal tracking-[0.48px]">
-                김승우
+                {profileInfo.name}
               </span>
             </div>
             <div className="flex items-center gap-[6px]">
@@ -19,7 +24,7 @@ const MyProfileInfo = () => {
                 </div>
               </div>
               <span className="text-gray50 text-[14px] md:text-[16px] leading-[22px]">
-                010-1234-4321
+                {profileInfo.phone}
               </span>
             </div>
             <div className="flex items-center gap-[6px]">
@@ -31,12 +36,12 @@ const MyProfileInfo = () => {
                 height={16}
               />
               <span className="text-gray50 text-[14px] md:text-[16px] leading-[22px]">
-                선호 지역: 서울시 도봉구
+                선호 지역: {formatPhoneNumber(profileInfo.address)}
               </span>
             </div>
           </div>
 
-          <p>열심히 일 하겠습니다.</p>
+          <p>{profileInfo.bio}</p>
         </div>
         <button
           type="button"

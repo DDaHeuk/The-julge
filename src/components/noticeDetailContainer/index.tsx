@@ -10,14 +10,21 @@ import HourlypayCalc from '../hourlypayCalc';
 
 interface NoticeDetailContainerProps {
   memberType: 'owner' | 'employee';
+  shopId: string;
+  noticeId: string;
 }
 
-export default function NoticeDetailContainer({ memberType }: NoticeDetailContainerProps) {
-  const { data } = useSuspenseQuery({ queryKey: ['noticeDetail'], queryFn: fetchNoticeDetail });
+export default function NoticeDetailContainer({
+  memberType,
+  shopId,
+  noticeId,
+}: NoticeDetailContainerProps) {
+  const { data } = useSuspenseQuery({
+    queryKey: ['noticeDetail'],
+    queryFn: () => fetchNoticeDetail({ shopId, noticeId }),
+  });
   const shopInfo = data.item.shop.item;
   const noticeInfo = data.item;
-  console.log(shopInfo.originalPay);
-  console.log(noticeInfo.hourlyPay);
 
   return (
     <div className="flex flex-col">

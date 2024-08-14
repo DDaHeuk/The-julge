@@ -31,14 +31,19 @@ interface ApplicationData {
   items: ApplicationItem[];
 }
 
-export default function ApplicantList() {
+interface ApplicantListProps {
+  shopId: string;
+  noticeId: string;
+}
+
+export default function ApplicantList({ shopId, noticeId }: ApplicantListProps) {
   const [page, setPage] = useState(0);
   const limit = 1; // 한 페이지당 나오는 item 개수. 임의로 설정. 추후 변경 필요
   const offset = page * limit;
 
   const { data } = useSuspenseQuery<ApplicationData>({
     queryKey: ['noticeApplication', offset, limit],
-    queryFn: () => fetchNoticeApplication(offset, limit),
+    queryFn: () => fetchNoticeApplication({ shopId, noticeId, offset, limit }),
   });
 
   console.log('신청자', data.items);

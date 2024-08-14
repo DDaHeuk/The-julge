@@ -5,7 +5,7 @@ import MyShopInfo from '@/components/myShopInfo';
 import NoticeAssignShop from '@/components/noticeAssignShop';
 import NoticeAssignPost from '@/components/noticeAssignPost';
 import MyPostInfo from '../myPostInfo';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery, useInfiniteQuery } from '@tanstack/react-query';
 import getShopDetail from '@/apis/shop/shopDetail';
 import getMyNotices from '@/apis/notice/myNotice';
 

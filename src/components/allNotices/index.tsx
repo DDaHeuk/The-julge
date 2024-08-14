@@ -39,12 +39,12 @@ const AllNotices = () => {
         {isOpenDetailFilter && <DetailedFilter onClose={handleCloseFilter} />}
       </div>
       <div className="mt-[10px] grid grid-cols-2 grid-rows-3 gap-x-[9px] gap-y-[16px] md:gap-x-[14px] md:gap-y-[30px] w-[100%]">
-        <MyPostInfo deadline={false} />
+        {/* <MyPostInfo deadline={false} />
         <MyPostInfo deadline={true} />
         <MyPostInfo deadline={false} />
         <MyPostInfo deadline={false} />
         <MyPostInfo deadline={false} />
-        <MyPostInfo deadline={false} />
+        <MyPostInfo deadline={false} /> */}
       </div>
       <PaginationComponent totalPage={40} />
     </div>

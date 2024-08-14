@@ -9,7 +9,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { SignInData } from '@/types/signInData';
-import { useMyType, useUserId } from '@/stores/storeUserInfo';
+import { useMyType, useUserId, useShopId } from '@/stores/storeUserInfo';
+import getUserInfo from '@/apis/user/getUserInfo';
 
 export default function SignInForm() {
   const [signinInfo, setSigninInfo] = useState<SignInData>({
@@ -18,8 +19,11 @@ export default function SignInForm() {
   });
 
   const { mutate: signIn } = useSignIn();
+
   const { setMyType } = useMyType();
-  const { setUserId } = useUserId();
+  const { userId, setUserId } = useUserId();
+  const { setShopId } = useShopId();
+
   const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,12 +42,23 @@ export default function SignInForm() {
         password: signinInfo.password,
       },
       {
-        onSuccess: (data) => {
+        onSuccess: async (data) => {
           const userId = data.item.user.item.id;
           const { type } = data.item.user.item;
           localStorage.setItem('token', data.item.token);
           setUserId(userId);
           setMyType(type);
+          //사장님인 경우에만 내 정보 조회 후 shop Id를 저장
+          if (type === 'employer') {
+            try {
+              const response = await getUserInfo(userId);
+              setShopId(response.item.shop.item.id);
+
+              document.cookie = `shopId=${response.item.shop.item.id}; path=/; max-age=${60 * 60 * 24}`;
+            } catch (error) {
+              console.error('Failed to fetch user info:', error);
+            }
+          }
           router.push('/');
         },
       },

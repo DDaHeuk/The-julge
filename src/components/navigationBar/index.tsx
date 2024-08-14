@@ -4,11 +4,16 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import NotificationModal from '../notificationModal';
 import Link from 'next/link';
+import { useShopId, useMyType, useUserId } from '@/stores/storeUserInfo';
 
 const NavigationBar = () => {
   const [isAuthorized, setIsAuthorized] = useState<boolean>(true);
   const [isNotification, setIsNotification] = useState<boolean>(true);
   const [isOpenNotification, setIsOpenNotification] = useState<boolean>(false);
+
+  const { shopId, setShopId } = useShopId();
+  const { myType, setMyType } = useMyType();
+  const { userId, setUserId } = useUserId();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -29,6 +34,10 @@ const NavigationBar = () => {
 
   const handleRemoveToken = () => {
     localStorage.clear();
+    setShopId('');
+    setMyType('');
+    setUserId('');
+    document.cookie = 'shopId=; path=/; max-age=0;';
     setIsAuthorized(false);
   };
 
@@ -62,18 +71,28 @@ const NavigationBar = () => {
           </div>
           {isAuthorized ? (
             <div className="relative inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[40px]">
-              <Link href={'/myshop'}>
-                <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]">
-                  내 가게
+              {myType === 'employer' ? (
+                <Link href={`/myshop/${shopId}`}>
+                  <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]">
+                    내 가게
+                  </span>
+                </Link>
+              ) : (
+                <Link href={`/myprofile/${userId}`}>
+                  <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]">
+                    내 프로필
+                  </span>
+                </Link>
+              )}
+              <Link href={`/`}>
+                <span
+                  className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]"
+                  role="button"
+                  onClick={handleRemoveToken}
+                >
+                  로그아웃
                 </span>
               </Link>
-              <span
-                className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]"
-                role="button"
-                onClick={handleRemoveToken}
-              >
-                로그아웃
-              </span>
               {isNotification ? (
                 <Image
                   onClick={handleNotiifcation}

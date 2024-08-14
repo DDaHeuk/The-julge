@@ -46,7 +46,6 @@ export default function ApplicantList({ shopId, noticeId }: ApplicantListProps) 
     queryFn: () => fetchNoticeApplication({ shopId, noticeId, offset, limit }),
   });
 
-  console.log('신청자', data.items);
   const applicationFetchData = data?.items || [];
 
   const { mutate: applicationProcess } = useApplicationProcess();

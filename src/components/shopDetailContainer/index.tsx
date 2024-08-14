@@ -4,7 +4,7 @@ import { useState } from 'react';
 import MyShopInfo from '@/components/myShopInfo';
 import NoticeAssignShop from '@/components/noticeAssignShop';
 import NoticeAssignPost from '@/components/noticeAssignPost';
-import MyPost from '@/components/myPost';
+import MyPostInfo from '../myPostInfo';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import getShopDetail from '@/apis/shop/shopDetail';
 import getMyNotices from '@/apis/notice/myNotice';
@@ -44,7 +44,18 @@ const ShopDetailContainer = ({ shopId }: ShopDetailContainerProps) => {
             <span className="text-black font-bold text-[20px] md:text-[28px]">
               {post ? '내가 등록한 공고' : '등록한 공고'}
             </span>
-            {post ? <MyPost /> : <NoticeAssignPost />}
+            {post ? (
+              <div className="grid grid-cols-2 gap-x-[9px] gap-y-[16px] md:gap-x-[14px] md:gap-y-[32px] lg:grid-cols-3">
+                <MyPostInfo deadline={false} />
+                <MyPostInfo deadline={false} />
+                <MyPostInfo deadline={true} />
+                <MyPostInfo deadline={true} />
+                <MyPostInfo deadline={true} />
+                <MyPostInfo deadline={true} />
+              </div>
+            ) : (
+              <NoticeAssignPost />
+            )}
           </div>
         </div>
       )}

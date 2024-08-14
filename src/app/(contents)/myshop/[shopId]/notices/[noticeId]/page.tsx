@@ -12,9 +12,12 @@ export default async function NoticeDetailPage() {
     queryFn: fetchNoticeDetail,
   });
 
+  const limit = 5;
+  const initialOffset = 0;
+
   await queryClient.prefetchQuery({
     queryKey: ['noticeApplication'],
-    queryFn: fetchNoticeApplication,
+    queryFn: () => fetchNoticeApplication(limit, initialOffset),
   });
 
   return (

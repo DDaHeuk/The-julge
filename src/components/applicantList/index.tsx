@@ -3,7 +3,9 @@
 import fetchNoticeApplication from '@/apis/notice/fetchNoticeApplication';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import useApplicationProcess from '@/hooks/useApplicationMutation';
+import { useState } from 'react';
 import Status from '../status';
+import Pagination2 from '../pagenation2';
 
 interface ApplicationItem {
   id: string;
@@ -22,16 +24,25 @@ interface ApplicationItem {
 }
 
 interface ApplicationData {
+  offset: number;
+  limit: number;
+  count: number;
+  hasNext: boolean;
   items: ApplicationItem[];
 }
 
 export default function ApplicantList() {
+  const [page, setPage] = useState(0);
+  const limit = 1; // 한 페이지당 나오는 item 개수. 임의로 설정. 추후 변경 필요
+  const offset = page * limit;
+
   const { data } = useSuspenseQuery<ApplicationData>({
-    queryKey: ['noticeApplication'],
-    queryFn: fetchNoticeApplication,
+    queryKey: ['noticeApplication', offset, limit],
+    queryFn: () => fetchNoticeApplication(offset, limit),
   });
+
   console.log('신청자', data.items);
-  const applicationFetchData = data.items;
+  const applicationFetchData = data?.items || [];
 
   const { mutate: applicationProcess } = useApplicationProcess();
 
@@ -87,7 +98,11 @@ export default function ApplicantList() {
         <tfoot>
           <tr>
             <td colSpan={4} className="text-center">
-              <div className="flex justify-center px-[12px] py-[8px]">페이지네이션부분</div>
+              <Pagination2
+                totalPages={Math.ceil(data.count / limit)}
+                currentPage={page + 1}
+                onPageChange={(newPage) => setPage(newPage - 1)}
+              />
             </td>
           </tr>
         </tfoot>

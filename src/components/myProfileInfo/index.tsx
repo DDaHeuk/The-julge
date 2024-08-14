@@ -1,11 +1,13 @@
 import Image from 'next/image';
 import { AssignProfileResponse as ProfileDetailData } from '@/types/assignProfileInfoData';
 import { formatPhoneNumber } from '@/utils/phoneUtils';
+import Link from 'next/link';
 
 interface MyProfileInfoProps {
   profileInfo: ProfileDetailData['item'];
+  userId: string;
 }
-const MyProfileInfo = ({ profileInfo }: MyProfileInfoProps) => {
+const MyProfileInfo = ({ profileInfo, userId }: MyProfileInfoProps) => {
   return (
     <div className="flex flex-col p-[20px] lg:w-[665px] md:p-[32px] items-start gap-[8px] rounded-[12px] bg-red10 mt-[16px] md:mt-[24px] lg:mt-[0px]">
       <div className="flex items-start self-stretch">
@@ -43,12 +45,13 @@ const MyProfileInfo = ({ profileInfo }: MyProfileInfoProps) => {
 
           <p>{profileInfo.bio}</p>
         </div>
-        <button
+        <Link
+          href={`/myprofile/${userId}/assignmyprofile`}
           type="button"
           className="flex justify-center items-center  px-[20px] md:px-[52px] py-[10px] md:py-[14px] bg-white border border-primary  rounded-[6px] text-primary font-bold text-[14px] md:text-[16px] gap-[8px] whitespace-nowrap"
         >
           편집하기
-        </button>
+        </Link>
       </div>
     </div>
   );

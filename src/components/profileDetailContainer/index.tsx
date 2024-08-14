@@ -40,13 +40,20 @@ const ProfileDetailContainer = ({ userId }: ProfileDetailContainerProps) => {
         queryFn: () => getProfileDetail(userId),
       })
     : { data: null }; // userId가 없을 때 data는 null로 설정
+
   const [list, setList] = useState<boolean>(false);
   return (
     <div className="flex flex-col">
       <div className="flex px-[12px] py-[40px] md:px-[32px] md:py-[60px] lg:px-[238px] lg:py-[60px] flex-col items-start gap-[8px]">
-        <div className={`flex flex-col w-[100%] ${userId ? 'lg:flex-row justify-between' : ''}`}>
+        <div
+          className={`flex flex-col w-[100%] ${userId && data?.item.name ? 'lg:flex-row justify-between' : ''}`}
+        >
           <span className={`text-black font-bold text-[20px] md:text-[28px]`}>내 프로필</span>
-          {userId && data ? <MyProfileInfo profileInfo={data.item} /> : <NoticeAssignProfile />}
+          {userId && data?.item.name ? (
+            <MyProfileInfo profileInfo={data.item} userId={userId} />
+          ) : (
+            <NoticeAssignProfile userId={userId} />
+          )}
         </div>
       </div>
       {userId && (

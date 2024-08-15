@@ -26,7 +26,7 @@ const MyProfileInfo = ({ profileInfo, userId }: MyProfileInfoProps) => {
                 </div>
               </div>
               <span className="text-gray50 text-[14px] md:text-[16px] leading-[22px]">
-                {profileInfo.phone}
+                {formatPhoneNumber(profileInfo.phone)}
               </span>
             </div>
             <div className="flex items-center gap-[6px]">
@@ -38,7 +38,7 @@ const MyProfileInfo = ({ profileInfo, userId }: MyProfileInfoProps) => {
                 height={16}
               />
               <span className="text-gray50 text-[14px] md:text-[16px] leading-[22px]">
-                선호 지역: {formatPhoneNumber(profileInfo.address)}
+                선호 지역: {profileInfo.address}
               </span>
             </div>
           </div>
@@ -46,7 +46,15 @@ const MyProfileInfo = ({ profileInfo, userId }: MyProfileInfoProps) => {
           <p>{profileInfo.bio}</p>
         </div>
         <Link
-          href={`/myprofile/${userId}/assignmyprofile`}
+          href={{
+            pathname: `/myprofile/${userId}/assignmyprofile`,
+            query: {
+              name: profileInfo.name,
+              phone: profileInfo.phone,
+              address: profileInfo.address,
+              bio: profileInfo.bio,
+            },
+          }}
           type="button"
           className="flex justify-center items-center  px-[20px] md:px-[52px] py-[10px] md:py-[14px] bg-white border border-primary  rounded-[6px] text-primary font-bold text-[14px] md:text-[16px] gap-[8px] whitespace-nowrap"
         >

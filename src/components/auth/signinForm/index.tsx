@@ -21,7 +21,7 @@ export default function SignInForm() {
   const { mutate: signIn } = useSignIn();
 
   const { setMyType } = useMyType();
-  const { userId, setUserId } = useUserId();
+  const { setUserId } = useUserId();
   const { setShopId } = useShopId();
 
   const router = useRouter();
@@ -48,7 +48,7 @@ export default function SignInForm() {
           localStorage.setItem('token', data.item.token);
           setUserId(userId);
           setMyType(type);
-          //사장님인 경우에만 내 정보 조회 후 shop Id를 저장
+          // 사장님인 경우에만 내 정보 조회 후 shop Id를 저장
           if (type === 'employer') {
             try {
               const response = await getUserInfo(userId);

@@ -4,12 +4,12 @@ import { useEffect } from 'react';
 import MyShopInfo from '@/components/myShopInfo';
 import NoticeAssignShop from '@/components/noticeAssignShop';
 import NoticeAssignPost from '@/components/noticeAssignPost';
-import MyPostInfo from '../myPostInfo';
 import { useSuspenseQuery, useInfiniteQuery } from '@tanstack/react-query';
 import getShopDetail from '@/apis/shop/shopDetail';
 import getMyNotices from '@/apis/notice/myNotice';
 import { NoticesResponse } from '@/types/myNoticeData';
 import { useInView } from 'react-intersection-observer';
+import MyPostInfo from '../myPostInfo';
 
 interface ShopDetailContainerProps {
   shopId?: string;

@@ -35,10 +35,15 @@ export default function NoticeDetailContainer({
             <h2 className="text-[20px] text-black font-bold md:text-[28px]">{shopInfo.name}</h2>
           </div>
 
-          <div className="flex flex-col lg:flex-row lg:justify-between w-full p-5 bg-white rounded-[12px] md:p-6 lg:flex">
-            <div className="relative overflow-hidden w-full h-[200px] lg:w-[60%] lg:h-[340px]">
-              <Image src="/icons/marker.svg" alt="공고이미지" fill />
-            </div>
+          <div className="flex flex-col lg:flex-row lg:justify-between w-full p-5 bg-white rounded-[12px] md:p-6 lg:flex gap-6">
+            <div
+              className="relative overflow-hidden w-full h-[200px] lg:w-[60%] lg:h-[340px] rounded-[12px]"
+              style={{
+                backgroundImage: `url('${shopInfo?.imageUrl}')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            ></div>
             <div className="flex flex-col gap-6 md:gap-10 lg:w-[40%]">
               <div className="flex flex-col gap-2 md:gap-3">
                 <p className="text-[14px] text-primary font-bold md:text-[16px]">시급</p>

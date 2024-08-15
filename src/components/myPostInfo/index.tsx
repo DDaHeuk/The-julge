@@ -1,16 +1,29 @@
+'use client';
+
+import { NoticeData } from '@/types/myNoticeData';
+import { useQueryClient } from '@tanstack/react-query';
+import { ShopDetailData } from '@/types/shopDetailData';
 import Image from 'next/image';
 
 interface MyPostInfoProps {
+  noticeData: NoticeData;
   deadline: boolean;
+  shopId: string;
 }
 
-const MyPostInfo: React.FC<MyPostInfoProps> = ({ deadline }: MyPostInfoProps) => {
+const MyPostInfo: React.FC<MyPostInfoProps> = ({
+  noticeData,
+  deadline,
+  shopId,
+}: MyPostInfoProps) => {
+  const queryClient = useQueryClient();
+  const cachedShopData = queryClient.getQueryData(['shopDetail', shopId]) as ShopDetailData;
+
   return (
     <div className="flex p-[12px] md:p-[16px] flex-col items-start gap-[12px] md:gap-[20px] rounded-[12px] border border-gray20">
       <div
         style={{
-          backgroundImage:
-            "url('https://s3-alpha-sig.figma.com/img/b4ba/611d/9ea2dc694a4fea4ff31c5ddae734fe8c?Expires=1722211200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=JOOOX2We8JbQMxIGgaWLN9sirs5zjBMOtvs~Tsv7Kqg-ZR1EqVRlPzdlYdWWMh4eu0xcG8U97EpwPqN8mlvB81jiFKeagcMX5493syc0yBQOUGfxgju6uCCcdn-yZtPW-WOMgtmDJOZlUqf1kINwUG39H7lEjX7iCNIvdXvQl5lt-73cX9PboNcSrPAdz-I07V7Xg9c36SAdPGzcASGIhcJbK2-UMv3jj03y7iY6JAVd3ekiM9gTyeIXhddZCRMKaSC80OeiCHW9sfssA9GdUTRcs9XXqoGor~PYy~~kFI5ZPyulLR~1MbWEW6GymsUsVGsZTZQALJbJ~z-BBxWQHQ__')",
+          backgroundImage: `url('${cachedShopData?.item.imageUrl}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -29,7 +42,7 @@ const MyPostInfo: React.FC<MyPostInfoProps> = ({ deadline }: MyPostInfoProps) =>
           <span
             className={`${deadline ? 'text-gray30' : 'text-black'} text-[16px] md:text-[20px] font-bold`}
           >
-            도토리식당
+            {cachedShopData?.item.name}
           </span>
           <div className="flex items-start gap-[6px] self-stretch">
             <Image
@@ -63,7 +76,7 @@ const MyPostInfo: React.FC<MyPostInfoProps> = ({ deadline }: MyPostInfoProps) =>
             <span
               className={`${deadline ? 'text-gray30' : 'text-gray50'} text-[12px] md:text-[14px] `}
             >
-              서울시 송파구
+              {cachedShopData?.item.address1}
             </span>
           </div>
         </div>
@@ -71,7 +84,7 @@ const MyPostInfo: React.FC<MyPostInfoProps> = ({ deadline }: MyPostInfoProps) =>
           <span
             className={`${deadline ? 'text-gray30' : 'text-black'} text-[18px] md:text-[24px] font-bold`}
           >
-            15000원
+            {noticeData?.hourlyPay}
           </span>
           <div className="flex md:hidden items-center gap-[2px]">
             <span className={`${deadline ? 'text-gray30' : 'text-red40'} text-center text-[12px]`}>

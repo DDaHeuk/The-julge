@@ -1,11 +1,22 @@
 import Image from 'next/image';
 import { ShopDetailData } from '@/types/shopDetailData';
+import { useRouter } from 'next/navigation';
 
 interface MyShopInfoProps {
   shopInfo: ShopDetailData['item'];
 }
 
 const MyShopInfo = ({ shopInfo }: MyShopInfoProps) => {
+  const router = useRouter();
+
+  const moveToAssignPage = () => {
+    router.push('/assignnotice');
+  };
+
+  const moveToEditPage = () => {
+    router.push('/assignnotice');
+  };
+
   return (
     <div className="flex flex-col lg:flex-row p-[20px] md:p-[24px] justify-between items-start rounded-[12px] gap-[12px] lg:gap-[30px] 2xl:gap-[70px] bg-red10 mt-[12px]">
       <div
@@ -41,12 +52,14 @@ const MyShopInfo = ({ shopInfo }: MyShopInfoProps) => {
           <button
             type="button"
             className="w-[100%] bg-white border-[#EA3C12] border  h-[38px] md:h-[48px] rounded-[6px] text-[#EA3C12] font-bold text-[14px] md:text-[16px]"
+            onClick={moveToEditPage}
           >
             편집하기
           </button>
           <button
             type="button"
             className="w-[100%] bg-[#EA3C12] h-[38px] md:h-[48px] rounded-[6px] text-white font-bold text-[14px] md:text-[16px]"
+            onClick={moveToAssignPage}
           >
             공고 등록하기
           </button>

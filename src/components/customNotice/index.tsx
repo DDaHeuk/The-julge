@@ -35,27 +35,13 @@ const CustomNotice = () => {
         <span className="text-[20px] md:text-[28px] font-bold">맞춤 공고</span>
 
         <Slider {...settings}>
-          <div className="pr-2">
-            <MyPostInfo deadline={false} />
-          </div>
-          <div className="pr-2">
-            <MyPostInfo deadline={false} />
-          </div>
-          <div className="pr-2">
-            <MyPostInfo deadline={false} />
-          </div>
-          <div className="pr-2">
-            <MyPostInfo deadline={false} />
-          </div>
-          <div className="pr-2">
-            <MyPostInfo deadline={false} />
-          </div>
-          <div className="pr-2">
-            <MyPostInfo deadline={false} />
-          </div>
-          <div className="pr-2">
-            <MyPostInfo deadline={false} />
-          </div>
+          <div className="pr-2">{/* <MyPostInfo deadline={false} /> */}</div>
+          <div className="pr-2">{/* <MyPostInfo deadline={false} /> */}</div>
+          <div className="pr-2">{/* <MyPostInfo deadline={false} /> */}</div>
+          <div className="pr-2">{/* <MyPostInfo deadline={false} /> */}</div>
+          <div className="pr-2">{/* <MyPostInfo deadline={false} /> */}</div>
+          <div className="pr-2">{/* <MyPostInfo deadline={false} /> */}</div>
+          <div className="pr-2">{/* <MyPostInfo deadline={false} /> */}</div>
         </Slider>
       </div>
     </div>

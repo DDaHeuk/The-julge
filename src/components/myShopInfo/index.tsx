@@ -14,7 +14,7 @@ const MyShopInfo = ({ shopInfo }: MyShopInfoProps) => {
   };
 
   const moveToEditPage = () => {
-    router.push('/assignnotice');
+    router.push('/editmyshop');
   };
 
   return (

@@ -10,7 +10,7 @@ import { ShopDetailData } from '@/types/shopDetailData';
 import { LOCATION } from '@/constant/location';
 import imageUpload from '@/apis/imageUpload/imageUpload';
 import Button from '@/components/button';
-import useAssignShop from '@/hooks/useAssignShopMutation';
+import useEditShop from '@/hooks/useEditShopMutation';
 
 interface EditMyShopInfoProps {
   shopId: string;
@@ -32,7 +32,7 @@ const EditMyShopInfo = ({ shopId }: EditMyShopInfoProps) => {
   });
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  //const { mutate: assignShop } = useAssignShop();
+  const { mutate: editShop } = useEditShop();
 
   //Input 컴포넌트에 관한 데이터 저장
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -63,8 +63,7 @@ const EditMyShopInfo = ({ shopId }: EditMyShopInfoProps) => {
   //테스트용 함수
   const testFunc = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(editShopInfo);
-    //assignShop(assignShopInfo);
+    editShop({ data: editShopInfo, shopId });
   };
 
   //이미지 부분 클릭시

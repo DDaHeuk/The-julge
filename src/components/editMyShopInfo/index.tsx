@@ -63,6 +63,7 @@ const EditMyShopInfo = ({ shopId }: EditMyShopInfoProps) => {
   //테스트용 함수
   const testFunc = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(editShopInfo);
     //assignShop(assignShopInfo);
   };
 

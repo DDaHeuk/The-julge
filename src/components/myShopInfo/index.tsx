@@ -4,9 +4,10 @@ import { useRouter } from 'next/navigation';
 
 interface MyShopInfoProps {
   shopInfo: ShopDetailData['item'];
+  shopId: string;
 }
 
-const MyShopInfo = ({ shopInfo }: MyShopInfoProps) => {
+const MyShopInfo = ({ shopInfo, shopId }: MyShopInfoProps) => {
   const router = useRouter();
 
   const moveToAssignPage = () => {
@@ -14,7 +15,7 @@ const MyShopInfo = ({ shopInfo }: MyShopInfoProps) => {
   };
 
   const moveToEditPage = () => {
-    router.push('/editmyshop');
+    router.push(`/editmyshop/${shopId}`);
   };
 
   return (

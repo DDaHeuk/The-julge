@@ -64,7 +64,11 @@ const ShopDetailContainer = ({ shopId }: ShopDetailContainerProps) => {
       <div className="flex  px-[12px] py-[40px] md:px-[32px] md:py-[60px] lg:px-[237px] lg:py-[60px] flex-col items-start gap-[8px]">
         <div className="flex-col w-[100%]">
           <span className="text-black font-bold text-[20px] md:text-[28px]">내 가게</span>
-          {shopId && myShopData ? <MyShopInfo shopInfo={myShopData.item} /> : <NoticeAssignShop />}
+          {shopId && myShopData ? (
+            <MyShopInfo shopInfo={myShopData.item} shopId={shopId} />
+          ) : (
+            <NoticeAssignShop />
+          )}
         </div>
       </div>
       {shopId && (

@@ -14,7 +14,7 @@ import DropDown from '../dropdown';
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   variant: 'normal' | 'email' | 'password' | 'passwordVerify' | 'unit' | 'dateTime' | 'date';
   label?: string;
-  value?: string;
+  value?: string | number;
   unitLabel?: string;
   originalPassword?: string;
 }

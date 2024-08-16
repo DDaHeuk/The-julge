@@ -1,43 +1,52 @@
 'use client';
 
 import { ChangeEvent, useRef, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import Input from '../input';
 import Image from 'next/image';
 import DropDown from '../dropdown';
 import { FOOD_CATEGORIES } from '@/types/foodCategory';
+import { ShopDetailData } from '@/types/shopDetailData';
 import { LOCATION } from '@/constant/location';
 import imageUpload from '@/apis/imageUpload/imageUpload';
 import Button from '@/components/button';
 import useAssignShop from '@/hooks/useAssignShopMutation';
 
-const EditMyShopInfo = () => {
-  const [imageUrl, setImageUrl] = useState<string>('');
-  const [assignShopInfo, setAssignShopInfo] = useState({
-    name: '',
-    category: FOOD_CATEGORIES[0],
-    address1: LOCATION[0],
-    address2: '',
-    description: '',
-    imageUrl: '',
-    originalHourlyPay: 0,
+interface EditMyShopInfoProps {
+  shopId: string;
+}
+
+const EditMyShopInfo = ({ shopId }: EditMyShopInfoProps) => {
+  const queryClient = useQueryClient();
+  const cachedShopData = queryClient.getQueryData(['shopDetail', shopId]) as ShopDetailData;
+
+  const [imageUrl, setImageUrl] = useState<string>(cachedShopData?.item.imageUrl);
+  const [editShopInfo, setEditShopInfo] = useState({
+    name: cachedShopData?.item.name,
+    category: cachedShopData?.item.category,
+    address1: cachedShopData?.item.address1,
+    address2: cachedShopData?.item.address2,
+    description: cachedShopData?.item.description,
+    imageUrl: cachedShopData?.item.imageUrl,
+    originalHourlyPay: cachedShopData?.item.originalHourlyPay,
   });
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const { mutate: assignShop } = useAssignShop();
+  //const { mutate: assignShop } = useAssignShop();
 
   //Input 컴포넌트에 관한 데이터 저장
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setAssignShopInfo({
-      ...assignShopInfo,
+    setEditShopInfo({
+      ...editShopInfo,
       [name]: value,
     });
   };
 
   //드롭다운 컴포넌트에 관한 데이터 저장
   const handleDropDownChange = (name: string, value: string) => {
-    setAssignShopInfo({
-      ...assignShopInfo,
+    setEditShopInfo({
+      ...editShopInfo,
       [name]: value,
     });
   };
@@ -45,8 +54,8 @@ const EditMyShopInfo = () => {
   //textarea 컴포넌트에 관한 데이터 저장
   const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setAssignShopInfo({
-      ...assignShopInfo,
+    setEditShopInfo({
+      ...editShopInfo,
       [name]: value,
     });
   };
@@ -54,7 +63,7 @@ const EditMyShopInfo = () => {
   //테스트용 함수
   const testFunc = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    assignShop(assignShopInfo);
+    //assignShop(assignShopInfo);
   };
 
   //이미지 부분 클릭시
@@ -71,8 +80,8 @@ const EditMyShopInfo = () => {
       try {
         const url = await imageUpload(file);
         setImageUrl(url);
-        setAssignShopInfo({
-          ...assignShopInfo,
+        setEditShopInfo({
+          ...editShopInfo,
           imageUrl: url,
         });
       } catch (error) {
@@ -89,6 +98,7 @@ const EditMyShopInfo = () => {
           variant="normal"
           name="name"
           label="가게 이름"
+          value={cachedShopData?.item.name}
           onChange={handleInputChange}
         />
         <div className="flex flex-col items-start gap-[8px] w-[100%]">
@@ -97,6 +107,7 @@ const EditMyShopInfo = () => {
             menuItems={FOOD_CATEGORIES}
             className="w-[100%] bg-white h-[58px] border rounded-[6px] border-gray30 py-[16px] px-[20px]"
             onSelect={(value) => handleDropDownChange('category', value)}
+            initialValue={cachedShopData?.item.category}
           />
         </div>
       </div>
@@ -111,6 +122,7 @@ const EditMyShopInfo = () => {
               menuItems={LOCATION}
               className="w-[100%] bg-white h-[58px] border rounded-[6px] border-gray30 py-[16px] px-[20px]"
               onSelect={(value) => handleDropDownChange('address1', value)}
+              initialValue={cachedShopData?.item.address1}
             />
           </div>
           <Input
@@ -118,6 +130,7 @@ const EditMyShopInfo = () => {
             variant="normal"
             name="address2"
             label="상세주소"
+            value={cachedShopData?.item.address2}
             onChange={handleInputChange}
           />
         </div>
@@ -127,6 +140,7 @@ const EditMyShopInfo = () => {
           name="originalHourlyPay"
           unitLabel="원"
           label="기본 시급"
+          value={cachedShopData?.item.originalHourlyPay}
           onChange={handleInputChange}
         />
       </div>
@@ -169,6 +183,7 @@ const EditMyShopInfo = () => {
           name="description"
           className="flex resize-none h-[153px] px-[20px] py-[16px] items-start self-stretch rounded-[5px] border border-gray30 bg-white "
           onChange={handleTextAreaChange}
+          value={editShopInfo.description}
         />
       </div>
       {/* 가게 설명 */}

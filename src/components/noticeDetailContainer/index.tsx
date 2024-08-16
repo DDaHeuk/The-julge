@@ -7,6 +7,7 @@ import { formatWorkSchedule } from '@/utils/dateTimeFormat';
 import formatCurrency from '@/utils/currencyFormat';
 import Button from '../button';
 import HourlypayCalc from '../hourlypayCalc';
+import Link from 'next/link';
 
 interface NoticeDetailContainerProps {
   memberType: 'owner' | 'employee';
@@ -71,9 +72,11 @@ export default function NoticeDetailContainer({
               </div>
 
               {memberType === 'owner' ? (
-                <Button type="button" color="noFilled" className="w-full h-[38px] md:h-[48px]">
-                  공고 편집하기
-                </Button>
+                <Link href={`/editnotice/${shopId}/${noticeId}`}>
+                  <Button type="button" color="noFilled" className="w-full h-[38px] md:h-[48px]">
+                    공고 편집하기
+                  </Button>
+                </Link>
               ) : (
                 <Button type="button" color="filled" className="w-full h-[38px] md:h-[48px]">
                   신청하기

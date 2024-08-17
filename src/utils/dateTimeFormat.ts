@@ -47,6 +47,24 @@ export const dateTimeToISO = (selectedDate: SelectedDate, selectedTime?: string)
   return adjustedDate;
 };
 
+//데이터를 불러와서 사용자에게 보여주는 유틸함수
+export const storedDataTimeToString = (
+  isoString: string,
+): { selectedDate: SelectedDate; selectedTime: string } => {
+  // ISO 문자열을 Date 객체로 변환
+  const date = new Date(isoString);
+
+  // 날짜 부분 (YYYY-MM-DD)와 시간 부분 (HH:MM)으로 분리
+  const dateString = date.toISOString().split('T')[0]; // YYYY-MM-DD
+  const timeString = date.toISOString().split('T')[1].slice(0, 5); // HH:MM
+
+  // Date 객체는 그대로 반환
+  return {
+    selectedDate: date, // Date 객체
+    selectedTime: timeString, // 시간 문자열
+  };
+};
+
 // 일하는 시간 포맷
 export const formatWorkSchedule = (isoDateString: string, workhour: number) => {
   const startDate = new Date(isoDateString);

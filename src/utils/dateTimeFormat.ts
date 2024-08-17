@@ -67,17 +67,29 @@ export const storedDataTimeToString = (
 
 // 일하는 시간 포맷
 export const formatWorkSchedule = (isoDateString: string, workhour: number) => {
+  // UTC 시간 기준으로 Date 객체 생성
   const startDate = new Date(isoDateString);
 
-  const startYear = startDate.getFullYear();
-  const startMonth = String(startDate.getMonth() + 1).padStart(2, '0');
-  const startDay = String(startDate.getDate()).padStart(2, '0');
-  const startHours = String(startDate.getHours()).padStart(2, '0');
-  const startMinutes = String(startDate.getMinutes()).padStart(2, '0');
+  const startYear = startDate.getUTCFullYear();
+  const startMonth = String(startDate.getUTCMonth() + 1).padStart(2, '0');
+  const startDay = String(startDate.getUTCDate()).padStart(2, '0');
+  const startHours = String(startDate.getUTCHours()).padStart(2, '0');
+  const startMinutes = String(startDate.getUTCMinutes()).padStart(2, '0');
 
+  // 종료 시간 계산 (UTC 기준)
   const endDate = new Date(startDate.getTime() + workhour * 60 * 60 * 1000);
-  const endHours = String(endDate.getHours()).padStart(2, '0');
-  const endMinutes = String(endDate.getMinutes()).padStart(2, '0');
+  const endYear = endDate.getUTCFullYear();
+  const endMonth = String(endDate.getUTCMonth() + 1).padStart(2, '0');
+  const endDay = String(endDate.getUTCDate()).padStart(2, '0');
+  const endHours = String(endDate.getUTCHours()).padStart(2, '0');
+  const endMinutes = String(endDate.getUTCMinutes()).padStart(2, '0');
 
-  return `${startYear}-${startMonth}-${startDay} ${startHours}:${startMinutes}~${endHours}:${endMinutes} (${workhour}시간)`;
+  // 종료 날짜가 시작 날짜와 같은지 확인
+  const sameDay = startYear === endYear && startMonth === endMonth && startDay === endDay;
+
+  const formattedEnd = sameDay
+    ? `${endHours}:${endMinutes}`
+    : `${endYear}-${endMonth}-${endDay} ${endHours}:${endMinutes}`;
+
+  return `${startYear}-${startMonth}-${startDay} ${startHours}:${startMinutes}~${formattedEnd} (${workhour}시간)`;
 };

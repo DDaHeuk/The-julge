@@ -1,31 +1,27 @@
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
-import { AssignNoticeInfoData, AssignNoticeResponse } from '@/types/assignNoticeInfoData';
-import { useShopId } from '@/stores/storeUserInfo';
+import { EditNoticeInfoData, EditNoticeResponse } from '@/types/editNoticeInfoData';
 import { useRouter } from 'next/navigation';
 import editNotice from '@/apis/editNoticeInfo/editNoticeInfo';
 
 // shopId를 포함한 새로운 타입 정의
 interface EditShopVariables {
-  data: AssignNoticeInfoData;
+  data: EditNoticeInfoData;
   shopId: string;
   noticeId: string;
 }
 
-const useEditNotice = (): UseMutationResult<AssignNoticeResponse, Error, EditShopVariables> => {
+const useEditNotice = (): UseMutationResult<EditNoticeResponse, Error, EditShopVariables> => {
   const queryClient = useQueryClient();
   const router = useRouter();
-  const { setShopId } = useShopId();
-  return useMutation<AssignNoticeResponse, Error, EditShopVariables>({
+  return useMutation<EditNoticeResponse, Error, EditShopVariables>({
     mutationFn: ({ data, shopId, noticeId }) => editNotice(data, shopId, noticeId),
     onSuccess: (data) => {
-      console.log('가게 편집 성공');
-      const shopId = data.item.id;
-      setShopId(shopId);
-      queryClient.invalidateQueries({ queryKey: ['shopDetail', shopId] });
-      router.push(`/myshop/${shopId}`);
+      console.log('공고 편집 성공');
+      queryClient.invalidateQueries({ queryKey: ['noticeDetail'] });
+      router.push(`/myshop/${data.item.shop.item.id}/notices/${data.item.id}`);
     },
     onError: (error) => {
-      console.error('가게 편집 실패', error);
+      console.error('공고 편집 실패', error);
     },
   });
 };

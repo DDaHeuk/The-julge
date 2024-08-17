@@ -4,7 +4,7 @@ import { ChangeEvent, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import Input from '../input';
 import Button from '@/components/button';
-import useAssignNotice from '@/hooks/useAssignNoticeMutation';
+import useEditNotice from '@/hooks/useEditNoticeMutation';
 import { storedDataTimeToString, dateTimeToString } from '@/utils/dateTimeFormat';
 
 interface EditNoticeInfoProps {
@@ -25,7 +25,7 @@ const EditNoticeInfo = ({ shopId, noticeId }: EditNoticeInfoProps) => {
   const queryClient = useQueryClient();
   const cachedNoticeData = queryClient.getQueryData(['noticeDetail']) as CachedNoticeData;
 
-  // const { mutate: assignNotice } = useAssignNotice();
+  const { mutate: editNotice } = useEditNotice();
 
   const [editNoticeInfo, setEditNoticeInfo] = useState({
     hourlyPay: cachedNoticeData?.item.hourlyPay,
@@ -53,7 +53,7 @@ const EditNoticeInfo = ({ shopId, noticeId }: EditNoticeInfoProps) => {
   const handleSubmitNotice = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(cachedNoticeData);
-    //assignNotice(editNoticeInfo);
+    editNotice({ data: editNoticeInfo, shopId, noticeId });
   };
 
   const calculateDate = (dateTime: string) => {

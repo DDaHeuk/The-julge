@@ -47,7 +47,7 @@ export const dateTimeToISO = (selectedDate: SelectedDate, selectedTime?: string)
   return adjustedDate;
 };
 
-//데이터를 불러와서 사용자에게 보여주는 유틸함수
+//데이터를 불러와서 날짜와 시간 분리해주는 유틸함수
 export const storedDataTimeToString = (
   isoString: string,
 ): { selectedDate: SelectedDate; selectedTime: string } => {

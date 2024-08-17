@@ -2,6 +2,7 @@ import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-
 import { EditNoticeInfoData, EditNoticeResponse } from '@/types/editNoticeInfoData';
 import { useRouter } from 'next/navigation';
 import editNotice from '@/apis/editNoticeInfo/editNoticeInfo';
+import { toast } from 'sonner';
 
 // shopId를 포함한 새로운 타입 정의
 interface EditShopVariables {
@@ -16,7 +17,7 @@ const useEditNotice = (): UseMutationResult<EditNoticeResponse, Error, EditShopV
   return useMutation<EditNoticeResponse, Error, EditShopVariables>({
     mutationFn: ({ data, shopId, noticeId }) => editNotice(data, shopId, noticeId),
     onSuccess: (data) => {
-      console.log('공고 편집 성공');
+      toast.success('공고 편집 성공');
       queryClient.invalidateQueries({ queryKey: ['noticeDetail'] });
       router.push(`/myshop/${data.item.shop.item.id}/notices/${data.item.id}`);
     },

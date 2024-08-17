@@ -29,7 +29,7 @@ export default function Input({
 }: InputProps) {
   const { onChange, className, ...restProps } = rest;
 
-  const [inputValue, setInputValue] = useState(value);
+  const [inputValue, setInputValue] = useState(value || '');
   const [errMsg, setErrMsg] = useState('');
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(null);

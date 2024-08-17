@@ -93,3 +93,20 @@ export const formatWorkSchedule = (isoDateString: string, workhour: number) => {
 
   return `${startYear}-${startMonth}-${startDay} ${startHours}:${startMinutes}~${formattedEnd} (${workhour}시간)`;
 };
+
+//마감이 되었는지 판단하기 위한 함수
+export const isPastTimeKST = (isoTimeStr: string): boolean => {
+  // ISO 8601 문자열을 Date 객체로 변환
+  const inputTime = new Date(isoTimeStr);
+
+  // 한국 시간 (KST, UTC+9)으로 변환
+  const inputTimeKST = new Date(inputTime.getTime() + 9 * 60 * 60 * 1000);
+
+  // 현재 시간 (KST)
+  const currentTimeKST = new Date();
+  const timeOffset = currentTimeKST.getTimezoneOffset() * 60 * 1000;
+  const currentTimeKSTOffset = new Date(currentTimeKST.getTime() + timeOffset + 9 * 60 * 60 * 1000);
+
+  // 과거의 시간인지 비교
+  return inputTimeKST.getTime() < currentTimeKSTOffset.getTime();
+};

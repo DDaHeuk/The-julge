@@ -15,7 +15,7 @@ const AllNotices = () => {
   const offset = page * limit;
 
   const { data } = useSuspenseQuery({
-    queryKey: ['noticeDetail'],
+    queryKey: ['noticeAll', offset, limit],
     queryFn: () => FetchAllNotice({ offset, limit }),
   });
 
@@ -55,11 +55,11 @@ const AllNotices = () => {
       <div className="mt-[10px] grid grid-cols-2 grid-rows-3 gap-x-[9px] gap-y-[16px] md:gap-x-[14px] md:gap-y-[30px] w-[100%]">
         {fetchData?.map((notice) => <NoticeList key={notice.item.id} noticeData={notice} />)}
       </div>
-      {/* <Pagination2
+      <Pagination2
         totalPages={Math.ceil(data.count / limit)}
         currentPage={page + 1}
         onPageChange={(newPage) => setPage(newPage - 1)}
-      /> */}
+      />
     </div>
   );
 };

@@ -5,9 +5,9 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import fetchNoticeDetail from '@/apis/notice/noticeDetail';
 import { formatWorkSchedule } from '@/utils/dateTimeFormat';
 import formatCurrency from '@/utils/currencyFormat';
+import Link from 'next/link';
 import Button from '../button';
 import HourlypayCalc from '../hourlypayCalc';
-import Link from 'next/link';
 
 interface NoticeDetailContainerProps {
   memberType: 'owner' | 'employee';
@@ -21,7 +21,7 @@ export default function NoticeDetailContainer({
   noticeId,
 }: NoticeDetailContainerProps) {
   const { data } = useSuspenseQuery({
-    queryKey: ['noticeDetail'],
+    queryKey: ['noticeDetail', shopId, noticeId],
     queryFn: () => fetchNoticeDetail({ shopId, noticeId }),
   });
   const shopInfo = data?.item?.shop?.item;

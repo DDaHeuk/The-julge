@@ -14,6 +14,7 @@ import DropDown from '../dropdown';
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   variant: 'normal' | 'email' | 'password' | 'passwordVerify' | 'unit' | 'dateTime' | 'date';
   label?: string;
+  value?: string | number;
   unitLabel?: string;
   originalPassword?: string;
 }
@@ -21,13 +22,14 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 export default function Input({
   variant,
   originalPassword,
+  value,
   label,
   unitLabel,
   ...rest
 }: InputProps) {
   const { onChange, className, ...restProps } = rest;
 
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(value);
   const [errMsg, setErrMsg] = useState('');
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(null);

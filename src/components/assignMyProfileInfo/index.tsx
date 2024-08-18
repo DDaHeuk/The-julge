@@ -5,13 +5,15 @@ import Input from '../input';
 import Button from '@/components/button';
 import { ChangeEvent, useState } from 'react';
 import useAssignProfile from '@/hooks/useAssignProfileMutation';
+import { useSearchParams } from 'next/navigation';
 
 const AssignMyProfileInfo = () => {
+  const searchParams = useSearchParams();
   const [assignProfileInfo, setAssignProfileInfo] = useState({
-    name: '',
-    phone: '',
-    address: LOCATION[0],
-    bio: '',
+    name: searchParams.get('name') ?? '',
+    phone: searchParams.get('phone') ?? '',
+    address: searchParams.get('address') ?? LOCATION[0],
+    bio: searchParams.get('bio') ?? '',
   });
 
   const { mutate: assignProfile } = useAssignProfile();
@@ -57,6 +59,7 @@ const AssignMyProfileInfo = () => {
           variant="normal"
           name="name"
           label="이름*"
+          value={assignProfileInfo.name}
           onChange={handleInputChange}
         />
         <Input
@@ -64,12 +67,14 @@ const AssignMyProfileInfo = () => {
           variant="normal"
           name="phone"
           label="연락처*"
+          value={assignProfileInfo.phone}
           onChange={handleInputChange}
         />
         <div className={`flex flex-col gap-2`}>
           <p>선호 지역</p>
           <DropDown
             menuItems={LOCATION}
+            initialValue={assignProfileInfo.address}
             className="w-[100%] text-[16px] bg-white h-[58px] border rounded-[6px] border-gray30 py-[16px] px-[20px]"
             onSelect={(value) => handleDropDownChange('address', value)}
           />
@@ -82,6 +87,7 @@ const AssignMyProfileInfo = () => {
         <textarea
           placeholder="입력"
           name="bio"
+          value={assignProfileInfo.bio}
           className="flex resize-none h-[153px] px-[20px] py-[16px] items-start self-stretch rounded-[5px] border border-gray30 bg-white "
           onChange={handleTextAreaChange}
         />

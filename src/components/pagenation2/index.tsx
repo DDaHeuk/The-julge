@@ -29,7 +29,7 @@ function Pagination2({ totalPages, currentPage, onPageChange }: PaginationProps)
   };
 
   return (
-    <div className="flex justify-center items-center mt-4">
+    <div className="flex justify-center items-center mt-4 mb-4 h-[32px] md:h-[40px] text-[14px] md:text-[16px]">
       <button
         type="button"
         onClick={handlePrevious}

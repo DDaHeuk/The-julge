@@ -1,17 +1,19 @@
 'use client';
 
+import { useMyType } from '@/stores/storeUserInfo';
 import Button from '../button';
 
 interface StateProp {
   stat: string;
-  onAccept: () => void;
-  onReject: () => void;
+  onAccept?: () => void;
+  onReject?: () => void;
 }
 
 function Status({ stat, onAccept, onReject }: StateProp) {
   let bgClass = '';
   let textClass = '';
   let status = '';
+  const { myType } = useMyType();
 
   switch (stat) {
     case 'accepted':
@@ -36,22 +38,37 @@ function Status({ stat, onAccept, onReject }: StateProp) {
 
   return (
     <div className="flex items-center">
-      {stat !== 'pending' && (
+      {myType === 'employee' ? (
         <span
           className={`${bgClass} ${textClass} px-[10px] py-[6px] justify-center items-center rounded-[20px] leading-[16px] md:font-bold`}
         >
           {status}
         </span>
-      )}
-      {stat === 'pending' && (
-        <div className="flex w-full gap-2">
-          <Button type="button" onClick={onAccept} color="noFilled" className="w-[50%] h-[32px]">
-            수락
-          </Button>
-          <Button type="button" onClick={onReject} color="filled" className="w-[50%] h-[32px]">
-            거절
-          </Button>
-        </div>
+      ) : (
+        <>
+          {stat !== 'pending' && (
+            <span
+              className={`${bgClass} ${textClass} px-[10px] py-[6px] justify-center items-center rounded-[20px] leading-[16px] md:font-bold`}
+            >
+              {status}
+            </span>
+          )}
+          {stat === 'pending' && (
+            <div className="flex w-full gap-2">
+              <Button
+                type="button"
+                onClick={onAccept}
+                color="noFilled"
+                className="w-[50%] h-[32px]"
+              >
+                수락
+              </Button>
+              <Button type="button" onClick={onReject} color="filled" className="w-[50%] h-[32px]">
+                거절
+              </Button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

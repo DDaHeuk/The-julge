@@ -1,10 +1,10 @@
-import assignProfile from '@/apis/assignProfileInfo/assignProfileInfo';
+import editProfile from '@/apis/editProfileInfo/editProfileInfo';
 import { useUserId } from '@/stores/storeUserInfo';
 import { AssignProfileInfoData, AssignProfileResponse } from '@/types/assignProfileInfoData';
-import { useMutation, UseMutationResult, QueryClient, useQueryClient } from '@tanstack/react-query';
+import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
-const useAssignProfile = (): UseMutationResult<
+const useEditProfile = (): UseMutationResult<
   AssignProfileResponse,
   Error,
   AssignProfileInfoData
@@ -13,7 +13,7 @@ const useAssignProfile = (): UseMutationResult<
   const queryClient = useQueryClient();
   const router = useRouter();
   return useMutation({
-    mutationFn: (data: AssignProfileInfoData) => assignProfile(userId, data),
+    mutationFn: (data: AssignProfileInfoData) => editProfile(userId, data),
     onSuccess: () => {
       console.log('프로필 수정 성공');
       queryClient.invalidateQueries({ queryKey: ['profileDetail', userId] });
@@ -25,4 +25,4 @@ const useAssignProfile = (): UseMutationResult<
   });
 };
 
-export default useAssignProfile;
+export default useEditProfile;

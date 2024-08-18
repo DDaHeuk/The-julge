@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { AssignProfileInfoData } from '@/types/assignProfileInfoData';
 
-const assignProfile = async (userId: string, data: AssignProfileInfoData) => {
+const editProfile = async (userId: string, data: AssignProfileInfoData) => {
   const token = localStorage.getItem('token');
   if (!token) {
     throw new Error('No token found');
@@ -25,4 +25,4 @@ const assignProfile = async (userId: string, data: AssignProfileInfoData) => {
   }
 };
 
-export default assignProfile;
+export default editProfile;

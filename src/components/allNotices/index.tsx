@@ -5,17 +5,21 @@ import { SORTING_OPTIONS } from '@/types/sortingOptions';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import FetchAllNotice from '@/apis/notice/fetchAllNotice';
 import DropDown from '../dropdown';
-import PaginationComponent from '../pagination';
 import DetailedFilter from '../detailedFilter';
 import NoticeList from '../noticeList';
+import Pagination2 from '../pagenation2';
 
 const AllNotices = () => {
+  const [page, setPage] = useState(0);
+  const limit = 6; // 한 페이지당 나오는 item 개수. 임의로 설정. 추후 변경 필요
+  const offset = page * limit;
+
   const { data } = useSuspenseQuery({
     queryKey: ['noticeDetail'],
-    queryFn: FetchAllNotice,
+    queryFn: () => FetchAllNotice({ offset, limit }),
   });
-  const fetchData = data.items;
-  console.log(fetchData);
+
+  const fetchData = data?.items;
 
   const [isOpenDetailFilter, setIsOpenDetailFilter] = useState<boolean>(false);
 
@@ -49,11 +53,13 @@ const AllNotices = () => {
         {isOpenDetailFilter && <DetailedFilter onClose={handleCloseFilter} />}
       </div>
       <div className="mt-[10px] grid grid-cols-2 grid-rows-3 gap-x-[9px] gap-y-[16px] md:gap-x-[14px] md:gap-y-[30px] w-[100%]">
-        {fetchData.map((notice) => (
-          <NoticeList key={notice.item.id} noticeData={notice} />
-        ))}
+        {fetchData?.map((notice) => <NoticeList key={notice.item.id} noticeData={notice} />)}
       </div>
-      <PaginationComponent totalPage={40} />
+      {/* <Pagination2
+        totalPages={Math.ceil(data.count / limit)}
+        currentPage={page + 1}
+        onPageChange={(newPage) => setPage(newPage - 1)}
+      /> */}
     </div>
   );
 };

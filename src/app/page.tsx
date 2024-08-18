@@ -3,15 +3,16 @@ import NavigationBar from '@/components/navigationBar';
 import Footer from '@/components/footer';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import FetchAllNotice from '@/apis/notice/fetchAllNotice';
-import MyPost from '@/components/myPost';
 import AllNotices from '@/components/allNotices';
 
 export default async function Home() {
   const queryClient = new QueryClient();
+  const limit = 6;
+  const offset = 0;
 
   await queryClient.prefetchQuery({
     queryKey: ['noticeAll'],
-    queryFn: FetchAllNotice,
+    queryFn: () => FetchAllNotice({ offset, limit }),
   });
 
   return (

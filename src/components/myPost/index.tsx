@@ -5,11 +5,6 @@ import FetchAllNotice from '@/apis/notice/fetchAllNotice';
 import NoticeList from '../noticeList';
 
 const MyPost = () => {
-  const { data } = useSuspenseQuery({
-    queryKey: ['noticeDetail'],
-    queryFn: FetchAllNotice,
-  });
-
   const fetchData = data.items;
 
   console.log('0', data.items.item);

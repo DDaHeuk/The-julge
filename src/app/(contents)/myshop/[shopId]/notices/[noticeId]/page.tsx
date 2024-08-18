@@ -13,7 +13,7 @@ export default async function NoticeDetailPage({ params }: { params: Params }) {
   const queryClient = new QueryClient();
 
   const { shopId, noticeId } = params;
-
+  console.log(shopId, noticeId);
   await queryClient.prefetchQuery({
     queryKey: ['noticeDetail'],
     queryFn: () => fetchNoticeDetail({ shopId, noticeId }),

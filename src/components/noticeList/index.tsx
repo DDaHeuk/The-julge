@@ -8,7 +8,7 @@ import HourlypayCalc from '../hourlypayCalc';
 
 export default function NoticeList({ noticeData }) {
   const processedData = noticeData.item;
-  console.log(processedData.id);
+
   const processedShopData = processedData.shop.item;
 
   return (

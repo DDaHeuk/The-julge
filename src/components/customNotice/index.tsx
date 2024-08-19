@@ -1,13 +1,32 @@
 'use client';
 
-import MyPostInfo from '../myPostInfo';
 import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import FetchAllNotice from '@/apis/notice/fetchAllNotice';
 import CustomArrow from '../customArrow';
+import NoticeList from '../noticeList';
 
 const CustomNotice = () => {
+  const offset = 0;
+  const limit = 6;
+  const { data } = useSuspenseQuery({
+    queryKey: ['noticeAll', offset, limit],
+    queryFn: () =>
+      FetchAllNotice({
+        offset,
+        limit,
+        address: undefined,
+        keyword: undefined,
+        startsAtGte: undefined,
+        hourlyPayGte: undefined,
+        sort: undefined,
+      }),
+  });
+  const fetchData = data?.items;
+
   const settings = {
     dots: false,
     arrows: true,
@@ -35,13 +54,7 @@ const CustomNotice = () => {
         <span className="text-[20px] md:text-[28px] font-bold">맞춤 공고</span>
 
         <Slider {...settings}>
-          <div className="pr-2">{/* <MyPostInfo deadline={false} /> */}</div>
-          <div className="pr-2">{/* <MyPostInfo deadline={false} /> */}</div>
-          <div className="pr-2">{/* <MyPostInfo deadline={false} /> */}</div>
-          <div className="pr-2">{/* <MyPostInfo deadline={false} /> */}</div>
-          <div className="pr-2">{/* <MyPostInfo deadline={false} /> */}</div>
-          <div className="pr-2">{/* <MyPostInfo deadline={false} /> */}</div>
-          <div className="pr-2">{/* <MyPostInfo deadline={false} /> */}</div>
+          {fetchData?.map((notice) => <NoticeList key={notice.item.id} noticeData={notice} />)}
         </Slider>
       </div>
     </div>

@@ -4,7 +4,7 @@ import DropDown from '../dropdown';
 import Input from '../input';
 import Button from '@/components/button';
 import { ChangeEvent, useState } from 'react';
-import useAssignProfile from '@/hooks/useAssignProfileMutation';
+import useEditProfile from '@/hooks/useEditProfileMutation';
 import { useSearchParams } from 'next/navigation';
 
 const AssignMyProfileInfo = () => {
@@ -16,7 +16,7 @@ const AssignMyProfileInfo = () => {
     bio: searchParams.get('bio') ?? '',
   });
 
-  const { mutate: assignProfile } = useAssignProfile();
+  const { mutate: assignProfile } = useEditProfile();
 
   //Input 컴포넌트에 관한 데이터 저장
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

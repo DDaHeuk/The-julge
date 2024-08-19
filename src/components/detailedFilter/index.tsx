@@ -1,10 +1,14 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+
 'use client';
 
 import Image from 'next/image';
-import React, { ReactEventHandler, useState } from 'react';
+import React, { useState } from 'react';
+import { LOCATION } from '@/constant/location';
 import Input from '../input';
 import Button from '../button';
-import { LOCATION } from '@/constant/location';
 
 interface DetailedFilterProps {
   onClose: () => void;
@@ -17,9 +21,8 @@ const DetailedFilter = ({ onClose }: DetailedFilterProps) => {
     setSelectedLocation((prevSelected) => {
       if (prevSelected.includes(location)) {
         return [...prevSelected];
-      } else {
-        return [...prevSelected, location];
       }
+      return [...prevSelected, location];
     });
   };
 
@@ -47,6 +50,7 @@ const DetailedFilter = ({ onClose }: DetailedFilterProps) => {
           {LOCATION.map((item: string, index: number) => (
             <React.Fragment key={index}>
               <p
+                role="button"
                 className="hover:bg-gray10 hover:font-bold cursor-pointer"
                 onClick={() => handleLocationClick(item)}
               >

@@ -14,7 +14,16 @@ const CustomNotice = () => {
   const limit = 6;
   const { data } = useSuspenseQuery({
     queryKey: ['noticeAll', offset, limit],
-    queryFn: () => FetchAllNotice({ offset, limit }),
+    queryFn: () =>
+      FetchAllNotice({
+        offset,
+        limit,
+        address: undefined,
+        keyword: undefined,
+        startsAtGte: undefined,
+        hourlyPayGte: undefined,
+        sort: undefined,
+      }),
   });
   const fetchData = data?.items;
 

@@ -9,6 +9,7 @@ import getShopDetail from '@/apis/shop/shopDetail';
 import getMyNotices from '@/apis/notice/myNotice';
 import { NoticesResponse } from '@/types/myNoticeData';
 import { useInView } from 'react-intersection-observer';
+import { isPastTimeKST } from '@/utils/dateTimeFormat';
 import MyPostInfo from '../myPostInfo';
 
 interface ShopDetailContainerProps {
@@ -85,7 +86,7 @@ const ShopDetailContainer = ({ shopId }: ShopDetailContainerProps) => {
                     <MyPostInfo
                       key={notice.item.id}
                       noticeData={notice.item}
-                      deadline={notice.item.closed}
+                      deadline={isPastTimeKST(notice.item.startsAt) || notice.item.closed}
                       shopId={shopId}
                     />
                   ))}

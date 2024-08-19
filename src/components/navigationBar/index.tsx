@@ -5,10 +5,11 @@ import { useState, useEffect } from 'react';
 import NotificationModal from '../notificationModal';
 import Link from 'next/link';
 import { useShopId, useMyType, useUserId } from '@/stores/storeUserInfo';
+import getUserAlert from '@/apis/alert/getUserAlert';
 
 const NavigationBar = () => {
-  const [isAuthorized, setIsAuthorized] = useState<boolean>(true);
-  const [isNotification, setIsNotification] = useState<boolean>(true);
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
+  const [isNotification, setIsNotification] = useState<boolean>(false);
   const [isOpenNotification, setIsOpenNotification] = useState<boolean>(false);
 
   const { shopId, setShopId } = useShopId();
@@ -19,10 +20,20 @@ const NavigationBar = () => {
     const token = localStorage.getItem('token');
     if (token) {
       setIsAuthorized(true);
+      const fetchAlerts = async () => {
+        if (userId) {
+          const response = await getUserAlert({
+            userId: userId,
+            offset: 0,
+          });
+          setIsNotification(response.count > 0 ? true : false);
+        }
+      };
+      fetchAlerts();
     } else {
       setIsAuthorized(false);
     }
-  }, [isAuthorized]);
+  }, [userId, isAuthorized]);
 
   const handleNotiifcation = () => {
     setIsOpenNotification(!isOpenNotification);

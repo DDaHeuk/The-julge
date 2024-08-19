@@ -86,7 +86,7 @@ const ShopDetailContainer = ({ shopId }: ShopDetailContainerProps) => {
                     <MyPostInfo
                       key={notice.item.id}
                       noticeData={notice.item}
-                      deadline={isPastTimeKST(notice.item.startsAt)}
+                      deadline={isPastTimeKST(notice.item.startsAt) || notice.item.closed}
                       shopId={shopId}
                     />
                   ))}

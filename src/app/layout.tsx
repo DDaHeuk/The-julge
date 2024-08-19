@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ReactQueryProvider>
           {children}
-          <Toaster richColors position="bottom-center" />
+          <Toaster richColors position="top-center" />
         </ReactQueryProvider>
       </body>
     </html>

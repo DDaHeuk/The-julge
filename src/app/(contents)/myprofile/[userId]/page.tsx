@@ -2,6 +2,7 @@ import getUserApplications from '@/apis/user/getUserApplications';
 import getUserInfo from '@/apis/user/getUserInfo';
 import ProfileDetailContainer from '@/components/profileDetailContainer';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { cookies } from 'next/headers';
 
 interface MyProfileProps {
   params: {
@@ -10,6 +11,8 @@ interface MyProfileProps {
 }
 
 export default async function myProfile({ params }: MyProfileProps) {
+  const cookieStore = cookies();
+  const token = cookieStore.get('token')?.value;
   const queryClient = new QueryClient();
 
   const { userId } = params;
@@ -23,13 +26,13 @@ export default async function myProfile({ params }: MyProfileProps) {
 
   await queryClient.prefetchQuery({
     queryKey: ['myApplications'],
-    queryFn: () => getUserApplications({ userId, offset: initialOffset, limit }),
+    queryFn: () => getUserApplications({ userId, offset: initialOffset, limit, token }),
   });
 
   return (
     <div className="flex flex-col">
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <ProfileDetailContainer userId={userId} />
+        <ProfileDetailContainer userId={userId} token={token}/>
       </HydrationBoundary>
     </div>
   );

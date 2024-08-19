@@ -13,6 +13,7 @@ import Pagination2 from '../pagenation2';
 
 interface ProfileDetailContainerProps {
   userId: string;
+  token: string | undefined;
 }
 
 interface UserApplicationItem {
@@ -43,7 +44,7 @@ const ITEMS_PER_PAGE = 7;
 const INITIAL_START_PAGE = 0;
 const PAGE_COUNT = 5;
 
-const ProfileDetailContainer = ({ userId }: ProfileDetailContainerProps) => {
+const ProfileDetailContainer = ({ userId, token }: ProfileDetailContainerProps) => {
   const [page, setPage] = useState<number>(INITIAL_START_PAGE);
   const handlePageChange = (pageNumber: number) => {
     setPage(pageNumber);
@@ -60,7 +61,7 @@ const ProfileDetailContainer = ({ userId }: ProfileDetailContainerProps) => {
   const { data: applications } = userId
     ? useSuspenseQuery<UserApplicationData>({
         queryKey: ['myApplications', offset, limit],
-        queryFn: () => getUserApplications({ userId, offset, limit }),
+        queryFn: () => getUserApplications({ userId, offset, limit, token }),
       })
     : { data: null }; // userId가 없을 때 applications는 null로 설정
 

@@ -1,3 +1,4 @@
+import FetchAllNotice from '@/apis/notice/fetchAllNotice';
 import fetchNoticeDetail from '@/apis/notice/noticeDetail';
 import MyPost from '@/components/myPost';
 import NoticeDetailContainer from '@/components/noticeDetailContainer';
@@ -16,6 +17,11 @@ export default async function MyShopNoticeDetailPage({ params }: { params: Param
   await queryClient.prefetchQuery({
     queryKey: ['noticeDetail'],
     queryFn: () => fetchNoticeDetail({ shopId, noticeId }),
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: ['noticeAll'],
+    queryFn: FetchAllNotice,
   });
 
   return (

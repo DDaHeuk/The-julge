@@ -46,6 +46,7 @@ export default function SignInForm() {
           const userId = data.item.user.item.id;
           const { type } = data.item.user.item;
           localStorage.setItem('token', data.item.token);
+          document.cookie = `token=${data.item.token}; path=/; max-age=${60 * 60 * 24}`;
           setUserId(userId);
           setMyType(type);
           // 사장님인 경우에만 내 정보 조회 후 shop Id를 저장

@@ -19,9 +19,21 @@ export default async function MyShopNoticeDetailPage({ params }: { params: Param
     queryFn: () => fetchNoticeDetail({ shopId, noticeId }),
   });
 
+  const offset = 0;
+  const limit = 6;
+
   await queryClient.prefetchQuery({
     queryKey: ['noticeAll'],
-    queryFn: FetchAllNotice,
+    queryFn: () =>
+      FetchAllNotice({
+        offset,
+        limit,
+        address: undefined,
+        keyword: undefined,
+        startsAtGte: undefined,
+        hourlyPayGte: undefined,
+        sort: 'time',
+      }),
   });
 
   return (

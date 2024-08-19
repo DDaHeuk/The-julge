@@ -7,7 +7,7 @@ interface FetchAllNoticeProps {
   keyword: string | undefined;
   startsAtGte: string | undefined;
   hourlyPayGte: number | undefined;
-  sort: 'time' | 'pay' | 'hour' | 'shop' | string;
+  sort: 'time' | 'pay' | 'hour' | 'shop' | string | undefined;
 }
 
 const FetchAllNotice = async ({

@@ -5,6 +5,23 @@ import FetchAllNotice from '@/apis/notice/fetchAllNotice';
 import NoticeList from '../noticeList';
 
 const MyPost = () => {
+  const offset = 0;
+  const limit = 6;
+
+  const { data } = useSuspenseQuery({
+    queryKey: ['noticeAll', offset, limit],
+    queryFn: () =>
+      FetchAllNotice({
+        offset,
+        limit,
+        address: undefined,
+        keyword: undefined,
+        startsAtGte: undefined,
+        hourlyPayGte: undefined,
+        sort: 'time',
+      }),
+  });
+
   const fetchData = data.items;
 
   return (

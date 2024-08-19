@@ -5,9 +5,9 @@ import { useQueryClient } from '@tanstack/react-query';
 import { ShopDetailData } from '@/types/shopDetailData';
 import Image from 'next/image';
 import formatCurrency from '@/utils/currencyFormat';
-import HourlypayCalc from '../hourlypayCalc';
 import { formatWorkSchedule } from '@/utils/dateTimeFormat';
 import Link from 'next/link';
+import HourlypayCalc from '../hourlypayCalc';
 
 interface MyPostInfoProps {
   noticeData: NoticeData;

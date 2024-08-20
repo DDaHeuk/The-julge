@@ -54,6 +54,7 @@ const NavigationBar = ({ shopId, userId, myType }: NavigationBarProps) => {
     document.cookie = 'shopId=; path=/; max-age=0;';
     document.cookie = 'userId=; path=/; max-age=0;';
     document.cookie = 'myType=; path=/; max-age=0;';
+    document.cookie = 'token=; path=/; max-age=0;';
     //setIsAuthorized(false);
   };
 

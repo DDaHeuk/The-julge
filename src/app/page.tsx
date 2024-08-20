@@ -12,9 +12,7 @@ export default async function Home() {
   const offset = 0;
 
   const cookieStore = cookies();
-  const shopId = cookieStore.get('shopId')?.value;
   const userId = cookieStore.get('userId')?.value;
-  const myType = cookieStore.get('myType')?.value;
 
   await queryClient.prefetchQuery({
     queryKey: ['noticeAll'],
@@ -25,7 +23,7 @@ export default async function Home() {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div className=" flex-col min-h-screen">
         <div className=" flex-col min-h-[calc(100vh-126px)] md:min-h-[calc(100vh-100px)]">
-          <NavigationBar shopId={shopId} userId={userId} myType={myType} />
+          <NavigationBar />
           <div className="flex flex-col w-[100%]">
             <CustomNotice />
             <AllNotices />

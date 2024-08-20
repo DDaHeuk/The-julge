@@ -7,29 +7,25 @@ import Link from 'next/link';
 import { useShopId, useMyType, useUserId } from '@/stores/storeUserInfo';
 import getUserAlert from '@/apis/alert/getUserAlert';
 
-interface NavigationBarProps {
-  shopId?: string | undefined;
-  userId?: string | undefined;
-  myType?: string | undefined;
-}
-
-const NavigationBar = ({ shopId, userId, myType }: NavigationBarProps) => {
-  //const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
+const NavigationBar = () => {
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [isNotification, setIsNotification] = useState<boolean>(false);
   const [isOpenNotification, setIsOpenNotification] = useState<boolean>(false);
 
-  const { setShopId } = useShopId();
-  const { setMyType } = useMyType();
-  const { setUserId } = useUserId();
+  const { shopId, setShopId } = useShopId();
+  const { myType, setMyType } = useMyType();
+  const { userId, setUserId } = useUserId();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
+      setIsAuthorized(true);
       const fetchAlerts = async () => {
         if (userId) {
           const response = await getUserAlert({
             userId: userId,
             offset: 0,
+            token: token,
           });
           setIsNotification(response.count > 0 ? true : false);
         }
@@ -55,7 +51,7 @@ const NavigationBar = ({ shopId, userId, myType }: NavigationBarProps) => {
     document.cookie = 'userId=; path=/; max-age=0;';
     document.cookie = 'myType=; path=/; max-age=0;';
     document.cookie = 'token=; path=/; max-age=0;';
-    //setIsAuthorized(false);
+    setIsAuthorized(false);
   };
 
   return (
@@ -86,7 +82,7 @@ const NavigationBar = ({ shopId, userId, myType }: NavigationBarProps) => {
               placeholder="가게 이름으로 찾아보세요"
             />
           </div>
-          {userId ? (
+          {isAuthorized ? (
             <div className="relative inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[40px]">
               {myType === 'employer' ? (
                 <Link href={`/myshop/${shopId}`}>

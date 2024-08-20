@@ -48,6 +48,8 @@ export default function SignInForm() {
           localStorage.setItem('token', data.item.token);
           setUserId(userId);
           setMyType(type);
+          document.cookie = `userId=${userId}; path=/; max-age=${60 * 60 * 24}`;
+          document.cookie = `myType=${type}; path=/; max-age=${60 * 60 * 24}`;
           // 사장님인 경우에만 내 정보 조회 후 shop Id를 저장
           if (type === 'employer') {
             try {
@@ -55,6 +57,7 @@ export default function SignInForm() {
               setShopId(response.item.shop.item.id);
 
               document.cookie = `shopId=${response.item.shop.item.id}; path=/; max-age=${60 * 60 * 24}`;
+              document.cookie = `token=${data.item.token}; path=/; max-age=${60 * 60 * 24}`;
             } catch (error) {
               console.error('Failed to fetch user info:', error);
             }

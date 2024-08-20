@@ -7,19 +7,24 @@ import Link from 'next/link';
 import { useShopId, useMyType, useUserId } from '@/stores/storeUserInfo';
 import getUserAlert from '@/apis/alert/getUserAlert';
 
-const NavigationBar = () => {
-  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
+interface NavigationBarProps {
+  shopId?: string | undefined;
+  userId?: string | undefined;
+  myType?: string | undefined;
+}
+
+const NavigationBar = ({ shopId, userId, myType }: NavigationBarProps) => {
+  //const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [isNotification, setIsNotification] = useState<boolean>(false);
   const [isOpenNotification, setIsOpenNotification] = useState<boolean>(false);
 
-  const { shopId, setShopId } = useShopId();
-  const { myType, setMyType } = useMyType();
-  const { userId, setUserId } = useUserId();
+  const { setShopId } = useShopId();
+  const { setMyType } = useMyType();
+  const { setUserId } = useUserId();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      setIsAuthorized(true);
       const fetchAlerts = async () => {
         if (userId) {
           const response = await getUserAlert({
@@ -30,10 +35,8 @@ const NavigationBar = () => {
         }
       };
       fetchAlerts();
-    } else {
-      setIsAuthorized(false);
     }
-  }, [userId, isAuthorized]);
+  }, [userId]);
 
   const handleNotiifcation = () => {
     setIsOpenNotification(!isOpenNotification);
@@ -49,7 +52,9 @@ const NavigationBar = () => {
     setMyType('');
     setUserId('');
     document.cookie = 'shopId=; path=/; max-age=0;';
-    setIsAuthorized(false);
+    document.cookie = 'userId=; path=/; max-age=0;';
+    document.cookie = 'myType=; path=/; max-age=0;';
+    //setIsAuthorized(false);
   };
 
   return (
@@ -80,7 +85,7 @@ const NavigationBar = () => {
               placeholder="가게 이름으로 찾아보세요"
             />
           </div>
-          {isAuthorized ? (
+          {userId ? (
             <div className="relative inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[40px]">
               {myType === 'employer' ? (
                 <Link href={`/myshop/${shopId}`}>

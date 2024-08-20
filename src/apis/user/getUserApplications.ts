@@ -1,16 +1,18 @@
 import axios from 'axios';
+import { cookies } from 'next/headers';
 
 interface UserApplicationsProps {
   userId: string;
   offset: number;
   limit: number;
+  token: string | undefined;
 }
 
-const getUserApplications = async ({ userId, offset, limit }: UserApplicationsProps) => {
-  const token = localStorage.getItem('token');
+const getUserApplications = async ({ userId, offset, limit, token}: UserApplicationsProps) => {
   if (!token) {
     throw new Error('No token found');
   }
+
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/${userId}/applications`,

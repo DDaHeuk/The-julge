@@ -46,6 +46,7 @@ export default function SignInForm() {
           const userId = data.item.user.item.id;
           const { type } = data.item.user.item;
           localStorage.setItem('token', data.item.token);
+          document.cookie = `token=${data.item.token}; path=/; max-age=${60 * 60 * 24}`;
           setUserId(userId);
           setMyType(type);
           document.cookie = `userId=${userId}; path=/; max-age=${60 * 60 * 24}`;

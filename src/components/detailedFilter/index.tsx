@@ -57,7 +57,6 @@ const DetailedFilter = ({ onClose }: DetailedFilterProps) => {
     if (localHourlyPayGte !== undefined) {
       setHourlyPayGte(localHourlyPayGte);
     }
-    console.log(address, startsAtGte, hourlyPayGte);
     onClose();
   };
 

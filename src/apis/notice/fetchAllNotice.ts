@@ -3,7 +3,7 @@ import axios from 'axios';
 interface FetchAllNoticeProps {
   offset: number;
   limit: number;
-  address?: string | undefined;
+  address?: string[] | undefined;
   keyword?: string | undefined;
   startsAtGte?: string | undefined;
   hourlyPayGte?: number | undefined;

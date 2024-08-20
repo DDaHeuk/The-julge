@@ -3,11 +3,11 @@ import axios from 'axios';
 interface FetchAllNoticeProps {
   offset: number;
   limit: number;
-  address: string | undefined;
-  keyword: string | undefined;
-  startsAtGte: string | undefined;
-  hourlyPayGte: number | undefined;
-  sort: 'time' | 'pay' | 'hour' | 'shop' | string;
+  address?: string | undefined;
+  keyword?: string | undefined;
+  startsAtGte?: string | undefined;
+  hourlyPayGte?: number | undefined;
+  sort?: 'time' | 'pay' | 'hour' | 'shop' | string;
 }
 
 const FetchAllNotice = async ({

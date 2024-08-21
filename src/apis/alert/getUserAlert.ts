@@ -1,25 +1,23 @@
+import { UserAlertResponse } from '@/types/userAlertData';
 import axios from 'axios';
-import { cookies } from 'next/headers';
 
-interface UserApplicationsProps {
+interface UserAlertProps {
   userId: string;
   offset: number;
-  limit: number;
-  token: string | undefined;
 }
 
-const getUserApplications = async ({ userId, offset, limit, token}: UserApplicationsProps) => {
+const getUserAlert = async ({ userId, offset }: UserAlertProps): Promise<UserAlertResponse> => {
+  const token = localStorage.getItem('token');
   if (!token) {
     throw new Error('No token found');
   }
-
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/${userId}/applications`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/${userId}/alerts`,
       {
         params: {
           offset,
-          limit,
+          limit: 6,
         },
         headers: {
           'Content-Type': 'application/json',
@@ -33,4 +31,4 @@ const getUserApplications = async ({ userId, offset, limit, token}: UserApplicat
     throw error;
   }
 };
-export default getUserApplications;
+export default getUserAlert;

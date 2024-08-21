@@ -28,15 +28,15 @@ const AllNotices = () => {
   const offset = page * limit;
 
   const { data } = useSuspenseQuery({
-    queryKey: ['noticeAll', offset, limit, selectedSort],
+    queryKey: ['noticeAll', offset, limit, selectedSort, address, hourlyPayGte],
     queryFn: () =>
       FetchAllNotice({
         offset,
         limit,
-        address: undefined,
+        address: address,
         keyword: undefined,
         startsAtGte: undefined,
-        hourlyPayGte: undefined,
+        hourlyPayGte: hourlyPayGte,
         sort: selectedSort,
       }),
   });
@@ -61,7 +61,7 @@ const AllNotices = () => {
     console.log(selectedSort);
   };
 
-  const filterCount = address.length + (startsAtGte ? 1 : 0) + (hourlyPayGte ? 1 : 0);
+  const filterCount = (address ? 1 : 0) + (startsAtGte ? 1 : 0) + (hourlyPayGte ? 1 : 0);
 
   return (
     <div className="flex px-[12px] md:px-[32px] lg:px-[238px] pt-[40px] md:pt-[60px] pb-[80px] md:pb-[60px] flex-col items-center gap-[8px]">

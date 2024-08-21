@@ -27,7 +27,7 @@ const DetailedFilter = ({ onClose }: DetailedFilterProps) => {
   } = useDetailedFilterData();
 
   //로컬상태관리
-  const [localAddress, setLocalAddress] = useState<string[]>(address);
+  const [localAddress, setLocalAddress] = useState<string>(address);
   const [localStartsAtGte, setLocalStartsAtGte] = useState(startsAtGte);
   const [localHourlyPayGte, setLocalHourlyPayGte] = useState<number | undefined>(hourlyPayGte);
 
@@ -41,13 +41,11 @@ const DetailedFilter = ({ onClose }: DetailedFilterProps) => {
   };
 
   const handleLocationClick = (location: string) => {
-    if (!localAddress.includes(location)) {
-      setLocalAddress([...localAddress, location]);
-    }
+    setLocalAddress(location);
   };
 
-  const handleRemoveLocation = (location: string) => {
-    setLocalAddress(localAddress.filter((item) => item !== location));
+  const handleRemoveLocation = () => {
+    setLocalAddress('');
   };
 
   const handleApply = () => {
@@ -93,20 +91,18 @@ const DetailedFilter = ({ onClose }: DetailedFilterProps) => {
           ))}
         </div>
         <div className="grid grid-cols-2 gap-x-[8px] gap-y-[15px]">
-          {localAddress.map((item: string, index) => (
-            <React.Fragment key={index}>
-              <div className="flex py-[6px] px-[10px] justify-center items-center gap-1 rounded-[20px] bg-red10">
-                <span className="text-[14px] font-bold text-primary">{item}</span>
-                <Image
-                  onClick={() => handleRemoveLocation(item)}
-                  src="/icons/close_primary.svg"
-                  alt="닫기 버튼"
-                  width={16}
-                  height={16}
-                />
-              </div>
-            </React.Fragment>
-          ))}
+          {localAddress && (
+            <div className="flex py-[6px] px-[10px] justify-center items-center gap-1 rounded-[20px] bg-red10">
+              <span className="text-[14px] font-bold text-primary">{localAddress}</span>
+              <Image
+                onClick={() => handleRemoveLocation()}
+                src="/icons/close_primary.svg"
+                alt="닫기 버튼"
+                width={16}
+                height={16}
+              />
+            </div>
+          )}
         </div>
       </div>
       <hr className="h-[2px] self-stretch border-gray10" />

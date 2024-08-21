@@ -9,6 +9,7 @@ import DetailedFilter from '../detailedFilter';
 import NoticeList from '../noticeList';
 import Pagination2 from '../pagenation2';
 import { useDetailedFilterData } from '@/stores/storeDetailedFilter';
+import { dateTimeToISO, toRFC3339 } from '@/utils/dateTimeFormat';
 
 const SORTING_OPTIONS = [
   { label: '마감임박순', value: 'time' },
@@ -28,14 +29,22 @@ const AllNotices = () => {
   const offset = page * limit;
 
   const { data } = useSuspenseQuery({
-    queryKey: ['noticeAll', offset, limit, selectedSort, address, hourlyPayGte],
+    queryKey: [
+      'noticeAll',
+      offset,
+      limit,
+      selectedSort,
+      address,
+      `${startsAtGte}T00:00:00Z`,
+      hourlyPayGte,
+    ],
     queryFn: () =>
       FetchAllNotice({
         offset,
         limit,
         address: address,
         keyword: undefined,
-        startsAtGte: undefined,
+        startsAtGte: `${startsAtGte}T00:00:00Z`,
         hourlyPayGte: hourlyPayGte,
         sort: selectedSort,
       }),

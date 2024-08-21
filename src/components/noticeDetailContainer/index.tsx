@@ -8,6 +8,7 @@ import formatCurrency from '@/utils/currencyFormat';
 import Link from 'next/link';
 import Button from '../button';
 import HourlypayCalc from '../hourlypayCalc';
+import useApplyNotice from '@/hooks/useApplyNoticeMutation';
 
 interface NoticeDetailContainerProps {
   memberType: 'owner' | 'employee';
@@ -26,6 +27,13 @@ export default function NoticeDetailContainer({
   });
   const shopInfo = data?.item?.shop?.item;
   const noticeInfo = data?.item;
+  const { mutate: applyNotice } = useApplyNotice();
+
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    // Mutate 함수
+    e.preventDefault();
+    applyNotice({ shopId, noticeId });
+  };
 
   return (
     <div className="flex flex-col">
@@ -80,7 +88,12 @@ export default function NoticeDetailContainer({
                   </Button>
                 </Link>
               ) : (
-                <Button type="button" color="filled" className="w-full h-[38px] md:h-[48px]">
+                <Button
+                  onClick={handleClick}
+                  type="button"
+                  color="filled"
+                  className="w-full h-[38px] md:h-[48px]"
+                >
                   신청하기
                 </Button>
               )}

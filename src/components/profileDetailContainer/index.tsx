@@ -12,6 +12,7 @@ import getUserApplications from '@/apis/user/getUserApplications';
 import { formatWorkSchedule } from '@/utils/dateTimeFormat';
 import Status from '../status';
 import Pagination2 from '../pagenation2';
+import formatCurrency from '@/utils/currencyFormat';
 
 interface ProfileDetailContainerProps {
   userId: string;
@@ -29,7 +30,7 @@ interface UserApplicationItem {
     };
     notice: {
       item: {
-        hourlyPay: string;
+        hourlyPay: number;
         startsAt: string;
         workhour: number;
       };
@@ -116,7 +117,7 @@ const ProfileDetailContainer = ({ userId, token }: ProfileDetailContainerProps) 
                           )}
                         </td>
                         <td className="text-[14px] leading-[22px] md:leading-[26px] md:text-[16px] text-left hidden lg:table-cell px-[8px] py-[12px] md:px-[12px] md:py-[20px] border-r border-gray20">
-                          {application.item.notice.item.hourlyPay}
+                          {formatCurrency(application.item.notice.item.hourlyPay)}원
                         </td>
                         <td className="text-[12px] md:text-[14px] text-left px-[8px] py-[9px] md:px-[12px] md:py-[20px]">
                           <Status stat={application.item.status} />

@@ -18,7 +18,8 @@ interface ShopDetailContainerProps {
 
 const ShopDetailContainer = ({ shopId }: ShopDetailContainerProps) => {
   const { data: myShopData } = shopId
-    ? useSuspenseQuery({
+    ? // eslint-disable-next-line react-hooks/rules-of-hooks
+      useSuspenseQuery({
         queryKey: ['shopDetail', shopId],
         queryFn: () => getShopDetail(shopId),
       })

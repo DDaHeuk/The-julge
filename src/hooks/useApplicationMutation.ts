@@ -4,6 +4,8 @@ import applicationProcess from '@/apis/notice/putApplicationProcess';
 interface ApplicationData {
   applicationId: string;
   status: 'accepted' | 'rejected' | 'canceled';
+  shopId: string;
+  noticeId: string;
 }
 
 const useApplicationProcess = (): UseMutationResult<unknown, Error, ApplicationData> => {

@@ -51,11 +51,11 @@ export default function ApplicantList({ shopId, noticeId }: ApplicantListProps) 
   const { mutate: applicationProcess } = useApplicationProcess();
 
   const handleAccept = (applicationId: string) => {
-    applicationProcess({ applicationId, status: 'accepted' });
+    applicationProcess({ applicationId, status: 'accepted', shopId, noticeId });
   };
 
   const handleReject = (applicationId: string) => {
-    applicationProcess({ applicationId, status: 'rejected' });
+    applicationProcess({ applicationId, status: 'rejected', shopId, noticeId });
   };
 
   return (

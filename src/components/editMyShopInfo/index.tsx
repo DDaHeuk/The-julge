@@ -1,16 +1,19 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+
 'use client';
 
 import { ChangeEvent, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import Input from '../input';
 import Image from 'next/image';
-import DropDown from '../dropdown';
 import { FOOD_CATEGORIES } from '@/types/foodCategory';
 import { ShopDetailData } from '@/types/shopDetailData';
-import { LOCATION } from '@/constant/location';
+import LOCATION from '@/constant/location';
 import imageUpload from '@/apis/imageUpload/imageUpload';
 import Button from '@/components/button';
 import useEditShop from '@/hooks/useEditShopMutation';
+import DropDown from '../dropdown';
+import Input from '../input';
 
 interface EditMyShopInfoProps {
   shopId: string;
@@ -34,7 +37,7 @@ const EditMyShopInfo = ({ shopId }: EditMyShopInfoProps) => {
 
   const { mutate: editShop } = useEditShop();
 
-  //Input 컴포넌트에 관한 데이터 저장
+  // Input 컴포넌트에 관한 데이터 저장
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setEditShopInfo({
@@ -43,7 +46,7 @@ const EditMyShopInfo = ({ shopId }: EditMyShopInfoProps) => {
     });
   };
 
-  //드롭다운 컴포넌트에 관한 데이터 저장
+  // 드롭다운 컴포넌트에 관한 데이터 저장
   const handleDropDownChange = (name: string, value: string) => {
     setEditShopInfo({
       ...editShopInfo,
@@ -51,7 +54,7 @@ const EditMyShopInfo = ({ shopId }: EditMyShopInfoProps) => {
     });
   };
 
-  //textarea 컴포넌트에 관한 데이터 저장
+  // textarea 컴포넌트에 관한 데이터 저장
   const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setEditShopInfo({
@@ -60,13 +63,13 @@ const EditMyShopInfo = ({ shopId }: EditMyShopInfoProps) => {
     });
   };
 
-  //테스트용 함수
+  // 테스트용 함수
   const testFunc = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     editShop({ data: editShopInfo, shopId });
   };
 
-  //이미지 부분 클릭시
+  // 이미지 부분 클릭시
   const handleImageClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -102,7 +105,7 @@ const EditMyShopInfo = ({ shopId }: EditMyShopInfoProps) => {
           onChange={handleInputChange}
         />
         <div className="flex flex-col items-start gap-[8px] w-[100%]">
-          <label>분류</label>
+          <p>분류</p>
           <DropDown
             menuItems={FOOD_CATEGORIES}
             className="w-[100%] bg-white h-[58px] border rounded-[6px] border-gray30 py-[16px] px-[20px]"
@@ -117,7 +120,7 @@ const EditMyShopInfo = ({ shopId }: EditMyShopInfoProps) => {
       <div className="inline-flex flex-col items-start gap-[20px]">
         <div className="w-[100%]  flex flex-col md:flex-row gap-[20px]">
           <div className="flex flex-col items-start gap-[8px] w-[100%]">
-            <label>주소</label>
+            <p>주소</p>
             <DropDown
               menuItems={LOCATION}
               className="w-[100%] bg-white h-[58px] border rounded-[6px] border-gray30 py-[16px] px-[20px]"
@@ -188,7 +191,7 @@ const EditMyShopInfo = ({ shopId }: EditMyShopInfoProps) => {
       </div>
       {/* 가게 설명 */}
 
-      {/* 편집 버튼*/}
+      {/* 편집 버튼 */}
       <div className="flex justify-center">
         <Button type="submit" className="w-[100%] md:w-[312px]" color="filled">
           편집하기

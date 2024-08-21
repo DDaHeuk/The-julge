@@ -4,11 +4,39 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import FetchAllNotice from '@/apis/notice/fetchAllNotice';
 import NoticeList from '../noticeList';
 
+interface ShopItem {
+  id: string;
+  name: string;
+  imageUrl?: string;
+  address1: string;
+  originalHourlyPay: number;
+}
+
+interface NoticeItem {
+  id: string;
+  closed: boolean;
+  startsAt: string;
+  workhour: number;
+  hourlyPay: number;
+  shop: {
+    item: ShopItem;
+  };
+}
+
+interface Notice {
+  item: NoticeItem;
+}
+
+interface NoticeListResponse {
+  items: Notice[];
+  totalCount: number;
+}
+
 const MyPost = () => {
   const offset = 0;
   const limit = 6;
 
-  const { data } = useSuspenseQuery({
+  const { data } = useSuspenseQuery<NoticeListResponse>({
     queryKey: ['noticeAll', offset, limit],
     queryFn: () =>
       FetchAllNotice({

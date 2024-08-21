@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+
 'use client';
 
 import getProfileDetail from '@/apis/profile/profileDetail';
@@ -6,10 +8,11 @@ import NoticeAssignList from '@/components/noticeAssignList';
 import NoticeAssignProfile from '@/components/noticeAssignProfile';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import Status from '../status';
 import getUserApplications from '@/apis/user/getUserApplications';
 import { formatWorkSchedule } from '@/utils/dateTimeFormat';
+import Status from '../status';
 import Pagination2 from '../pagenation2';
+import formatCurrency from '@/utils/currencyFormat';
 
 interface ProfileDetailContainerProps {
   userId: string;
@@ -27,7 +30,7 @@ interface UserApplicationItem {
     };
     notice: {
       item: {
-        hourlyPay: string;
+        hourlyPay: number;
         startsAt: string;
         workhour: number;
       };
@@ -40,15 +43,12 @@ interface UserApplicationData {
   items: UserApplicationItem[];
 }
 
-const ITEMS_PER_PAGE = 7;
 const INITIAL_START_PAGE = 0;
 const PAGE_COUNT = 5;
 
 const ProfileDetailContainer = ({ userId, token }: ProfileDetailContainerProps) => {
   const [page, setPage] = useState<number>(INITIAL_START_PAGE);
-  const handlePageChange = (pageNumber: number) => {
-    setPage(pageNumber);
-  };
+
   const limit = PAGE_COUNT;
   const offset = page * limit;
   const { data: userInfo } = userId
@@ -71,7 +71,7 @@ const ProfileDetailContainer = ({ userId, token }: ProfileDetailContainerProps) 
         <div
           className={`flex flex-col w-[100%] ${userId && userInfo?.item.name ? 'lg:flex-row justify-between' : ''}`}
         >
-          <span className={`text-black font-bold text-[20px] md:text-[28px]`}>내 프로필</span>
+          <span className="text-black font-bold text-[20px] md:text-[28px]">내 프로필</span>
           {userId && userInfo?.item.name ? (
             <MyProfileInfo profileInfo={userInfo.item} userId={userId} />
           ) : (
@@ -117,7 +117,7 @@ const ProfileDetailContainer = ({ userId, token }: ProfileDetailContainerProps) 
                           )}
                         </td>
                         <td className="text-[14px] leading-[22px] md:leading-[26px] md:text-[16px] text-left hidden lg:table-cell px-[8px] py-[12px] md:px-[12px] md:py-[20px] border-r border-gray20">
-                          {application.item.notice.item.hourlyPay}
+                          {formatCurrency(application.item.notice.item.hourlyPay)}원
                         </td>
                         <td className="text-[12px] md:text-[14px] text-left px-[8px] py-[9px] md:px-[12px] md:py-[20px]">
                           <Status stat={application.item.status} />

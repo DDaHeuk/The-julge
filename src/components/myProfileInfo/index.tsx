@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { AssignProfileResponse as ProfileDetailData } from '@/types/assignProfileInfoData';
-import { formatPhoneNumber } from '@/utils/phoneUtils';
+import formatPhoneNumber from '@/utils/phoneUtils';
 import Link from 'next/link';
 
 interface MyProfileInfoProps {
@@ -22,7 +22,7 @@ const MyProfileInfo = ({ profileInfo, userId }: MyProfileInfoProps) => {
             <div className="flex items-center gap-[6px]">
               <div className="w-[16px] h-[16px] md:w-[20px] md:h-[20px]">
                 <div className="w-[11.2px] h-[16px] md:w-[14px] md:h-[20px] rounded-[2px] bg-red30 mx-auto flex justify-center items-center">
-                  <div className="w-[8px] h-[11.2px] md:w-[10px] md:h-[14px] bg-white"></div>
+                  <div className="w-[8px] h-[11.2px] md:w-[10px] md:h-[14px] bg-white" />
                 </div>
               </div>
               <span className="text-gray50 text-[14px] md:text-[16px] leading-[22px]">

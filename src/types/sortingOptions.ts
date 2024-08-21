@@ -5,4 +5,5 @@ export const SORTING_OPTIONS = [
   { label: '가나다순', value: 'shop' },
 ];
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export type sortingOptions = (typeof SORTING_OPTIONS)[number];

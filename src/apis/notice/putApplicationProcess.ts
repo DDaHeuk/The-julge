@@ -3,6 +3,8 @@ import axios from 'axios';
 interface ApplicationData {
   applicationId: string;
   status: 'accepted' | 'rejected' | 'canceled';
+  shopId: string;
+  noticeId: string;
 }
 
 export interface ApplicationResponse {
@@ -52,6 +54,8 @@ export interface ApplicationResponse {
 const applicationProcess = async ({
   applicationId,
   status,
+  shopId,
+  noticeId,
 }: ApplicationData): Promise<ApplicationResponse> => {
   const token = localStorage.getItem('token');
   if (!token) {
@@ -59,7 +63,7 @@ const applicationProcess = async ({
   }
 
   const response = await axios.put(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/shops/9032e147-f582-4a1d-b3f6-85e06b1254c2/notices/d594c985-c207-4585-ac06-48ab20f2b758/applications/${applicationId}`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/shops/${shopId}/notices/${noticeId}/applications/${applicationId}`,
     { status },
     {
       headers: {

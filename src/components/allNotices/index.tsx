@@ -8,6 +8,7 @@ import DropDown from '../dropdown';
 import DetailedFilter from '../detailedFilter';
 import NoticeList from '../noticeList';
 import Pagination2 from '../pagenation2';
+import { useDetailedFilterData } from '@/stores/storeDetailedFilter';
 
 const SORTING_OPTIONS = [
   { label: '마감임박순', value: 'time' },
@@ -17,6 +18,8 @@ const SORTING_OPTIONS = [
 ];
 
 const AllNotices = () => {
+  const { keyword, address, startsAtGte, hourlyPayGte } = useDetailedFilterData();
+
   const [page, setPage] = useState(0);
   const [selectedSort, setSelectedSort] = useState<'time' | 'pay' | 'hour' | 'shop' | string>(
     SORTING_OPTIONS[0].value,
@@ -25,15 +28,24 @@ const AllNotices = () => {
   const offset = page * limit;
 
   const { data } = useSuspenseQuery({
-    queryKey: ['noticeAll', offset, limit, selectedSort],
+    queryKey: [
+      'noticeAll',
+      offset,
+      limit,
+      selectedSort,
+      keyword,
+      address,
+      startsAtGte ? `${startsAtGte}T00:00:00Z` : undefined,
+      hourlyPayGte,
+    ],
     queryFn: () =>
       FetchAllNotice({
         offset,
         limit,
-        address: undefined,
-        keyword: undefined,
-        startsAtGte: undefined,
-        hourlyPayGte: undefined,
+        address: address,
+        keyword: keyword,
+        startsAtGte: startsAtGte ? `${startsAtGte}T00:00:00Z` : undefined,
+        hourlyPayGte: hourlyPayGte,
         sort: selectedSort,
       }),
   });
@@ -58,6 +70,8 @@ const AllNotices = () => {
     console.log(selectedSort);
   };
 
+  const filterCount = (address ? 1 : 0) + (startsAtGte ? 1 : 0) + (hourlyPayGte ? 1 : 0);
+
   return (
     <div className="flex px-[12px] md:px-[32px] lg:px-[238px] pt-[40px] md:pt-[60px] pb-[80px] md:pb-[60px] flex-col items-center gap-[8px]">
       <div className="relative flex flex-col gap-[16px] items-start md:flex-row md:justify-between md:items-center w-[100%]">
@@ -73,9 +87,9 @@ const AllNotices = () => {
           <button
             type="button"
             onClick={handleFilter}
-            className="flex w-[79px] h-[30px] items-center justify-center rounded-[5px] bg-red30 text-white text-[14px] font-bold"
+            className="flex w-[85px] h-[30px] items-center justify-center rounded-[5px] bg-red30 text-white text-[14px] font-bold"
           >
-            상세 필터
+            상세 필터{`(${filterCount})`}
           </button>
         </div>
         {isOpenDetailFilter && <DetailedFilter onClose={handleCloseFilter} />}

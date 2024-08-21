@@ -4,13 +4,14 @@ import axios from 'axios';
 interface UserAlertProps {
   userId: string;
   offset: number;
+  token: string;
 }
 
-const getUserAlert = async ({ userId, offset }: UserAlertProps): Promise<UserAlertResponse> => {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    throw new Error('No token found');
-  }
+const getUserAlert = async ({
+  userId,
+  offset,
+  token,
+}: UserAlertProps): Promise<UserAlertResponse> => {
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/${userId}/alerts`,

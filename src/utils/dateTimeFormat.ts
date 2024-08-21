@@ -9,8 +9,12 @@ export const dateTimeToString = (selectedDate: SelectedDate, selectedTime?: stri
 
   const formatToDisplay = (date: Date, time?: string) => {
     const dateString = date.toISOString().split('T')[0]; // YYYY-MM-DD
-    const timeString = time || '00:00';
-    return `${dateString} ${timeString}`;
+    const timeString = time || '';
+    if (time) {
+      return `${dateString} ${timeString}`;
+    } else {
+      return `${dateString}`;
+    }
   };
 
   const adjustedDate = Array.isArray(selectedDate)

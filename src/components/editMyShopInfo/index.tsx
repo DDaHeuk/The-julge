@@ -8,7 +8,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { FOOD_CATEGORIES } from '@/types/foodCategory';
 import { ShopDetailData } from '@/types/shopDetailData';
-import { LOCATION } from '@/constant/location';
+import LOCATION from '@/constant/location';
 import imageUpload from '@/apis/imageUpload/imageUpload';
 import Button from '@/components/button';
 import useEditShop from '@/hooks/useEditShopMutation';

@@ -4,7 +4,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useEffect, ChangeEvent, KeyboardEvent, FocusEvent } from 'react';
+import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react';
 import Link from 'next/link';
 import { useShopId, useMyType, useUserId } from '@/stores/storeUserInfo';
 import getUserAlert from '@/apis/alert/getUserAlert';
@@ -54,7 +54,7 @@ const NavigationBar = () => {
     }
   };
 
-  const handleFocusOut = (e: FocusEvent<HTMLInputElement>) => {
+  const handleFocusOut = () => {
     setKeyword(inputValue); // 포커스 아웃 시 keyword 업데이트
   };
 

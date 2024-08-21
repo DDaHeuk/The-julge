@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { AssignProfileResponse as ProfileDetailData } from '@/types/assignProfileInfoData';
-import { formatPhoneNumber } from '@/utils/phoneUtils';
+import formatPhoneNumber from '@/utils/phoneUtils';
 import Link from 'next/link';
 
 interface MyProfileInfoProps {

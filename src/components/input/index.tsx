@@ -5,7 +5,7 @@ import { validateEmail, validatePassword, validateVerifyPassword } from '@/utils
 import React, { useState, useRef, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { TIME } from '@/constant/time';
+import TIME from '@/constant/time';
 import { SelectedDate } from '@/types/date';
 import { dateTimeToString, dateTimeToISO } from '@/utils/dateTimeFormat';
 import Button from '../button';

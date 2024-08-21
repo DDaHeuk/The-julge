@@ -1,10 +1,10 @@
 'use client';
 
-import { LOCATION } from '@/constant/location';
 import Button from '@/components/button';
 import { ChangeEvent, useState } from 'react';
 import useEditProfile from '@/hooks/useEditProfileMutation';
 import { useSearchParams } from 'next/navigation';
+import LOCATION from '@/constant/location';
 import Input from '../input';
 import DropDown from '../dropdown';
 

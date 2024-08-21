@@ -6,7 +6,7 @@
 import { ChangeEvent, useRef, useState } from 'react';
 import Image from 'next/image';
 import { FOOD_CATEGORIES } from '@/types/foodCategory';
-import { LOCATION } from '@/constant/location';
+import LOCATION from '@/constant/location';
 import imageUpload from '@/apis/imageUpload/imageUpload';
 import Button from '@/components/button';
 import useAssignShop from '@/hooks/useAssignShopMutation';

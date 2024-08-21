@@ -12,9 +12,8 @@ export const dateTimeToString = (selectedDate: SelectedDate, selectedTime?: stri
     const timeString = time || '';
     if (time) {
       return `${dateString} ${timeString}`;
-    } else {
-      return `${dateString}`;
     }
+    return `${dateString}`;
   };
 
   const adjustedDate = Array.isArray(selectedDate)

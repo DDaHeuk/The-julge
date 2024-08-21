@@ -6,12 +6,12 @@
 
 import Image from 'next/image';
 import React, { ChangeEvent, useState } from 'react';
-import { LOCATION } from '@/constant/location';
-import Input from '../input';
-import Button from '../button';
+import LOCATION from '@/constant/location';
 import { useDetailedFilterData } from '@/stores/storeDetailedFilter';
 import { isPastTimeKST } from '@/utils/dateTimeFormat';
 import { toast } from 'sonner';
+import Button from '../button';
+import Input from '../input';
 
 interface DetailedFilterProps {
   onClose: () => void;
@@ -28,7 +28,7 @@ const DetailedFilter = ({ onClose }: DetailedFilterProps) => {
     clearFilter,
   } = useDetailedFilterData();
 
-  //로컬상태관리
+  // 로컬상태관리
   const [localAddress, setLocalAddress] = useState<string>(address);
   const [localStartsAtGte, setLocalStartsAtGte] = useState(startsAtGte);
   const [localHourlyPayGte, setLocalHourlyPayGte] = useState<number | undefined>(hourlyPayGte);

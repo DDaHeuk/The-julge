@@ -1,4 +1,4 @@
-export const LOCATION = [
+const LOCATION = [
   '서울시 종로구',
   '서울시 중구',
   '서울시 용산구',
@@ -25,3 +25,5 @@ export const LOCATION = [
   '서울시 송파구',
   '서울시 강동구',
 ];
+
+export default LOCATION;

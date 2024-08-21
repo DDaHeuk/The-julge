@@ -1,4 +1,5 @@
 'use client';
+
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -14,7 +15,7 @@ const AssignHeader = ({ title }: HeaderProps) => {
   return (
     <div className="flex justify-between items-start self-stretch">
       <span className="text-black text-[20px] md:text-[28px] font-bold">{title}</span>
-      <button onClick={handleClose}>
+      <button type="button" onClick={handleClose}>
         <Image
           className="md:w-[32px] md:h-[32px]"
           src="/icons/close.svg"

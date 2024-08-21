@@ -4,12 +4,40 @@ import React, { useState } from 'react';
 // import { SORTING_OPTIONS } from '@/types/sortingOptions';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import FetchAllNotice from '@/apis/notice/fetchAllNotice';
+import { useDetailedFilterData } from '@/stores/storeDetailedFilter';
 import DropDown from '../dropdown';
 import DetailedFilter from '../detailedFilter';
 import NoticeList from '../noticeList';
 import Pagination2 from '../pagenation2';
-import { useDetailedFilterData } from '@/stores/storeDetailedFilter';
 
+interface ShopItem {
+  id: string;
+  name: string;
+  imageUrl?: string;
+  address1: string;
+  originalHourlyPay: number;
+}
+
+interface NoticeItem {
+  id: string;
+  closed: boolean;
+  startsAt: string;
+  workhour: number;
+  hourlyPay: number;
+  shop: {
+    item: ShopItem;
+  };
+}
+
+interface Notice {
+  item: NoticeItem;
+}
+
+interface NoticeListResponse {
+  items: Notice[];
+  totalCount: number;
+  count: number;
+}
 const SORTING_OPTIONS = [
   { label: '마감임박순', value: 'time' },
   { label: '시급많은순', value: 'pay' },
@@ -27,7 +55,7 @@ const AllNotices = () => {
   const limit = 6; // 한 페이지당 나오는 item 개수. 임의로 설정. 추후 변경 필요
   const offset = page * limit;
 
-  const { data } = useSuspenseQuery({
+  const { data } = useSuspenseQuery<NoticeListResponse>({
     queryKey: [
       'noticeAll',
       offset,
@@ -42,10 +70,10 @@ const AllNotices = () => {
       FetchAllNotice({
         offset,
         limit,
-        address: address,
-        keyword: keyword,
+        address,
+        keyword,
         startsAtGte: startsAtGte ? `${startsAtGte}T00:00:00Z` : undefined,
-        hourlyPayGte: hourlyPayGte,
+        hourlyPayGte,
         sort: selectedSort,
       }),
   });
@@ -67,7 +95,6 @@ const AllNotices = () => {
     if (selectedOption) {
       setSelectedSort(selectedOption.value);
     }
-    console.log(selectedSort);
   };
 
   const filterCount = (address ? 1 : 0) + (startsAtGte ? 1 : 0) + (hourlyPayGte ? 1 : 0);

@@ -32,7 +32,7 @@ export default async function myProfile({ params }: MyProfileProps) {
   return (
     <div className="flex flex-col">
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <ProfileDetailContainer userId={userId} token={token}/>
+        <ProfileDetailContainer userId={userId} token={token} />
       </HydrationBoundary>
     </div>
   );

@@ -3,11 +3,14 @@
 import Button from '@/components/button';
 import Input from '@/components/input';
 import useSignUp from '@/hooks/useSignUpMutation';
+import { ErrorResponseData } from '@/types/errorResponseData';
 import { validateEmail } from '@/utils/validation';
+import { AxiosError } from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 interface UserInfoType {
   email: string;
@@ -52,7 +55,21 @@ export default function SignUpForm() {
       },
       {
         onSuccess: () => {
+          toast.success('회원가입 성공');
           router.push('/signin');
+        },
+        onError: (error: unknown) => {
+          let errorMessage = '회원가입 실패';
+
+          if (error instanceof AxiosError) {
+            const errorResponse = error.response?.data as ErrorResponseData;
+
+            if (errorResponse && errorResponse.message) {
+              errorMessage += `: ${errorResponse.message}`;
+            }
+          }
+
+          toast.error(errorMessage);
         },
       },
     );

@@ -1,12 +1,15 @@
+/* eslint-disable jsx-a11y/interactive-supports-focus */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+
 'use client';
 
 import Image from 'next/image';
-import { useState, useEffect, ChangeEvent, KeyboardEvent, FocusEvent } from 'react';
-import NotificationModal from '../notificationModal';
+import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react';
 import Link from 'next/link';
 import { useShopId, useMyType, useUserId } from '@/stores/storeUserInfo';
 import getUserAlert from '@/apis/alert/getUserAlert';
 import { useDetailedFilterData } from '@/stores/storeDetailedFilter';
+import NotificationModal from '../notificationModal';
 
 const NavigationBar = () => {
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
@@ -26,11 +29,11 @@ const NavigationBar = () => {
       const fetchAlerts = async () => {
         if (userId) {
           const response = await getUserAlert({
-            userId: userId,
+            userId,
             offset: 0,
-            token: token,
+            token,
           });
-          setIsNotification(response.count > 0 ? true : false);
+          setIsNotification(response.count > 0);
         }
       };
       fetchAlerts();
@@ -51,7 +54,7 @@ const NavigationBar = () => {
     }
   };
 
-  const handleFocusOut = (e: FocusEvent<HTMLInputElement>) => {
+  const handleFocusOut = () => {
     setKeyword(inputValue); // 포커스 아웃 시 keyword 업데이트
   };
 
@@ -76,7 +79,7 @@ const NavigationBar = () => {
       <div className="flex flex-col">
         <div className="flex justify-between">
           <div className="pr-[2.362px] md:pr-[3.15px] py-[7.5px] md:py-[10px] inline-flex justify-center items-center shrink-0">
-            <Link href={'/'}>
+            <Link href="/">
               <Image
                 className="md:w-[108.851px] md:h-[20px]"
                 src="/images/logo.svg"
@@ -118,7 +121,7 @@ const NavigationBar = () => {
                   </span>
                 </Link>
               )}
-              <Link href={`/`}>
+              <Link href="/">
                 <span
                   className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]"
                   role="button"
@@ -149,12 +152,12 @@ const NavigationBar = () => {
             </div>
           ) : (
             <div className="inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[40px]">
-              <Link href={'/signin'}>
+              <Link href="/signin">
                 <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px] cursor-pointer">
                   로그인
                 </span>
               </Link>
-              <Link href={'/signup'}>
+              <Link href="/signup">
                 <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px] cursor-pointer">
                   회원가입
                 </span>

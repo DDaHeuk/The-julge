@@ -6,7 +6,30 @@ import { formatWorkSchedule } from '@/utils/dateTimeFormat';
 import Link from 'next/link';
 import HourlypayCalc from '../hourlypayCalc';
 
-export default function NoticeList({ noticeData }) {
+interface ShopItem {
+  id: string;
+  name: string;
+  imageUrl?: string;
+  address1: string;
+  originalHourlyPay: number;
+}
+
+interface NoticeItem {
+  id: string;
+  closed: boolean;
+  startsAt: string;
+  workhour: number;
+  hourlyPay: number;
+  shop: {
+    item: ShopItem;
+  };
+}
+
+interface NoticeData {
+  item: NoticeItem;
+}
+
+export default function NoticeList({ noticeData }: { noticeData: NoticeData }) {
   const processedData = noticeData.item;
 
   const processedShopData = processedData.shop.item;

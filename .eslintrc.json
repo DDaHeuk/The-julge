@@ -35,6 +35,7 @@
         "namedComponents": "function-declaration",
         "unnamedComponents": "arrow-function"
       }
-    ]
+    ],
+    "no-console": "off"
   }
 }

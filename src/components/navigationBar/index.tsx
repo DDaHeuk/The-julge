@@ -168,6 +168,10 @@ const NavigationBar = () => {
           <input
             className="flex text-[12px] w-[233px] outline-none h-[20px] flex-col justify-center shrink-0 leading-[16px] bg-gray10 text-gray40"
             placeholder="가게 이름으로 찾아보세요"
+            value={inputValue} // 상태값으로 제어
+            onChange={handleKeywordChange}
+            onKeyDown={handleKeyDown} // 엔터 키 입력 처리
+            onBlur={handleFocusOut} // 포커스 아웃 처리
           />
         </div>
       </div>

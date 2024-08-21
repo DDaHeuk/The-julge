@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { cookies } from 'next/headers';
 
 interface UserApplicationsProps {
   userId: string;
@@ -8,7 +7,7 @@ interface UserApplicationsProps {
   token: string | undefined;
 }
 
-const getUserApplications = async ({ userId, offset, limit, token}: UserApplicationsProps) => {
+const getUserApplications = async ({ userId, offset, limit, token }: UserApplicationsProps) => {
   if (!token) {
     throw new Error('No token found');
   }

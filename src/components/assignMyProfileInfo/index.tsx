@@ -1,11 +1,12 @@
 'use client';
+
 import { LOCATION } from '@/constant/location';
-import DropDown from '../dropdown';
-import Input from '../input';
 import Button from '@/components/button';
 import { ChangeEvent, useState } from 'react';
 import useEditProfile from '@/hooks/useEditProfileMutation';
 import { useSearchParams } from 'next/navigation';
+import Input from '../input';
+import DropDown from '../dropdown';
 
 const AssignMyProfileInfo = () => {
   const searchParams = useSearchParams();
@@ -18,7 +19,7 @@ const AssignMyProfileInfo = () => {
 
   const { mutate: assignProfile } = useEditProfile();
 
-  //Input 컴포넌트에 관한 데이터 저장
+  // Input 컴포넌트에 관한 데이터 저장
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setAssignProfileInfo({
@@ -27,7 +28,7 @@ const AssignMyProfileInfo = () => {
     });
   };
 
-  //드롭다운 컴포넌트에 관한 데이터 저장
+  // 드롭다운 컴포넌트에 관한 데이터 저장
   const handleDropDownChange = (name: string, value: string) => {
     setAssignProfileInfo({
       ...assignProfileInfo,
@@ -35,7 +36,7 @@ const AssignMyProfileInfo = () => {
     });
   };
 
-  //textarea 컴포넌트에 관한 데이터 저장
+  // textarea 컴포넌트에 관한 데이터 저장
   const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setAssignProfileInfo({
@@ -44,7 +45,7 @@ const AssignMyProfileInfo = () => {
     });
   };
 
-  //테스트용 함수
+  // 테스트용 함수
   const testFunc = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     assignProfile(assignProfileInfo);
@@ -70,7 +71,7 @@ const AssignMyProfileInfo = () => {
           value={assignProfileInfo.phone}
           onChange={handleInputChange}
         />
-        <div className={`flex flex-col gap-2`}>
+        <div className="flex flex-col gap-2">
           <p>선호 지역</p>
           <DropDown
             menuItems={LOCATION}

@@ -2,10 +2,10 @@
 
 import { ChangeEvent, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import Input from '../input';
 import Button from '@/components/button';
 import useEditNotice from '@/hooks/useEditNoticeMutation';
 import { storedDataTimeToString, dateTimeToString } from '@/utils/dateTimeFormat';
+import Input from '../input';
 
 interface EditNoticeInfoProps {
   shopId: string;
@@ -109,7 +109,7 @@ const EditNoticeInfo = ({ shopId, noticeId }: EditNoticeInfoProps) => {
       </div>
       {/* 공고 설명 */}
 
-      {/* 등록 버튼*/}
+      {/* 등록 버튼 */}
       <div className="flex justify-center">
         <Button type="submit" className="w-[100%] md:w-[312px]" color="filled">
           편집하기

@@ -1,9 +1,9 @@
 'use client';
 
 import { ChangeEvent, useState } from 'react';
-import Input from '../input';
 import Button from '@/components/button';
 import useAssignNotice from '@/hooks/useAssignNoticeMutation';
+import Input from '../input';
 
 const AssignNoticeInfo = () => {
   const { mutate: assignNotice } = useAssignNotice();
@@ -81,7 +81,7 @@ const AssignNoticeInfo = () => {
       </div>
       {/* 공고 설명 */}
 
-      {/* 등록 버튼*/}
+      {/* 등록 버튼 */}
       <div className="flex justify-center">
         <Button type="submit" className="w-[100%] md:w-[312px]" color="filled">
           등록하기

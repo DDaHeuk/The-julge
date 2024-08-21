@@ -55,7 +55,6 @@ const AllNotices = () => {
     if (selectedOption) {
       setSelectedSort(selectedOption.value);
     }
-    console.log(selectedSort);
   };
 
   return (

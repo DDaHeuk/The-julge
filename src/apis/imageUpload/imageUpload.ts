@@ -11,9 +11,8 @@ const uploadImageToS3 = async (url: string, file: File): Promise<string> => {
       // URL에서 파일의 S3 URL을 추출합니다.
       const s3Url = url.split('?')[0]; // Presigned URL의 쿼리 파라미터를 제거한 S3 URL
       return s3Url;
-    } else {
-      throw new Error('Failed to upload image to S3');
     }
+    throw new Error('Failed to upload image to S3');
   } catch (error) {
     console.error(error);
     throw error;

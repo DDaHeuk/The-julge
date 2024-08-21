@@ -47,7 +47,7 @@ export const dateTimeToISO = (selectedDate: SelectedDate, selectedTime?: string)
   return adjustedDate;
 };
 
-//데이터를 불러와서 날짜와 시간 분리해주는 유틸함수
+// 데이터를 불러와서 날짜와 시간 분리해주는 유틸함수
 export const storedDataTimeToString = (
   isoString: string,
 ): { selectedDate: SelectedDate; selectedTime: string } => {
@@ -55,6 +55,7 @@ export const storedDataTimeToString = (
   const date = new Date(isoString);
 
   // 날짜 부분 (YYYY-MM-DD)와 시간 부분 (HH:MM)으로 분리
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const dateString = date.toISOString().split('T')[0]; // YYYY-MM-DD
   const timeString = date.toISOString().split('T')[1].slice(0, 5); // HH:MM
 
@@ -94,7 +95,7 @@ export const formatWorkSchedule = (isoDateString: string, workhour: number) => {
   return `${startYear}-${startMonth}-${startDay} ${startHours}:${startMinutes}~${formattedEnd} (${workhour}시간)`;
 };
 
-//마감이 되었는지 판단하기 위한 함수
+// 마감이 되었는지 판단하기 위한 함수
 export const isPastTimeKST = (isoTimeStr: string): boolean => {
   // ISO 8601 문자열을 Date 객체로 변환
   const inputTime = new Date(isoTimeStr);

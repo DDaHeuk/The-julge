@@ -49,14 +49,14 @@ export default function Input({
     };
   }, []);
 
-  const validate = (value: string) => {
+  const validate = (values: string) => {
     let errorMsg = '';
     if (variant === 'email') {
-      errorMsg = validateEmail(value);
+      errorMsg = validateEmail(values);
     } else if (variant === 'password') {
-      errorMsg = validatePassword(value);
+      errorMsg = validatePassword(values);
     } else if (variant === 'passwordVerify') {
-      errorMsg = validateVerifyPassword(originalPassword || '', value);
+      errorMsg = validateVerifyPassword(originalPassword || '', values);
     } else {
       errorMsg = '';
     }
@@ -99,6 +99,7 @@ export default function Input({
     setSelectedTime(time);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   const handleApply = (selectedDate: SelectedDate, selectedTime: string) => {
     if (variant === 'dateTime' && selectedDate && selectedTime) {
       const displayString = dateTimeToString(selectedDate, selectedTime);

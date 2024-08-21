@@ -9,15 +9,15 @@ import getUserAlert from '@/apis/alert/getUserAlert';
 import { useDetailedFilterData } from '@/stores/storeDetailedFilter';
 
 const NavigationBar = () => {
+  const { keyword, setKeyword } = useDetailedFilterData();
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [isNotification, setIsNotification] = useState<boolean>(false);
   const [isOpenNotification, setIsOpenNotification] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string>(keyword);
 
   const { shopId, setShopId } = useShopId();
   const { myType, setMyType } = useMyType();
   const { userId, setUserId } = useUserId();
-  const { setKeyword } = useDetailedFilterData();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -36,6 +36,11 @@ const NavigationBar = () => {
       fetchAlerts();
     }
   }, [userId]);
+
+  // `keyword`가 변경될 때 `inputValue`를 업데이트합니다.
+  useEffect(() => {
+    setInputValue(keyword);
+  }, [keyword]);
 
   const handleNotiifcation = () => {
     setIsOpenNotification(!isOpenNotification);

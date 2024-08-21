@@ -14,17 +14,19 @@ interface CustomNotice {
   initialAddress: string | undefined;
 }
 
-const CustomNotice = ({ initialAddress }: CustomNotice) => {
+const CustomNotice = () => {
   const offset = 0;
   const limit = 6;
 
+  const { userAddress } = useAddress();
+
   const { data } = useSuspenseQuery({
-    queryKey: ['noticeCustom', initialAddress],
+    queryKey: ['noticeAll', userAddress],
     queryFn: () =>
       FetchAllNotice({
         offset,
         limit,
-        address: initialAddress ? initialAddress : undefined,
+        address: userAddress ? userAddress : undefined,
         keyword: undefined,
         startsAtGte: undefined,
         hourlyPayGte: undefined,

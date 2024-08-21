@@ -21,9 +21,7 @@ const useEditProfile = (): UseMutationResult<
     onSuccess: (data) => {
       toast.success('프로필 편집 성공');
       setUserAddress(data.item.address);
-      document.cookie = `address=${encodeURIComponent(data.item.address)}; path=/; max-age=${60 * 60 * 24}`;
       queryClient.invalidateQueries({ queryKey: ['profileDetail', userId] });
-      queryClient.invalidateQueries({ queryKey: ['noticeCustom', data.item.address] });
       router.push(`/myprofile/${userId}`);
     },
     onError: (error) => {

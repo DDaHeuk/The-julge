@@ -12,6 +12,7 @@ export interface SignInResponse {
         id: string;
         email: string;
         type: string;
+        address: string;
       };
     };
   };

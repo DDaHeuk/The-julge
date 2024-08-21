@@ -4,35 +4,34 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent, KeyboardEvent, FocusEvent } from 'react';
 import Link from 'next/link';
 import { useShopId, useMyType, useUserId } from '@/stores/storeUserInfo';
 import getUserAlert from '@/apis/alert/getUserAlert';
+import { useDetailedFilterData } from '@/stores/storeDetailedFilter';
 import NotificationModal from '../notificationModal';
 
-interface NavigationBarProps {
-  shopId?: string | undefined;
-  userId?: string | undefined;
-  myType?: string | undefined;
-}
-
-const NavigationBar = ({ shopId, userId, myType }: NavigationBarProps) => {
-  // const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
+const NavigationBar = () => {
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [isNotification, setIsNotification] = useState<boolean>(false);
   const [isOpenNotification, setIsOpenNotification] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>('');
 
-  const { setShopId } = useShopId();
-  const { setMyType } = useMyType();
-  const { setUserId } = useUserId();
+  const { shopId, setShopId } = useShopId();
+  const { myType, setMyType } = useMyType();
+  const { userId, setUserId } = useUserId();
+  const { setKeyword } = useDetailedFilterData();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
+      setIsAuthorized(true);
       const fetchAlerts = async () => {
         if (userId) {
           const response = await getUserAlert({
             userId,
             offset: 0,
+            token,
           });
           setIsNotification(response.count > 0);
         }
@@ -43,6 +42,20 @@ const NavigationBar = ({ shopId, userId, myType }: NavigationBarProps) => {
 
   const handleNotiifcation = () => {
     setIsOpenNotification(!isOpenNotification);
+  };
+
+  const handleKeywordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value); // 입력값을 상태에 저장
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      setKeyword(inputValue); // 엔터 키를 눌렀을 때 keyword 업데이트
+    }
+  };
+
+  const handleFocusOut = (e: FocusEvent<HTMLInputElement>) => {
+    setKeyword(inputValue); // 포커스 아웃 시 keyword 업데이트
   };
 
   const handleCloseNotification = () => {
@@ -58,7 +71,7 @@ const NavigationBar = ({ shopId, userId, myType }: NavigationBarProps) => {
     document.cookie = 'userId=; path=/; max-age=0;';
     document.cookie = 'myType=; path=/; max-age=0;';
     document.cookie = 'token=; path=/; max-age=0;';
-    // setIsAuthorized(false);
+    setIsAuthorized(false);
   };
 
   return (
@@ -87,9 +100,13 @@ const NavigationBar = ({ shopId, userId, myType }: NavigationBarProps) => {
             <input
               className="flex text-[14px] h-[20px] flex-col justify-center outline-none shrink-0 bg-gray10 text-gray40 md:leading-[22px] "
               placeholder="가게 이름으로 찾아보세요"
+              value={inputValue} // 상태값으로 제어
+              onChange={handleKeywordChange}
+              onKeyDown={handleKeyDown} // 엔터 키 입력 처리
+              onBlur={handleFocusOut} // 포커스 아웃 처리
             />
           </div>
-          {userId ? (
+          {isAuthorized ? (
             <div className="relative inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[40px]">
               {myType === 'employer' ? (
                 <Link href={`/myshop/${shopId}`}>
@@ -154,6 +171,10 @@ const NavigationBar = ({ shopId, userId, myType }: NavigationBarProps) => {
           <input
             className="flex text-[12px] w-[233px] outline-none h-[20px] flex-col justify-center shrink-0 leading-[16px] bg-gray10 text-gray40"
             placeholder="가게 이름으로 찾아보세요"
+            value={inputValue} // 상태값으로 제어
+            onChange={handleKeywordChange}
+            onKeyDown={handleKeyDown} // 엔터 키 입력 처리
+            onBlur={handleFocusOut} // 포커스 아웃 처리
           />
         </div>
       </div>

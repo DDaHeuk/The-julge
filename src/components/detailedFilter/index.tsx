@@ -5,31 +5,68 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { LOCATION } from '@/constant/location';
 import Input from '../input';
 import Button from '../button';
+import { useDetailedFilterData } from '@/stores/storeDetailedFilter';
+import { isPastTimeKST } from '@/utils/dateTimeFormat';
+import { toast } from 'sonner';
 
 interface DetailedFilterProps {
   onClose: () => void;
 }
 
 const DetailedFilter = ({ onClose }: DetailedFilterProps) => {
-  const [selectedLocation, setSelectedLocation] = useState<string[]>([]);
+  const {
+    address,
+    startsAtGte,
+    hourlyPayGte,
+    setAddress,
+    setStartsAtGte,
+    setHourlyPayGte,
+    clearFilter,
+  } = useDetailedFilterData();
 
-  const handleLocationClick = (location: string) => {
-    setSelectedLocation((prevSelected) => {
-      if (prevSelected.includes(location)) {
-        return [...prevSelected];
-      }
-      return [...prevSelected, location];
-    });
+  //로컬상태관리
+  const [localAddress, setLocalAddress] = useState<string>(address);
+  const [localStartsAtGte, setLocalStartsAtGte] = useState(startsAtGte);
+  const [localHourlyPayGte, setLocalHourlyPayGte] = useState<number | undefined>(hourlyPayGte);
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (name === 'startsAtGte') {
+      setLocalStartsAtGte(value);
+    } else if (name === 'hourlyPayGte') {
+      setLocalHourlyPayGte(Number(value));
+    }
   };
 
-  const handleRemoveLocation = (location: string) => {
-    setSelectedLocation((prevSelected) => {
-      return prevSelected.filter((item) => item !== location);
-    });
+  const handleLocationClick = (location: string) => {
+    setLocalAddress(location);
+  };
+
+  const handleRemoveLocation = () => {
+    setLocalAddress('');
+  };
+
+  const handleApply = () => {
+    // 로컬 상태를 zustand 스토어에 저장
+    if (isPastTimeKST(localStartsAtGte)) {
+      toast.error('날짜가 과거 시간입니다.');
+    } else {
+      setAddress(localAddress);
+      setStartsAtGte(localStartsAtGte);
+      if (localHourlyPayGte !== undefined) {
+        setHourlyPayGte(localHourlyPayGte);
+      }
+      onClose();
+    }
+  };
+
+  const handleClear = () => {
+    clearFilter();
+    onClose();
   };
 
   return (
@@ -60,35 +97,48 @@ const DetailedFilter = ({ onClose }: DetailedFilterProps) => {
           ))}
         </div>
         <div className="grid grid-cols-2 gap-x-[8px] gap-y-[15px]">
-          {selectedLocation.map((item: string, index) => (
-            <React.Fragment key={index}>
-              <div className="flex py-[6px] px-[10px] justify-center items-center gap-1 rounded-[20px] bg-red10">
-                <span className="text-[14px] font-bold text-primary">{item}</span>
-                <Image
-                  onClick={() => handleRemoveLocation(item)}
-                  src="/icons/close_primary.svg"
-                  alt="닫기 버튼"
-                  width={16}
-                  height={16}
-                />
-              </div>
-            </React.Fragment>
-          ))}
+          {localAddress && (
+            <div className="flex py-[6px] px-[10px] justify-center items-center gap-1 rounded-[20px] bg-red10">
+              <span className="text-[14px] font-bold text-primary">{localAddress}</span>
+              <Image
+                onClick={() => handleRemoveLocation()}
+                src="/icons/close_primary.svg"
+                alt="닫기 버튼"
+                width={16}
+                height={16}
+              />
+            </div>
+          )}
         </div>
       </div>
       <hr className="h-[2px] self-stretch border-gray10" />
-      <Input variant="date" label="시작일" className="w-full" />
+      <Input
+        variant="date"
+        name="startsAtGte"
+        label="시작일"
+        className="w-full"
+        onChange={handleInputChange}
+        value={startsAtGte}
+      />
       <hr className="h-[2px] self-stretch border-gray10" />
       <div className="flex justify-center items-center">
-        <Input variant="unit" unitLabel="원" label="가격" className="w-[169px]" />
+        <Input
+          variant="unit"
+          name="hourlyPayGte"
+          unitLabel="원"
+          label="가격"
+          className="w-[169px]"
+          onChange={handleInputChange}
+          value={hourlyPayGte}
+        />
         <span className="ml-3 mt-5">이상부터</span>
       </div>
       <hr className="h-[2px] self-stretch border-gray10" />
       <div className="flex items-start gap-2 w-full md:mt-[16px]">
-        <Button color="noFilled" className="w-[30%]">
+        <Button color="noFilled" className="w-[30%]" onClick={handleClear}>
           초기화
         </Button>
-        <Button color="filled" className="w-[70%]">
+        <Button color="filled" className="w-[70%]" onClick={handleApply}>
           적용하기
         </Button>
       </div>

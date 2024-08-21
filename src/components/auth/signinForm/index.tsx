@@ -11,6 +11,9 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { SignInData } from '@/types/signInData';
 import { useMyType, useUserId, useShopId } from '@/stores/storeUserInfo';
 import getUserInfo from '@/apis/user/getUserInfo';
+import { toast } from 'sonner';
+import { ErrorResponseData } from '@/types/errorResponseData';
+import { AxiosError } from 'axios';
 
 export default function SignInForm() {
   const [signinInfo, setSigninInfo] = useState<SignInData>({
@@ -43,6 +46,7 @@ export default function SignInForm() {
       },
       {
         onSuccess: async (data) => {
+          toast.success('로그인 성공');
           const userId = data.item.user.item.id;
           const { type } = data.item.user.item;
           localStorage.setItem('token', data.item.token);
@@ -64,6 +68,19 @@ export default function SignInForm() {
             }
           }
           router.push('/');
+        },
+        onError: (error: unknown) => {
+          let errorMessage = '로그인 실패';
+
+          if (error instanceof AxiosError) {
+            const errorResponse = error.response?.data as ErrorResponseData;
+
+            if (errorResponse && errorResponse.message) {
+              errorMessage += `: ${errorResponse.message}`;
+            }
+          }
+
+          toast.error(errorMessage);
         },
       },
     );

@@ -10,6 +10,8 @@ import { LOCATION } from '@/constant/location';
 import Input from '../input';
 import Button from '../button';
 import { useDetailedFilterData } from '@/stores/storeDetailedFilter';
+import { isPastTimeKST } from '@/utils/dateTimeFormat';
+import { toast } from 'sonner';
 
 interface DetailedFilterProps {
   onClose: () => void;
@@ -50,12 +52,16 @@ const DetailedFilter = ({ onClose }: DetailedFilterProps) => {
 
   const handleApply = () => {
     // 로컬 상태를 zustand 스토어에 저장
-    setAddress(localAddress);
-    setStartsAtGte(localStartsAtGte);
-    if (localHourlyPayGte !== undefined) {
-      setHourlyPayGte(localHourlyPayGte);
+    if (isPastTimeKST(localStartsAtGte)) {
+      toast.error('날짜가 과거 시간입니다.');
+    } else {
+      setAddress(localAddress);
+      setStartsAtGte(localStartsAtGte);
+      if (localHourlyPayGte !== undefined) {
+        setHourlyPayGte(localHourlyPayGte);
+      }
+      onClose();
     }
-    onClose();
   };
 
   const handleClear = () => {

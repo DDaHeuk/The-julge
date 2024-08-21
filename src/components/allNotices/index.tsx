@@ -35,7 +35,7 @@ const AllNotices = () => {
       limit,
       selectedSort,
       address,
-      `${startsAtGte}T00:00:00Z`,
+      startsAtGte ? `${startsAtGte}T00:00:00Z` : undefined,
       hourlyPayGte,
     ],
     queryFn: () =>
@@ -44,7 +44,7 @@ const AllNotices = () => {
         limit,
         address: address,
         keyword: undefined,
-        startsAtGte: `${startsAtGte}T00:00:00Z`,
+        startsAtGte: startsAtGte ? `${startsAtGte}T00:00:00Z` : undefined,
         hourlyPayGte: hourlyPayGte,
         sort: selectedSort,
       }),

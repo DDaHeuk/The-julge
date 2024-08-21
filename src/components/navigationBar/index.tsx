@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useShopId, useMyType, useUserId } from '@/stores/storeUserInfo';
 import getUserAlert from '@/apis/alert/getUserAlert';
 import { useDetailedFilterData } from '@/stores/storeDetailedFilter';
+import { useQueryClient } from '@tanstack/react-query';
 
 const NavigationBar = () => {
   const { setKeyword } = useDetailedFilterData();
@@ -68,6 +69,7 @@ const NavigationBar = () => {
     document.cookie = 'userId=; path=/; max-age=0;';
     document.cookie = 'myType=; path=/; max-age=0;';
     document.cookie = 'token=; path=/; max-age=0;';
+    document.cookie = 'address=; path=/; max-age=0;';
     setIsAuthorized(false);
   };
 

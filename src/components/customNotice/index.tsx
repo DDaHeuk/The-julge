@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -8,23 +8,30 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import FetchAllNotice from '@/apis/notice/fetchAllNotice';
 import CustomArrow from '../customArrow';
 import NoticeList from '../noticeList';
+import { useAddress } from '@/stores/storeUserInfo';
 
-const CustomNotice = () => {
+interface CustomNotice {
+  initialAddress: string | undefined;
+}
+
+const CustomNotice = ({ initialAddress }: CustomNotice) => {
   const offset = 0;
   const limit = 6;
+
   const { data } = useSuspenseQuery({
-    queryKey: ['noticeAll', offset, limit],
+    queryKey: ['noticeCustom', initialAddress],
     queryFn: () =>
       FetchAllNotice({
         offset,
         limit,
-        address: undefined,
+        address: initialAddress ? initialAddress : undefined,
         keyword: undefined,
         startsAtGte: undefined,
         hourlyPayGte: undefined,
         sort: undefined,
       }),
   });
+
   const fetchData = data?.items;
 
   const settings = {

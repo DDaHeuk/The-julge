@@ -1,5 +1,5 @@
 import editProfile from '@/apis/editProfileInfo/editProfileInfo';
-import { useUserId } from '@/stores/storeUserInfo';
+import { useUserId, useAddress } from '@/stores/storeUserInfo';
 import { AssignProfileInfoData, AssignProfileResponse } from '@/types/assignProfileInfoData';
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -10,13 +10,17 @@ const useEditProfile = (): UseMutationResult<
   AssignProfileInfoData
 > => {
   const { userId } = useUserId();
+  const { setUserAddress } = useAddress();
   const queryClient = useQueryClient();
   const router = useRouter();
   return useMutation({
     mutationFn: (data: AssignProfileInfoData) => editProfile(userId, data),
-    onSuccess: () => {
+    onSuccess: (data) => {
       console.log('프로필 수정 성공');
+      setUserAddress(data.item.address);
+      document.cookie = `address=${encodeURIComponent(data.item.address)}; path=/; max-age=${60 * 60 * 24}`;
       queryClient.invalidateQueries({ queryKey: ['profileDetail', userId] });
+      queryClient.invalidateQueries({ queryKey: ['noticeCustom', data.item.address] });
       router.push(`/myprofile/${userId}`);
     },
     onError: (error) => {

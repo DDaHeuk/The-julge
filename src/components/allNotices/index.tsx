@@ -9,7 +9,6 @@ import DetailedFilter from '../detailedFilter';
 import NoticeList from '../noticeList';
 import Pagination2 from '../pagenation2';
 import { useDetailedFilterData } from '@/stores/storeDetailedFilter';
-import { dateTimeToISO, toRFC3339 } from '@/utils/dateTimeFormat';
 
 const SORTING_OPTIONS = [
   { label: '마감임박순', value: 'time' },
@@ -19,7 +18,7 @@ const SORTING_OPTIONS = [
 ];
 
 const AllNotices = () => {
-  const { address, startsAtGte, hourlyPayGte } = useDetailedFilterData();
+  const { keyword, address, startsAtGte, hourlyPayGte } = useDetailedFilterData();
 
   const [page, setPage] = useState(0);
   const [selectedSort, setSelectedSort] = useState<'time' | 'pay' | 'hour' | 'shop' | string>(
@@ -34,6 +33,7 @@ const AllNotices = () => {
       offset,
       limit,
       selectedSort,
+      keyword,
       address,
       startsAtGte ? `${startsAtGte}T00:00:00Z` : undefined,
       hourlyPayGte,
@@ -43,7 +43,7 @@ const AllNotices = () => {
         offset,
         limit,
         address: address,
-        keyword: undefined,
+        keyword: keyword,
         startsAtGte: startsAtGte ? `${startsAtGte}T00:00:00Z` : undefined,
         hourlyPayGte: hourlyPayGte,
         sort: selectedSort,

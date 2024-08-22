@@ -1,7 +1,7 @@
 'use client';
 
 import fetchNoticeApplication from '@/apis/notice/fetchNoticeApplication';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import useApplicationProcess from '@/hooks/useApplicationMutation';
 import { useState } from 'react';
 import Status from '../status';
@@ -16,7 +16,7 @@ interface ApplicationItem {
     user: {
       item: {
         name: string;
-        intro: string;
+        bio: string;
         phone: string;
       };
     };
@@ -37,25 +37,46 @@ interface ApplicantListProps {
 }
 
 export default function ApplicantList({ shopId, noticeId }: ApplicantListProps) {
+  const queryClient = useQueryClient();
+
   const [page, setPage] = useState(0);
   const limit = 1; // 한 페이지당 나오는 item 개수. 임의로 설정. 추후 변경 필요
   const offset = page * limit;
 
   const { data } = useSuspenseQuery<ApplicationData>({
-    queryKey: ['noticeApplication', offset, limit],
+    queryKey: ['noticeApplication', shopId, noticeId, offset, limit],
     queryFn: () => fetchNoticeApplication({ shopId, noticeId, offset, limit }),
   });
 
   const applicationFetchData = data?.items || [];
+  console.log(applicationFetchData);
 
   const { mutate: applicationProcess } = useApplicationProcess();
 
   const handleAccept = (applicationId: string) => {
-    applicationProcess({ applicationId, status: 'accepted', shopId, noticeId });
+    applicationProcess(
+      { applicationId, status: 'accepted', shopId, noticeId },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ['noticeApplication', shopId, noticeId, offset, limit],
+          });
+        },
+      },
+    );
   };
 
   const handleReject = (applicationId: string) => {
-    applicationProcess({ applicationId, status: 'rejected', shopId, noticeId });
+    applicationProcess(
+      { applicationId, status: 'rejected', shopId, noticeId },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ['noticeApplication', shopId, noticeId, offset, limit],
+          });
+        },
+      },
+    );
   };
 
   return (
@@ -84,7 +105,7 @@ export default function ApplicantList({ shopId, noticeId }: ApplicantListProps) 
                 {applications.item.user.item.name}
               </td>
               <td className="text-[14px] text-left hidden md:w-[33.3%] lg:w-[31.1%] md:table-cell px-[8px] py-[12px] md:px-[12px] md:py-[20px] border-r border-gray20">
-                {applications.item.user.item.intro}
+                {applications.item.user.item.bio}
               </td>
               <td className="text-[14px] text-left hidden lg:w-[20.7%] lg:table-cell px-[8px] py-[12px] md:px-[12px] md:py-[20px] border-r border-gray20">
                 {applications.item.user.item.phone}

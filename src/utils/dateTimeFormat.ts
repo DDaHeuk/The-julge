@@ -114,3 +114,23 @@ export const isPastTimeKST = (isoTimeStr: string): boolean => {
   // 과거의 시간인지 비교
   return inputTimeKST.getTime() < currentTimeKSTOffset.getTime();
 };
+
+export const formatTimeAgo = (createdAt: string | Date): string => {
+  const createdTime = new Date(createdAt);
+  const now = new Date();
+
+  const diffInMs = now.getTime() - createdTime.getTime();
+  const diffInMinutes = Math.floor(diffInMs / 60000); // 1분 = 60000 밀리초
+
+  if (diffInMinutes < 60) {
+    return `${diffInMinutes}분 전`; // 예: "5분 전"
+  }
+
+  const diffInHours = Math.floor(diffInMinutes / 60);
+  if (diffInHours < 24) {
+    return `${diffInHours}시간 전`; // 예: "3시간 전"
+  }
+
+  const diffInDays = Math.floor(diffInHours / 24);
+  return `${diffInDays}일 전`; // 예: "2일 전"
+};

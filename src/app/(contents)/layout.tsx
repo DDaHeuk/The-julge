@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import NavigationBar from '@/components/navigationBar';
 import Footer from '@/components/footer';
-import { cookies } from 'next/headers';
 
 export const metadata: Metadata = {
   title: 'The Julge',

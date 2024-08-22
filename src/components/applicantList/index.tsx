@@ -40,7 +40,7 @@ export default function ApplicantList({ shopId, noticeId }: ApplicantListProps) 
   const queryClient = useQueryClient();
 
   const [page, setPage] = useState(0);
-  const limit = 1; // 한 페이지당 나오는 item 개수. 임의로 설정. 추후 변경 필요
+  const limit = 4; // 한 페이지당 나오는 item 개수. 임의로 설정. 추후 변경 필요
   const offset = page * limit;
 
   const { data } = useSuspenseQuery<ApplicationData>({
@@ -49,7 +49,6 @@ export default function ApplicantList({ shopId, noticeId }: ApplicantListProps) 
   });
 
   const applicationFetchData = data?.items || [];
-  console.log(applicationFetchData);
 
   const { mutate: applicationProcess } = useApplicationProcess();
 

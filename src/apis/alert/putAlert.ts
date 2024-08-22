@@ -6,7 +6,7 @@ const readAlert = async ({ userId, alertId }: ReadAlertData): Promise<ReadAlertR
   if (!token) {
     throw new Error('No token found');
   }
-  console.log('토큰', token);
+
   const response = await axios.put(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/${userId}/alerts/${alertId}`,
     {},

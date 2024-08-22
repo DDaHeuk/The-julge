@@ -37,7 +37,12 @@ const NavigationBar = () => {
             token,
           });
           setAlertsData(response.items);
-          setIsNotification(response.count > 0);
+          const unreadNotifications = response.items.filter((alertItem) => !alertItem.item.read); // 읽음 처리된 데이터들은 제외
+          if (unreadNotifications.length > 0) {
+            setIsNotification(true);
+          } else {
+            setIsNotification(false);
+          }
         }
       };
       fetchAlerts();

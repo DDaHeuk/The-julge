@@ -4,15 +4,15 @@ import Footer from '@/components/footer';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import FetchAllNotice from '@/apis/notice/fetchAllNotice';
 import AllNotices from '@/components/allNotices';
-import { cookies } from 'next/headers';
+// import { cookies } from 'next/headers';
 
 export default async function Home() {
   const queryClient = new QueryClient();
   const limit = 6;
   const offset = 0;
 
-  const cookieStore = cookies();
-  const userId = cookieStore.get('userId')?.value;
+  //   const cookieStore = cookies();
+  //   const userId = cookieStore.get('userId')?.value;
 
   await queryClient.prefetchQuery({
     queryKey: ['noticeAll'],

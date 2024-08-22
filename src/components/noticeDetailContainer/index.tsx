@@ -6,9 +6,9 @@ import fetchNoticeDetail from '@/apis/notice/noticeDetail';
 import { formatWorkSchedule } from '@/utils/dateTimeFormat';
 import formatCurrency from '@/utils/currencyFormat';
 import Link from 'next/link';
+import useApplyNotice from '@/hooks/useApplyNoticeMutation';
 import Button from '../button';
 import HourlypayCalc from '../hourlypayCalc';
-import useApplyNotice from '@/hooks/useApplyNoticeMutation';
 
 interface NoticeDetailContainerProps {
   memberType: 'owner' | 'employee';

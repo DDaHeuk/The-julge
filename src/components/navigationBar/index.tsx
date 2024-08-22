@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useShopId, useMyType, useUserId, useAddress } from '@/stores/storeUserInfo';
 import getUserAlert from '@/apis/alert/getUserAlert';
 import { useDetailedFilterData } from '@/stores/storeDetailedFilter';
+import { NotificationItem } from '@/types/notificationItem';
 import NotificationModal from '../notificationModal';
 
 const NavigationBar = () => {
@@ -17,6 +18,7 @@ const NavigationBar = () => {
   const [isNotification, setIsNotification] = useState<boolean>(false);
   const [isOpenNotification, setIsOpenNotification] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
+  const [alertsData, setAlertsData] = useState<NotificationItem[]>([]);
 
   const { shopId, setShopId } = useShopId();
   const { myType, setMyType } = useMyType();
@@ -34,6 +36,7 @@ const NavigationBar = () => {
             offset: 0,
             token,
           });
+          setAlertsData(response.items);
           setIsNotification(response.count > 0);
         }
       };
@@ -150,7 +153,12 @@ const NavigationBar = () => {
                   height={20}
                 />
               )}
-              {isOpenNotification && <NotificationModal onClose={handleCloseNotification} />}
+              {isOpenNotification && (
+                <NotificationModal
+                  notificationData={alertsData}
+                  onClose={handleCloseNotification}
+                />
+              )}
             </div>
           ) : (
             <div className="inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[40px]">

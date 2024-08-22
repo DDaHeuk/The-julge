@@ -6,12 +6,13 @@
 import Image from 'next/image';
 import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react';
 import Link from 'next/link';
-import { useShopId, useMyType, useUserId } from '@/stores/storeUserInfo';
+import { useShopId, useMyType, useUserId, useAddress } from '@/stores/storeUserInfo';
 import getUserAlert from '@/apis/alert/getUserAlert';
 import { useDetailedFilterData } from '@/stores/storeDetailedFilter';
 import NotificationModal from '../notificationModal';
 
 const NavigationBar = () => {
+  const { setKeyword } = useDetailedFilterData();
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [isNotification, setIsNotification] = useState<boolean>(false);
   const [isOpenNotification, setIsOpenNotification] = useState<boolean>(false);
@@ -20,7 +21,7 @@ const NavigationBar = () => {
   const { shopId, setShopId } = useShopId();
   const { myType, setMyType } = useMyType();
   const { userId, setUserId } = useUserId();
-  const { setKeyword } = useDetailedFilterData();
+  const { setUserAddress } = useAddress();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -67,6 +68,7 @@ const NavigationBar = () => {
     setShopId('');
     setMyType('');
     setUserId('');
+    setUserAddress('');
     document.cookie = 'shopId=; path=/; max-age=0;';
     document.cookie = 'userId=; path=/; max-age=0;';
     document.cookie = 'myType=; path=/; max-age=0;';

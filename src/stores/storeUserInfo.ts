@@ -51,3 +51,20 @@ export const useShopId = create(
     },
   ),
 );
+
+interface UserAddress {
+  userAddress: string;
+  setUserAddress: (newUserAddress: string) => void;
+}
+
+export const useAddress = create(
+  persist<UserAddress>(
+    (set) => ({
+      userAddress: '',
+      setUserAddress: (newUserAddress: string) => set({ userAddress: newUserAddress }),
+    }),
+    {
+      name: 'userAddressStorage',
+    },
+  ),
+);

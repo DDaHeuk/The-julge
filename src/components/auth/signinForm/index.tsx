@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { SignInData } from '@/types/signInData';
-import { useMyType, useUserId, useShopId } from '@/stores/storeUserInfo';
+import { useMyType, useUserId, useShopId, useAddress } from '@/stores/storeUserInfo';
 import getUserInfo from '@/apis/user/getUserInfo';
 import { toast } from 'sonner';
 import { ErrorResponseData } from '@/types/errorResponseData';
@@ -26,6 +26,7 @@ export default function SignInForm() {
   const { setMyType } = useMyType();
   const { setUserId } = useUserId();
   const { setShopId } = useShopId();
+  const { setUserAddress } = useAddress();
 
   const router = useRouter();
 
@@ -53,6 +54,7 @@ export default function SignInForm() {
           document.cookie = `token=${data.item.token}; path=/; max-age=${60 * 60 * 24}`;
           setUserId(userId);
           setMyType(type);
+          setUserAddress(data.item.user.item.address);
           document.cookie = `userId=${userId}; path=/; max-age=${60 * 60 * 24}`;
           document.cookie = `myType=${type}; path=/; max-age=${60 * 60 * 24}`;
           // 사장님인 경우에만 내 정보 조회 후 shop Id를 저장

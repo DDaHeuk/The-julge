@@ -1,16 +1,14 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import '@/app/global.css';
 import ReactQueryProvider from '@/provider/reactQueryProvider';
 import { Toaster } from 'sonner';
+import { spoqaHanSansNeo } from '../../public/fonts/localfonts';
 
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'The Julge',
   description: 'The Julge',
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -18,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={inter.className}>
+      <body className={spoqaHanSansNeo.className}>
         <ReactQueryProvider>
           {children}
           <Toaster richColors position="top-center" />

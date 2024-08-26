@@ -27,6 +27,7 @@ const NotificationModal = ({ onClose, notificationData }: NotificationModalProps
       {
         onSuccess: () => {
           console.log('알림 읽음');
+          // 여기 인벨리데이트쿼리 사용할 예정
         },
       },
     );

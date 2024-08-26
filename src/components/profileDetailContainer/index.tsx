@@ -10,9 +10,9 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import getUserApplications from '@/apis/user/getUserApplications';
 import { formatWorkSchedule } from '@/utils/dateTimeFormat';
+import formatCurrency from '@/utils/currencyFormat';
 import Status from '../status';
 import Pagination2 from '../pagenation2';
-import formatCurrency from '@/utils/currencyFormat';
 
 interface ProfileDetailContainerProps {
   userId: string;

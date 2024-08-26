@@ -7,7 +7,7 @@
 import Image from 'next/image';
 import React, { ChangeEvent, useState } from 'react';
 import LOCATION from '@/constant/location';
-import { useDetailedFilterData } from '@/stores/storeDetailedFilter';
+import useDetailedFilterData from '@/stores/storeDetailedFilter';
 import { isPastTimeKST } from '@/utils/dateTimeFormat';
 import { toast } from 'sonner';
 import Button from '../button';

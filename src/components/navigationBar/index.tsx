@@ -8,7 +8,7 @@ import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react';
 import Link from 'next/link';
 import { useShopId, useMyType, useUserId, useAddress } from '@/stores/storeUserInfo';
 import getUserAlert from '@/apis/alert/getUserAlert';
-import { useDetailedFilterData } from '@/stores/storeDetailedFilter';
+import useDetailedFilterData from '@/stores/storeDetailedFilter';
 import { NotificationItem } from '@/types/notificationItem';
 import NotificationModal from '../notificationModal';
 
@@ -37,7 +37,12 @@ const NavigationBar = () => {
             token,
           });
           setAlertsData(response.items);
-          setIsNotification(response.count > 0);
+          const unreadNotifications = response.items.filter((alertItem) => !alertItem.item.read); // 읽음 처리된 데이터들은 제외
+          if (unreadNotifications.length > 0) {
+            setIsNotification(true);
+          } else {
+            setIsNotification(false);
+          }
         }
       };
       fetchAlerts();

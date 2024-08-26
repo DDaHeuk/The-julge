@@ -4,13 +4,13 @@ import React, { useEffect, useState } from 'react';
 // import { SORTING_OPTIONS } from '@/types/sortingOptions';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import FetchAllNotice from '@/apis/notice/fetchAllNotice';
-import { useDetailedFilterData } from '@/stores/storeDetailedFilter';
+import useDetailedFilterData from '@/stores/storeDetailedFilter';
 import DropDown from '../dropdown';
 import DetailedFilter from '../detailedFilter';
 import NoticeList from '../noticeList';
 import Pagination2 from '../pagenation2';
 
-interface ShopItem {
+export interface ShopItem {
   id: string;
   name: string;
   imageUrl?: string;
@@ -18,7 +18,7 @@ interface ShopItem {
   originalHourlyPay: number;
 }
 
-interface NoticeItem {
+export interface NoticeItem {
   id: string;
   closed: boolean;
   startsAt: string;
@@ -29,11 +29,11 @@ interface NoticeItem {
   };
 }
 
-interface Notice {
+export interface Notice {
   item: NoticeItem;
 }
 
-interface NoticeListResponse {
+export interface NoticeListResponse {
   items: Notice[];
   totalCount: number;
   count: number;

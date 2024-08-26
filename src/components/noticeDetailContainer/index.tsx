@@ -37,7 +37,7 @@ export default function NoticeDetailContainer({
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col gap-3 px-[12px] py-[40px] md:px-[32px] md:py-[60px] md:gap-6 lg:px-[238px]">
+      <div className="flex flex-col gap-3 px-[12px] py-[40px] md:px-[32px] md:py-[60px] md:gap-6 lg:px-[400px]">
         <div className="flex flex-col">
           <div className="flex flex-col gap-2">
             <p className="text-[14px] text-primary font-bold md:text-[16px]">

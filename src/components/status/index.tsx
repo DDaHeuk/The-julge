@@ -1,0 +1,77 @@
+'use client';
+
+import { useMyType } from '@/stores/storeUserInfo';
+import Button from '../button';
+
+interface StateProp {
+  stat: string;
+  onAccept?: () => void;
+  onReject?: () => void;
+}
+
+function Status({ stat, onAccept, onReject }: StateProp) {
+  let bgClass = '';
+  let textClass = '';
+  let status = '';
+  const { myType } = useMyType();
+
+  switch (stat) {
+    case 'accepted':
+      bgClass = 'bg-blue10';
+      textClass = 'text-blue20';
+      status = '승인 완료';
+      break;
+    case 'pending':
+      bgClass = 'bg-green10';
+      textClass = 'text-green20';
+      status = '대기중';
+      break;
+    case 'rejected':
+      bgClass = 'bg-red10';
+      textClass = 'text-red40';
+      status = '거절';
+      break;
+    default:
+      bgClass = 'bg-gray10'; // 기본 상태 클래스 (필요에 따라 수정)
+      textClass = 'text-gray20';
+  }
+
+  return (
+    <div className="flex items-center">
+      {myType === 'employee' ? (
+        <span
+          className={`${bgClass} ${textClass} px-[10px] py-[6px] justify-center items-center rounded-[20px] leading-[16px] md:font-bold`}
+        >
+          {status}
+        </span>
+      ) : (
+        <>
+          {stat !== 'pending' && (
+            <span
+              className={`${bgClass} ${textClass} px-[10px] py-[6px] justify-center items-center rounded-[20px] leading-[16px] md:font-bold`}
+            >
+              {status}
+            </span>
+          )}
+          {stat === 'pending' && (
+            <div className="flex w-full gap-2">
+              <Button
+                type="button"
+                onClick={onAccept}
+                color="noFilled"
+                className="w-[50%] h-[32px]"
+              >
+                수락
+              </Button>
+              <Button type="button" onClick={onReject} color="filled" className="w-[50%] h-[32px]">
+                거절
+              </Button>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+export default Status;

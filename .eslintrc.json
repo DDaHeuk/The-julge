@@ -23,6 +23,19 @@
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }],
-    "no-useless-catch": "off"
+    "no-useless-catch": "off",
+    "jsx-a11y/click-events-have-key-events": "warn",
+    "react/no-array-index-key": "warn",
+    "jsx-a11y/no-noninteractive-element-to-interactive-role": "warn",
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
+    "react/function-component-definition": [
+      "off",
+      {
+        "namedComponents": "function-declaration",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
+    "no-console": "off"
   }
 }

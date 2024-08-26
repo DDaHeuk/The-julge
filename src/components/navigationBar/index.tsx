@@ -8,7 +8,7 @@ import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react';
 import Link from 'next/link';
 import { useShopId, useMyType, useUserId, useAddress } from '@/stores/storeUserInfo';
 import getUserAlert from '@/apis/alert/getUserAlert';
-import { useDetailedFilterData } from '@/stores/storeDetailedFilter';
+import useDetailedFilterData from '@/stores/storeDetailedFilter';
 import { NotificationItem } from '@/types/notificationItem';
 import NotificationModal from '../notificationModal';
 

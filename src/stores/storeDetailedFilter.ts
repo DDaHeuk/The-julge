@@ -12,7 +12,7 @@ interface DetailedFilterData {
   clearFilter: () => void;
 }
 
-export const useDetailedFilterData = create<DetailedFilterData>((set) => ({
+const useDetailedFilterData = create<DetailedFilterData>((set) => ({
   address: '',
   startsAtGte: '',
   hourlyPayGte: 0,
@@ -29,3 +29,5 @@ export const useDetailedFilterData = create<DetailedFilterData>((set) => ({
       keyword: '',
     }),
 }));
+
+export default useDetailedFilterData;

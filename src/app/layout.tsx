@@ -4,7 +4,6 @@ import ReactQueryProvider from '@/provider/reactQueryProvider';
 import { Toaster } from 'sonner';
 import { spoqaHanSansNeo } from '../../public/fonts/localfonts';
 
-
 export const metadata: Metadata = {
   title: 'The Julge',
   description: 'The Julge',

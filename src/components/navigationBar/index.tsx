@@ -19,6 +19,7 @@ const NavigationBar = () => {
   const [isOpenNotification, setIsOpenNotification] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
   const [alertsData, setAlertsData] = useState<NotificationItem[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true); // 로딩 상태 추가
 
   const { shopId, setShopId } = useShopId();
   const { myType, setMyType } = useMyType();
@@ -30,6 +31,7 @@ const NavigationBar = () => {
     if (token) {
       setIsAuthorized(true);
       const fetchAlerts = async () => {
+        setIsLoading(true); // 로딩 시작
         if (userId) {
           const response = await getUserAlert({
             userId,
@@ -44,6 +46,7 @@ const NavigationBar = () => {
             setIsNotification(false);
           }
         }
+        setIsLoading(false); // 로딩 끝
       };
       fetchAlerts();
     }
@@ -116,7 +119,9 @@ const NavigationBar = () => {
               onBlur={handleFocusOut} // 포커스 아웃 처리
             />
           </div>
-          {isAuthorized ? (
+          {isLoading ? (
+            <div className="flex justify-center items-center" />
+          ) : isAuthorized ? (
             <div className="relative inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[40px]">
               {myType === 'employer' ? (
                 <Link href={`/myshop/${shopId}`}>

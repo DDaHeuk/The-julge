@@ -1,6 +1,6 @@
-import localFont from 'next/font/local'
+import localFont from 'next/font/local';
 
-export const spoqaHanSansNeo = localFont({
+const spoqaHanSansNeo = localFont({
   src: [
     {
       path: './SpoqaHanSansNeo-Regular.woff2',
@@ -14,4 +14,5 @@ export const spoqaHanSansNeo = localFont({
     },
   ],
   display: 'swap',
-})
+});
+export default spoqaHanSansNeo;

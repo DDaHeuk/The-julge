@@ -57,7 +57,7 @@ const CustomNotice = () => {
     ],
   };
   return (
-    <div className="flex px-[30px] md:px-[36px] lg:px-[238px] py-[40px] md:py-[60px] flex-col items-start bg-red10 mt-[10px]">
+    <div className="flex px-[30px] md:px-[36px] lg:px-[400px] py-[40px] md:py-[60px] flex-col items-start bg-red10 mt-[10px]">
       <div className="flex flex-col gap-[20px] w-[100%]">
         <span className="text-[20px] md:text-[28px] font-bold">맞춤 공고</span>
         {isLoading || isFetching ? (

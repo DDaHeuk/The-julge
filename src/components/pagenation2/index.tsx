@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface PaginationProps {
   totalPages: number;
@@ -10,10 +11,12 @@ interface PaginationProps {
 
 function Pagination2({ totalPages, currentPage, onPageChange }: PaginationProps) {
   const [selectedPage, setSelectedPage] = useState(currentPage);
+  const router = useRouter(); // useRouter 훅 사용
 
   const handleClick = (page: number) => {
     setSelectedPage(page);
     onPageChange(page);
+    router.push(`?page=${page}`); // URL 업데이트
   };
 
   const handlePrevious = () => {

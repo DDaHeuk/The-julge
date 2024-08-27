@@ -67,7 +67,7 @@ const ProfileDetailContainer = ({ userId, token }: ProfileDetailContainerProps) 
 
   return (
     <div className="flex flex-col">
-      <div className="flex px-[12px] py-[40px] md:px-[32px] md:py-[60px] lg:px-[238px] lg:py-[60px] flex-col items-start gap-[8px]">
+      <div className="flex px-[12px] py-[40px] md:px-[32px] md:py-[60px] lg:px-[400px] lg:py-[60px] flex-col items-start gap-[8px]">
         <div
           className={`flex flex-col w-[100%] ${userId && userInfo?.item.name ? 'lg:flex-row justify-between' : ''}`}
         >
@@ -81,7 +81,7 @@ const ProfileDetailContainer = ({ userId, token }: ProfileDetailContainerProps) 
       </div>
       {userId && (
         <div
-          className={`flex flex-col items-start gap-[8px] px-[12px] pt-[40px] pb-[80px] md:px-[32px] md:pt-[60px] ${applications ? 'md:pb-[60px]' : 'md:pb-[120px]'} lg:px-[238px] bg-gray5`}
+          className={`flex flex-col items-start gap-[8px] px-[12px] pt-[40px] pb-[80px] md:px-[32px] md:pt-[60px] ${applications ? 'md:pb-[60px]' : 'md:pb-[120px]'} lg:px-[400px] bg-gray5`}
         >
           <div className="flex-col w-[100%] gap-[16px] md:gap-[32px]">
             <span className="text-black font-bold text-[20px] md:text-[28px]">신청 내역</span>

@@ -31,7 +31,7 @@ export default async function NoticeDetailPage({ params }: { params: Params }) {
     <div className="bg-gray5">
       <HydrationBoundary state={dehydrate(queryClient)}>
         <NoticeDetailContainer shopId={shopId} noticeId={noticeId} memberType="owner" />
-        <div className="flex flex-col gap-3 px-[12px] py-[40px] md:px-[32px] md:py-[60px] lg:px-[238px]">
+        <div className="flex flex-col gap-3 px-[12px] py-[40px] md:px-[32px] md:py-[60px] lg:px-[400px]">
           <h2 className="text-black text-5 font-bold md:text-[28px]">신청자목록</h2>
           <ApplicantList shopId={shopId} noticeId={noticeId} />
         </div>

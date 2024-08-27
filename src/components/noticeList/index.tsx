@@ -43,7 +43,7 @@ export default function NoticeList({ noticeData }: { noticeData: NoticeData }) {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
-          className="relative -z-10 flex justify-center items-center rounded-[12px] w-[100%] h-[171px] lg:h-[160px]"
+          className="relative flex justify-center items-center rounded-[12px] w-[100%] h-[171px] lg:h-[160px]"
         >
           {processedData.closed && (
             <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center rounded-[12px]">

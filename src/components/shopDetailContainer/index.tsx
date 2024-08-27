@@ -63,7 +63,7 @@ const ShopDetailContainer = ({ shopId }: ShopDetailContainerProps) => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex  px-[12px] py-[40px] md:px-[32px] md:py-[60px] lg:px-[237px] lg:py-[60px] flex-col items-start gap-[8px]">
+      <div className="flex  px-[12px] py-[40px] md:px-[32px] md:py-[60px] lg:px-[400px] lg:py-[60px] flex-col items-start gap-[8px]">
         <div className="flex-col w-[100%]">
           <span className="text-black font-bold text-[20px] md:text-[28px]">내 가게</span>
           {shopId && myShopData ? (
@@ -74,7 +74,7 @@ const ShopDetailContainer = ({ shopId }: ShopDetailContainerProps) => {
         </div>
       </div>
       {shopId && (
-        <div className="flex  px-[12px] pt-[40px] pb-[80px] md:px-[32px] md:pt-[60px] md:pb-[120px] lg:px-[237px]  flex-col items-start gap-[8px]">
+        <div className="flex  px-[12px] pt-[40px] pb-[80px] md:px-[32px] md:pt-[60px] md:pb-[120px] lg:px-[400px]  flex-col items-start gap-[8px]">
           <div className="flex-col w-[100%] gap-[16px] md:gap-[32px]">
             <span className="text-black font-bold text-[20px] md:text-[28px]">
               {myNoticeData?.pages[0].count !== 0 ? '내가 등록한 공고' : '등록한 공고'}

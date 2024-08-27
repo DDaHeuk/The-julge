@@ -109,7 +109,7 @@ const AllNotices = () => {
   const filterCount = (address ? 1 : 0) + (startsAtGte ? 1 : 0) + (hourlyPayGte ? 1 : 0);
 
   return (
-    <div className="flex px-[12px] md:px-[32px] lg:px-[238px] pt-[40px] md:pt-[60px] pb-[80px] md:pb-[60px] flex-col items-center gap-[8px]">
+    <div className="flex px-[12px] md:px-[32px] lg:px-[400px] pt-[40px] md:pt-[60px] pb-[80px] md:pb-[60px] flex-col items-center gap-[8px]">
       <div className="relative flex flex-col gap-[16px] items-start md:flex-row md:justify-between md:items-center w-[100%]">
         <div className="flex flex-row">
           <span

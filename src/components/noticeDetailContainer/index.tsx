@@ -79,7 +79,17 @@ export default function NoticeDetailContainer({ shopId, noticeId }: NoticeDetail
               </div>
 
               {myType === 'employer' ? (
-                <Link href={`/editnotice/${shopId}/${noticeId}`}>
+                <Link
+                  href={{
+                    pathname: `/editnotice/${shopId}/${noticeId}`,
+                    query: {
+                      hourlyPay: noticeInfo?.hourlyPay,
+                      startsAt: noticeInfo?.startsAt,
+                      workhour: noticeInfo?.workhour,
+                      description: noticeInfo?.description,
+                    },
+                  }}
+                >
                   <Button type="button" color="noFilled" className="w-full h-[38px] md:h-[48px]">
                     공고 편집하기
                   </Button>

@@ -88,7 +88,7 @@ const NavigationBar = () => {
   };
 
   return (
-    <div className="bg-white h-[102px] md:h-[70px] py-[10px] px-[20px] md:px-[32px] md:py-[15px] lg:px-[208px]">
+    <div className="bg-white h-[102px] md:h-[70px] py-[10px] px-[20px] md:px-[32px] md:py-[15px] lg:px-[300px]">
       <div className="flex flex-col">
         <div className="flex justify-between">
           <div className="pr-[2.362px] md:pr-[3.15px] py-[7.5px] md:py-[10px] inline-flex justify-center items-center shrink-0">
@@ -120,7 +120,9 @@ const NavigationBar = () => {
             />
           </div>
           {isLoading ? (
-            <div className="flex justify-center items-center" />
+            <div className="flex justify-center items-center">
+              {/* 로딩 중일 때 로딩 스피너나 인디케이터를 여기에 추가할 수 있습니다 */}
+            </div>
           ) : isAuthorized ? (
             <div className="relative inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[40px]">
               {myType === 'employer' ? (

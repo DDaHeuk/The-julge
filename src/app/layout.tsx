@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import '@/app/global.css';
 import ReactQueryProvider from '@/provider/reactQueryProvider';
 import { Toaster } from 'sonner';
-import { spoqaHanSansNeo } from '../../public/fonts/localfonts';
+import spoqaHanSansNeo from '../../public/fonts/localfonts';
 
 export const metadata: Metadata = {
   title: 'The Julge',

@@ -1,7 +1,7 @@
 'use client';
 
 import { ChangeEvent, useState } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
+import { useSearchParams } from 'next/navigation';
 import Button from '@/components/button';
 import useEditNotice from '@/hooks/useEditNoticeMutation';
 import { storedDataTimeToString, dateTimeToString } from '@/utils/dateTimeFormat';
@@ -12,26 +12,15 @@ interface EditNoticeInfoProps {
   noticeId: string;
 }
 
-interface CachedNoticeData {
-  item: {
-    description: string;
-    hourlyPay: number;
-    startsAt: string;
-    workhour: number;
-  };
-}
-
 const EditNoticeInfo = ({ shopId, noticeId }: EditNoticeInfoProps) => {
-  const queryClient = useQueryClient();
-  const cachedNoticeData = queryClient.getQueryData(['noticeDetail']) as CachedNoticeData;
-
+  const searchParams = useSearchParams();
   const { mutate: editNotice } = useEditNotice();
 
   const [editNoticeInfo, setEditNoticeInfo] = useState({
-    hourlyPay: cachedNoticeData?.item.hourlyPay,
-    startsAt: cachedNoticeData?.item.startsAt,
-    workhour: cachedNoticeData?.item.workhour,
-    description: cachedNoticeData?.item.description,
+    hourlyPay: Number(searchParams.get('hourlyPay')) ?? 0,
+    startsAt: searchParams.get('startsAt') ?? '',
+    workhour: Number(searchParams.get('workhour')) ?? 0,
+    description: searchParams.get('description') ?? '',
   });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +41,6 @@ const EditNoticeInfo = ({ shopId, noticeId }: EditNoticeInfoProps) => {
 
   const handleSubmitNotice = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(cachedNoticeData);
     editNotice({ data: editNoticeInfo, shopId, noticeId });
   };
 
@@ -73,7 +61,7 @@ const EditNoticeInfo = ({ shopId, noticeId }: EditNoticeInfoProps) => {
             label="시급"
             name="hourlyPay"
             onChange={handleInputChange}
-            value={cachedNoticeData?.item.hourlyPay}
+            value={editNoticeInfo.hourlyPay}
           />
           <Input
             className="w-[100%]"
@@ -81,7 +69,7 @@ const EditNoticeInfo = ({ shopId, noticeId }: EditNoticeInfoProps) => {
             label="시작 일시"
             name="startsAt"
             onChange={handleInputChange}
-            value={calculateDate(cachedNoticeData?.item.startsAt)}
+            value={calculateDate(editNoticeInfo.startsAt)}
           />
         </div>
         <Input
@@ -91,7 +79,7 @@ const EditNoticeInfo = ({ shopId, noticeId }: EditNoticeInfoProps) => {
           label="업무 시간"
           name="workhour"
           onChange={handleInputChange}
-          value={cachedNoticeData?.item.workhour}
+          value={editNoticeInfo.workhour}
         />
       </div>
       {/* 시급 + 시작 일시 + 업무시간에 관한 input */}

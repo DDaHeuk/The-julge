@@ -4,10 +4,9 @@
 'use client';
 
 import { ChangeEvent, useRef, useState } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
+import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { FOOD_CATEGORIES } from '@/types/foodCategory';
-import { ShopDetailData } from '@/types/shopDetailData';
 import LOCATION from '@/constant/location';
 import imageUpload from '@/apis/imageUpload/imageUpload';
 import Button from '@/components/button';
@@ -20,18 +19,17 @@ interface EditMyShopInfoProps {
 }
 
 const EditMyShopInfo = ({ shopId }: EditMyShopInfoProps) => {
-  const queryClient = useQueryClient();
-  const cachedShopData = queryClient.getQueryData(['shopDetail', shopId]) as ShopDetailData;
+  const searchParams = useSearchParams();
 
-  const [imageUrl, setImageUrl] = useState<string>(cachedShopData?.item.imageUrl);
+  const [imageUrl, setImageUrl] = useState<string>(searchParams.get('imageUrl') ?? '');
   const [editShopInfo, setEditShopInfo] = useState({
-    name: cachedShopData?.item.name,
-    category: cachedShopData?.item.category,
-    address1: cachedShopData?.item.address1,
-    address2: cachedShopData?.item.address2,
-    description: cachedShopData?.item.description,
-    imageUrl: cachedShopData?.item.imageUrl,
-    originalHourlyPay: cachedShopData?.item.originalHourlyPay,
+    name: searchParams.get('name') ?? '',
+    category: searchParams.get('category') ?? '',
+    address1: searchParams.get('address1') ?? '',
+    address2: searchParams.get('address2') ?? '',
+    description: searchParams.get('description') ?? '',
+    imageUrl: searchParams.get('imageUrl') ?? '',
+    originalHourlyPay: Number(searchParams.get('originalHourlyPay')) ?? 0,
   });
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -101,7 +99,7 @@ const EditMyShopInfo = ({ shopId }: EditMyShopInfoProps) => {
           variant="normal"
           name="name"
           label="가게 이름"
-          value={cachedShopData?.item.name}
+          value={editShopInfo.name}
           onChange={handleInputChange}
         />
         <div className="flex flex-col items-start gap-[8px] w-[100%]">
@@ -110,7 +108,7 @@ const EditMyShopInfo = ({ shopId }: EditMyShopInfoProps) => {
             menuItems={FOOD_CATEGORIES}
             className="w-[100%] bg-white h-[58px] border rounded-[6px] border-gray30 py-[16px] px-[20px]"
             onSelect={(value) => handleDropDownChange('category', value)}
-            initialValue={cachedShopData?.item.category}
+            initialValue={editShopInfo.category}
           />
         </div>
       </div>
@@ -125,7 +123,7 @@ const EditMyShopInfo = ({ shopId }: EditMyShopInfoProps) => {
               menuItems={LOCATION}
               className="w-[100%] bg-white h-[58px] border rounded-[6px] border-gray30 py-[16px] px-[20px]"
               onSelect={(value) => handleDropDownChange('address1', value)}
-              initialValue={cachedShopData?.item.address1}
+              initialValue={editShopInfo.address1}
             />
           </div>
           <Input
@@ -133,7 +131,7 @@ const EditMyShopInfo = ({ shopId }: EditMyShopInfoProps) => {
             variant="normal"
             name="address2"
             label="상세주소"
-            value={cachedShopData?.item.address2}
+            value={editShopInfo.address2}
             onChange={handleInputChange}
           />
         </div>
@@ -143,7 +141,7 @@ const EditMyShopInfo = ({ shopId }: EditMyShopInfoProps) => {
           name="originalHourlyPay"
           unitLabel="원"
           label="기본 시급"
-          value={cachedShopData?.item.originalHourlyPay}
+          value={editShopInfo.originalHourlyPay}
           onChange={handleInputChange}
         />
       </div>

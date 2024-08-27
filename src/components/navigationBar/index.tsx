@@ -25,11 +25,15 @@ const NavigationBar = () => {
   const { userId, setUserId } = useUserId();
   const { setUserAddress } = useAddress();
 
+  let content;
+  const [isLoading, setIsLoading] = useState<boolean>(true); // 로딩 상태 추가
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       setIsAuthorized(true);
       const fetchAlerts = async () => {
+        setIsLoading(true); // 로딩 시작
         if (userId) {
           const response = await getUserAlert({
             userId,
@@ -47,6 +51,7 @@ const NavigationBar = () => {
       };
       fetchAlerts();
     }
+    setIsLoading(false); // 로딩 끝
   }, [userId]);
 
   const handleNotiifcation = () => {
@@ -84,8 +89,75 @@ const NavigationBar = () => {
     setIsAuthorized(false);
   };
 
+  if (isLoading) {
+    content = <div className="flex justify-center items-center" />;
+  } else if (isAuthorized) {
+    content = (
+      <div className="relative inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[40px]">
+        {myType === 'employer' ? (
+          <Link href={`/myshop/${shopId}`}>
+            <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]">
+              내 가게
+            </span>
+          </Link>
+        ) : (
+          <Link href={`/myprofile/${userId}`}>
+            <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]">
+              내 프로필
+            </span>
+          </Link>
+        )}
+        <Link href="/">
+          <span
+            className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]"
+            role="button"
+            onClick={handleRemoveToken}
+          >
+            로그아웃
+          </span>
+        </Link>
+        {isNotification ? (
+          <Image
+            onClick={handleNotiifcation}
+            className="md:w-[24px] md:h-[24px]"
+            src="/icons/notification/active.svg"
+            alt="알림 활성화 아이콘"
+            width={20}
+            height={20}
+          />
+        ) : (
+          <Image
+            className="md:w-[24px] md:h-[24px]"
+            src="/icons/notification/inactive.svg"
+            alt="알림 비활성화 아이콘"
+            width={20}
+            height={20}
+          />
+        )}
+        {isOpenNotification && (
+          <NotificationModal notificationData={alertsData} onClose={handleCloseNotification} />
+        )}
+      </div>
+    );
+  } else {
+    content = (
+      <div className="inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[40px]">
+        <Link href="/signin">
+          <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px] cursor-pointer">
+            로그인
+          </span>
+        </Link>
+        <Link href="/signup">
+          <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px] cursor-pointer">
+            회원가입
+          </span>
+        </Link>
+      </div>
+    );
+  }
+
   return (
-    <div className="bg-white h-[102px] md:h-[70px] py-[10px] px-[20px] md:px-[32px] md:py-[15px] lg:px-[208px]">
+    <div className="bg-white h-[102px] md:h-[70px] py-[10px] px-[20px] md:px-[32px] md:py-[15px] lg:px-[300px]">
       <div className="flex flex-col">
         <div className="flex justify-between">
           <div className="pr-[2.362px] md:pr-[3.15px] py-[7.5px] md:py-[10px] inline-flex justify-center items-center shrink-0">
@@ -116,69 +188,7 @@ const NavigationBar = () => {
               onBlur={handleFocusOut} // 포커스 아웃 처리
             />
           </div>
-          {isAuthorized ? (
-            <div className="relative inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[40px]">
-              {myType === 'employer' ? (
-                <Link href={`/myshop/${shopId}`}>
-                  <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]">
-                    내 가게
-                  </span>
-                </Link>
-              ) : (
-                <Link href={`/myprofile/${userId}`}>
-                  <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]">
-                    내 프로필
-                  </span>
-                </Link>
-              )}
-              <Link href="/">
-                <span
-                  className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]"
-                  role="button"
-                  onClick={handleRemoveToken}
-                >
-                  로그아웃
-                </span>
-              </Link>
-              {isNotification ? (
-                <Image
-                  onClick={handleNotiifcation}
-                  className="md:w-[24px] md:h-[24px]"
-                  src="/icons/notification/active.svg"
-                  alt="알림 활성화 아이콘"
-                  width={20}
-                  height={20}
-                />
-              ) : (
-                <Image
-                  className="md:w-[24px] md:h-[24px]"
-                  src="/icons/notification/inactive.svg"
-                  alt="알림 비활성화 아이콘"
-                  width={20}
-                  height={20}
-                />
-              )}
-              {isOpenNotification && (
-                <NotificationModal
-                  notificationData={alertsData}
-                  onClose={handleCloseNotification}
-                />
-              )}
-            </div>
-          ) : (
-            <div className="inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[40px]">
-              <Link href="/signin">
-                <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px] cursor-pointer">
-                  로그인
-                </span>
-              </Link>
-              <Link href="/signup">
-                <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px] cursor-pointer">
-                  회원가입
-                </span>
-              </Link>
-            </div>
-          )}
+          {content}
         </div>
 
         <div className="flex md:hidden w-[100%] p-[8px] items-center gap-[8px] rounded-[10px] bg-gray10 mt-[16px]">

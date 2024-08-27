@@ -19,13 +19,14 @@ const NavigationBar = () => {
   const [isOpenNotification, setIsOpenNotification] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
   const [alertsData, setAlertsData] = useState<NotificationItem[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true); // 로딩 상태 추가
-  let content;
 
   const { shopId, setShopId } = useShopId();
   const { myType, setMyType } = useMyType();
   const { userId, setUserId } = useUserId();
   const { setUserAddress } = useAddress();
+
+  let content;
+  const [isLoading, setIsLoading] = useState<boolean>(true); // 로딩 상태 추가
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -47,10 +48,10 @@ const NavigationBar = () => {
             setIsNotification(false);
           }
         }
-        setIsLoading(false); // 로딩 끝
       };
       fetchAlerts();
     }
+    setIsLoading(false); // 로딩 끝
   }, [userId]);
 
   const handleNotiifcation = () => {

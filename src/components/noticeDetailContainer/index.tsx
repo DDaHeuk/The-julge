@@ -7,7 +7,9 @@ import { formatWorkSchedule } from '@/utils/dateTimeFormat';
 import formatCurrency from '@/utils/currencyFormat';
 import Link from 'next/link';
 import useApplyNotice from '@/hooks/useApplyNoticeMutation';
-import { useMyType } from '@/stores/storeUserInfo';
+import { useAddress, useMyType, useUserId } from '@/stores/storeUserInfo';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import Button from '../button';
 import HourlypayCalc from '../hourlypayCalc';
 
@@ -25,11 +27,19 @@ export default function NoticeDetailContainer({ shopId, noticeId }: NoticeDetail
   const noticeInfo = data?.item;
   const { mutate: applyNotice } = useApplyNotice();
   const { myType } = useMyType();
+  const { userId } = useUserId();
+  const { userAddress } = useAddress();
+  const router = useRouter();
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     // Mutate 함수
     e.preventDefault();
-    applyNotice({ shopId, noticeId });
+    if (userAddress) {
+      applyNotice({ shopId, noticeId });
+    } else {
+      toast.error('내 프로필을 먼저 등록해주세요.');
+      router.push(`/myprofile/${userId}`);
+    }
   };
 
   return (

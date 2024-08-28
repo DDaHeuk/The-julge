@@ -69,7 +69,7 @@ export default function SignInForm() {
               console.error('Failed to fetch user info:', error);
             }
           }
-          router.push('/');
+          router.back();
         },
         onError: (error: unknown) => {
           let errorMessage = '로그인 실패';

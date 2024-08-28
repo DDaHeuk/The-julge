@@ -7,20 +7,18 @@ import { formatWorkSchedule } from '@/utils/dateTimeFormat';
 import formatCurrency from '@/utils/currencyFormat';
 import Link from 'next/link';
 import useApplyNotice from '@/hooks/useApplyNoticeMutation';
+import { useAddress, useMyType, useUserId } from '@/stores/storeUserInfo';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import Button from '../button';
 import HourlypayCalc from '../hourlypayCalc';
 
 interface NoticeDetailContainerProps {
-  memberType: 'owner' | 'employee';
   shopId: string;
   noticeId: string;
 }
 
-export default function NoticeDetailContainer({
-  memberType,
-  shopId,
-  noticeId,
-}: NoticeDetailContainerProps) {
+export default function NoticeDetailContainer({ shopId, noticeId }: NoticeDetailContainerProps) {
   const { data } = useSuspenseQuery({
     queryKey: ['noticeDetail', shopId, noticeId],
     queryFn: () => fetchNoticeDetail({ shopId, noticeId }),
@@ -28,11 +26,20 @@ export default function NoticeDetailContainer({
   const shopInfo = data?.item?.shop?.item;
   const noticeInfo = data?.item;
   const { mutate: applyNotice } = useApplyNotice();
+  const { myType } = useMyType();
+  const { userId } = useUserId();
+  const { userAddress } = useAddress();
+  const router = useRouter();
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     // Mutate 함수
     e.preventDefault();
-    applyNotice({ shopId, noticeId });
+    if (userAddress) {
+      applyNotice({ shopId, noticeId });
+    } else {
+      toast.error('내 프로필을 먼저 등록해주세요.');
+      router.push(`/myprofile/${userId}`);
+    }
   };
 
   return (
@@ -81,7 +88,7 @@ export default function NoticeDetailContainer({
                 <p className="text-[14px text-black md:text-[16px]">{shopInfo?.description}</p>
               </div>
 
-              {memberType === 'owner' ? (
+              {myType === 'employer' ? (
                 <Link
                   href={{
                     pathname: `/editnotice/${shopId}/${noticeId}`,

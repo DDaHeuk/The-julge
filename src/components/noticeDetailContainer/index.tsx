@@ -16,12 +16,13 @@ import HourlypayCalc from '../hourlypayCalc';
 interface NoticeDetailContainerProps {
   shopId: string;
   noticeId: string;
+  token: string | undefined;
 }
 
-export default function NoticeDetailContainer({ shopId, noticeId }: NoticeDetailContainerProps) {
+export default function NoticeDetailContainer({ shopId, noticeId, token }: NoticeDetailContainerProps) {
   const { data } = useSuspenseQuery({
     queryKey: ['noticeDetail', shopId, noticeId],
-    queryFn: () => fetchNoticeDetail({ shopId, noticeId }),
+    queryFn: () => fetchNoticeDetail({ shopId, noticeId, token }),
   });
   const shopInfo = data?.item?.shop?.item;
   const noticeInfo = data?.item;
@@ -30,7 +31,6 @@ export default function NoticeDetailContainer({ shopId, noticeId }: NoticeDetail
   const { userId } = useUserId();
   const { userAddress } = useAddress();
   const router = useRouter();
-
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     // Mutate 함수
     e.preventDefault();

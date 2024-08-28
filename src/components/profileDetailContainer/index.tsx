@@ -58,12 +58,10 @@ const ProfileDetailContainer = ({ userId, token }: ProfileDetailContainerProps) 
       })
     : { data: null }; // userId가 없을 때 data는 null로 설정
 
-  const { data: applications } = userId
-    ? useSuspenseQuery<UserApplicationData>({
-        queryKey: ['myApplications', offset, limit],
-        queryFn: () => getUserApplications({ userId, offset, limit, token }),
-      })
-    : { data: null }; // userId가 없을 때 applications는 null로 설정
+  const { data: applications } = useSuspenseQuery<UserApplicationData>({
+    queryKey: ['myApplications', userId, offset, limit],
+    queryFn: () => getUserApplications({ userId, offset, limit, token }),
+  }); // userId가 없을 때 applications는 null로 설정
 
   return (
     <div className="flex flex-col">
@@ -79,13 +77,13 @@ const ProfileDetailContainer = ({ userId, token }: ProfileDetailContainerProps) 
           )}
         </div>
       </div>
-      {userId && (
+      {userId && userInfo?.item.name && (
         <div
           className={`flex flex-col items-start gap-[8px] px-[12px] pt-[40px] pb-[80px] md:px-[32px] md:pt-[60px] ${applications ? 'md:pb-[60px]' : 'md:pb-[120px]'} lg:px-[400px] bg-gray5`}
         >
           <div className="flex-col w-[100%] gap-[16px] md:gap-[32px]">
             <span className="text-black font-bold text-[20px] md:text-[28px]">신청 내역</span>
-            {applications ? (
+            {applications.count !== 0 ? (
               <div className="border border-gray20 rounded-xl mt-[16px] md:mt-[32px]">
                 <table className="w-full">
                   <thead>
@@ -120,7 +118,7 @@ const ProfileDetailContainer = ({ userId, token }: ProfileDetailContainerProps) 
                           {formatCurrency(application.item.notice.item.hourlyPay)}원
                         </td>
                         <td className="text-[12px] md:text-[14px] text-left px-[8px] py-[9px] md:px-[12px] md:py-[20px]">
-                          <Status stat={application.item.status} />
+                          <Status stat={application.item.status} type={userInfo.item.type} />
                         </td>
                       </tr>
                     ))}

@@ -1,19 +1,18 @@
 'use client';
 
-import { useMyType } from '@/stores/storeUserInfo';
 import Button from '../button';
 
 interface StateProp {
   stat: string;
+  type?: string;
   onAccept?: () => void;
   onReject?: () => void;
 }
 
-function Status({ stat, onAccept, onReject }: StateProp) {
+function Status({ stat, type, onAccept, onReject }: StateProp) {
   let bgClass = '';
   let textClass = '';
   let status = '';
-  const { myType } = useMyType();
 
   switch (stat) {
     case 'accepted':
@@ -35,10 +34,9 @@ function Status({ stat, onAccept, onReject }: StateProp) {
       bgClass = 'bg-gray10'; // 기본 상태 클래스 (필요에 따라 수정)
       textClass = 'text-gray20';
   }
-
   return (
     <div className="flex items-center">
-      {myType === 'employee' ? (
+      {type === 'employee' ? (
         <span
           className={`${bgClass} ${textClass} px-[10px] py-[6px] justify-center items-center rounded-[20px] leading-[16px] md:font-bold`}
         >

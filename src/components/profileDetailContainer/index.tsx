@@ -118,7 +118,7 @@ const ProfileDetailContainer = ({ userId, token }: ProfileDetailContainerProps) 
                           {formatCurrency(application.item.notice.item.hourlyPay)}원
                         </td>
                         <td className="text-[12px] md:text-[14px] text-left px-[8px] py-[9px] md:px-[12px] md:py-[20px]">
-                          <Status stat={application.item.status} />
+                          <Status stat={application.item.status} type={userInfo.item.type} />
                         </td>
                       </tr>
                     ))}

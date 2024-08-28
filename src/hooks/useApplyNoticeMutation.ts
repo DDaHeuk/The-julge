@@ -45,15 +45,12 @@ const useApplyNotice = (): UseMutationResult<ApplyNoticeResponse, AxiosError, Ap
         const errorData = error.response.data as ErrorResponseData;
         const errorMessage = errorData.message || '프로필 편집 실패'; // 예: `errorData.message`가 정의된 경우 사용
         toast.error(`공고 신청 실패 : ${errorMessage}`);
+      } else if (!userId) {
+        toast.error('공고 신청 실패 : 로그인을 먼저 해주세요.');
+        router.push('/signin');
       } else {
-        if (userId) {
-          toast.error(`공고 신청 실패 : 네트워크 오류`);
-        } else {
-          toast.error(`공고 신청 실패 : 로그인을 먼저 해주세요.`);
-          router.push('/signin');
-        }
+        console.error('공고 신청 실패', error);
       }
-      console.error('공고 신청 실패', error);
     },
   });
 };

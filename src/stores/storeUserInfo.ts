@@ -68,3 +68,20 @@ export const useAddress = create(
     },
   ),
 );
+
+export interface UserApplication {
+  userApplication: unknown[];
+  setUserApplication: (newUserApplication: unknown[]) => void;
+}
+
+export const useApplication = create(
+  persist<UserApplication>(
+    (set) => ({
+      userApplication: [],
+      setUserApplication: (newUserApplication) => set({ userApplication: newUserApplication }),
+    }),
+    {
+      name: 'userApplicationStorage',
+    },
+  ),
+);

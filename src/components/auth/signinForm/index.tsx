@@ -9,11 +9,24 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { SignInData } from '@/types/signInData';
-import { useMyType, useUserId, useShopId, useAddress } from '@/stores/storeUserInfo';
+import {
+  useMyType,
+  useUserId,
+  useShopId,
+  useAddress,
+  useApplication,
+} from '@/stores/storeUserInfo';
 import getUserInfo from '@/apis/user/getUserInfo';
 import { toast } from 'sonner';
 import { ErrorResponseData } from '@/types/errorResponseData';
 import { AxiosError } from 'axios';
+import getUserApplications from '@/apis/user/getUserApplications';
+
+interface ApplicationItem {
+  item: {
+    id: string;
+  };
+}
 
 export default function SignInForm() {
   const [signinInfo, setSigninInfo] = useState<SignInData>({
@@ -27,6 +40,7 @@ export default function SignInForm() {
   const { setUserId } = useUserId();
   const { setShopId } = useShopId();
   const { setUserAddress } = useAddress();
+  const { setUserApplication } = useApplication();
 
   const router = useRouter();
 
@@ -52,6 +66,7 @@ export default function SignInForm() {
           const { type } = data.item.user.item;
           localStorage.setItem('token', data.item.token);
           document.cookie = `token=${data.item.token}; path=/; max-age=${60 * 60 * 24}`;
+          const { token } = data.item;
           setUserId(userId);
           setMyType(type);
           setUserAddress(data.item.user.item.address);
@@ -67,6 +82,16 @@ export default function SignInForm() {
               document.cookie = `token=${data.item.token}; path=/; max-age=${60 * 60 * 24}`;
             } catch (error) {
               console.error('Failed to fetch user info:', error);
+            }
+          } else {
+            try {
+              const offset = 0;
+              const limit = 100;
+              const response = await getUserApplications({ userId, offset, limit, token });
+              const applicationIds = response.items.map((item: ApplicationItem) => item.item.id);
+              setUserApplication(applicationIds);
+            } catch (error) {
+              console.error(error);
             }
           }
           router.back();

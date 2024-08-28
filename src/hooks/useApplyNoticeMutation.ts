@@ -41,7 +41,7 @@ const useApplyNotice = (): UseMutationResult<ApplyNoticeResponse, AxiosError, Ap
     onError: (error) => {
       if (error.response) {
         const errorData = error.response.data as ErrorResponseData;
-        const errorMessage = errorData.message || '프로필 편집 실패'; // 예: `errorData.message`가 정의된 경우 사용
+        const errorMessage = errorData.message || '공고 신청 실패'; // 예: `errorData.message`가 정의된 경우 사용
         toast.error(`공고 신청 실패 : ${errorMessage}`);
       } else {
         toast.error(`공고 신청 실패 : 네트워크 오류`);

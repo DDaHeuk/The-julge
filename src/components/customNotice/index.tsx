@@ -18,7 +18,7 @@ const CustomNotice = () => {
 
   const { userAddress } = useAddress();
 
-  const { data, isLoading, isFetching } = useSuspenseQuery<NoticeListResponse>({
+  const { data, isFetching } = useSuspenseQuery<NoticeListResponse>({
     queryKey: ['noticeAll', userAddress],
     queryFn: () =>
       FetchAllNotice({
@@ -60,7 +60,7 @@ const CustomNotice = () => {
     <div className="flex px-[30px] md:px-[36px] lg:px-[400px] py-[40px] md:py-[60px] flex-col items-start bg-red10 mt-[10px]">
       <div className="flex flex-col gap-[20px] w-[100%]">
         <span className="text-[20px] md:text-[28px] font-bold">맞춤 공고</span>
-        {isLoading || isFetching ? (
+        {isFetching ? (
           <div className="flex w-[100%] justify-center items-center py-11">
             <PulseLoader color="red" speedMultiplier={2} />
           </div>

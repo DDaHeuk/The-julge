@@ -6,11 +6,12 @@ import getProfileDetail from '@/apis/profile/profileDetail';
 import MyProfileInfo from '@/components/myProfileInfo';
 import NoticeAssignList from '@/components/noticeAssignList';
 import NoticeAssignProfile from '@/components/noticeAssignProfile';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import getUserApplications from '@/apis/user/getUserApplications';
 import { formatWorkSchedule } from '@/utils/dateTimeFormat';
 import formatCurrency from '@/utils/currencyFormat';
+import useApplicationProcess from '@/hooks/useApplicationMutation';
 import Status from '../status';
 import Pagination2 from '../pagenation2';
 
@@ -25,11 +26,13 @@ interface UserApplicationItem {
     status: 'pending' | 'accepted' | 'rejected' | 'canceled';
     shop: {
       item: {
+        id: string;
         name: string;
       };
     };
     notice: {
       item: {
+        id: string;
         hourlyPay: number;
         startsAt: string;
         workhour: number;
@@ -47,6 +50,8 @@ const INITIAL_START_PAGE = 0;
 const PAGE_COUNT = 5;
 
 const ProfileDetailContainer = ({ userId, token }: ProfileDetailContainerProps) => {
+  const queryClient = useQueryClient();
+
   const [page, setPage] = useState<number>(INITIAL_START_PAGE);
 
   const limit = PAGE_COUNT;
@@ -62,6 +67,23 @@ const ProfileDetailContainer = ({ userId, token }: ProfileDetailContainerProps) 
     queryKey: ['myApplications', userId, offset, limit],
     queryFn: () => getUserApplications({ userId, offset, limit, token }),
   }); // userId가 없을 때 applications는 null로 설정
+
+  console.log(applications);
+
+  const { mutate: applicationProcess } = useApplicationProcess();
+
+  const handleCancel = (applicationId: string, shopId: string, noticeId: string) => {
+    applicationProcess(
+      { applicationId, status: 'canceled', shopId, noticeId },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ['myApplications', userId, offset, limit],
+          });
+        },
+      },
+    );
+  };
 
   return (
     <div className="flex flex-col">
@@ -118,7 +140,17 @@ const ProfileDetailContainer = ({ userId, token }: ProfileDetailContainerProps) 
                           {formatCurrency(application.item.notice.item.hourlyPay)}원
                         </td>
                         <td className="text-[12px] md:text-[14px] text-left px-[8px] py-[9px] md:px-[12px] md:py-[20px]">
-                          <Status stat={application.item.status} type={userInfo.item.type} />
+                          <Status
+                            stat={application.item.status}
+                            type={userInfo.item.type}
+                            onCancel={() =>
+                              handleCancel(
+                                application.item.id,
+                                application.item.shop.item.id,
+                                application.item.notice.item.id,
+                              )
+                            }
+                          />
                         </td>
                       </tr>
                     ))}

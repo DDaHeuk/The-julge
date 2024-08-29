@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import formatCurrency from '@/utils/currencyFormat';
 import { formatWorkSchedule } from '@/utils/dateTimeFormat';
+import useRecentStore from '@/stores/storeRecentNotices';
 import Link from 'next/link';
 import HourlypayCalc from '../hourlypayCalc';
 
@@ -30,12 +31,15 @@ interface NoticeData {
 }
 
 export default function NoticeList({ noticeData }: { noticeData: NoticeData }) {
+  const { addNotice } = useRecentStore();
   const processedData = noticeData.item;
-
   const processedShopData = processedData.shop.item;
+  const handleClick = () => {
+    addNotice(noticeData);
+  };
 
   return (
-    <Link href={`/shop/${processedShopData.id}/notice/${processedData.id}`}>
+    <Link href={`/shop/${processedShopData.id}/notice/${processedData.id}`} onClick={handleClick}>
       <div className="flex p-[12px] md:p-[16px] flex-col items-start gap-[12px] md:gap-[20px] rounded-[12px] border border-gray20">
         <div
           style={{

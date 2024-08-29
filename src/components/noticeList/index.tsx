@@ -36,7 +36,7 @@ export default function NoticeList({ noticeData }: { noticeData: NoticeData }) {
 
   return (
     <Link href={`/shop/${processedShopData.id}/notice/${processedData.id}`}>
-      <div className="flex p-[12px] md:p-[16px] flex-col items-start gap-[12px] md:gap-[20px] rounded-[12px] border border-gray20">
+      <div className="flex p-[12px] md:p-[16px] flex-col items-start gap-[12px] md:gap-[20px] rounded-[12px] border border-gray20 bg-white">
         <div
           style={{
             backgroundImage: `url('${processedShopData?.imageUrl}')`,

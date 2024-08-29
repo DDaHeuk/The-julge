@@ -7,9 +7,10 @@ interface StateProp {
   type?: string;
   onAccept?: () => void;
   onReject?: () => void;
+  onCancel?: () => void;
 }
 
-function Status({ stat, type, onAccept, onReject }: StateProp) {
+function Status({ stat, type, onAccept, onReject, onCancel }: StateProp) {
   let bgClass = '';
   let textClass = '';
   let status = '';
@@ -30,18 +31,35 @@ function Status({ stat, type, onAccept, onReject }: StateProp) {
       textClass = 'text-red40';
       status = '거절';
       break;
+    case 'canceled':
+      bgClass = 'bg-red10';
+      textClass = 'text-red40';
+      status = '취소';
+      break;
     default:
       bgClass = 'bg-gray10'; // 기본 상태 클래스 (필요에 따라 수정)
       textClass = 'text-gray20';
+      status = '거절';
   }
   return (
     <div className="flex items-center">
       {type === 'employee' ? (
-        <span
-          className={`${bgClass} ${textClass} px-[10px] py-[6px] justify-center items-center rounded-[20px] leading-[16px] md:font-bold`}
-        >
-          {status}
-        </span>
+        <>
+          {stat !== 'pending' && (
+            <span
+              className={`${bgClass} ${textClass} px-[10px] py-[6px] justify-center items-center rounded-[20px] leading-[16px] md:font-bold`}
+            >
+              {status}
+            </span>
+          )}
+          {stat === 'pending' && (
+            <div className="flex w-full gap-2">
+              <Button type="button" onClick={onCancel} color="noFilled" className="w-full h-[32px]">
+                공고 취소
+              </Button>
+            </div>
+          )}
+        </>
       ) : (
         <>
           {stat !== 'pending' && (

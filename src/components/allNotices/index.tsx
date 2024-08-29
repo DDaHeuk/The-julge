@@ -49,7 +49,9 @@ const SORTING_OPTIONS = [
 const AllNotices = () => {
   const { keyword, address, startsAtGte, hourlyPayGte } = useDetailedFilterData();
   const searchParams = useSearchParams();
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(
+    searchParams.get('page') ? Number(searchParams.get('page')) - 1 : 0,
+  );
   const [selectedSort, setSelectedSort] = useState<'time' | 'pay' | 'hour' | 'shop' | string>(
     SORTING_OPTIONS[0].value,
   );

@@ -90,10 +90,10 @@ const NavigationBar = () => {
   };
 
   if (isLoading) {
-    content = <div className="flex justify-center items-center" />;
+    content = <div className="flex justify-center items-center w-[240px]" />;
   } else if (isAuthorized) {
     content = (
-      <div className="relative inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[40px]">
+      <div className="relative inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[30px] w-[240px]">
         {myType === 'employer' ? (
           <Link href={`/myshop/${shopId}`}>
             <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]">
@@ -141,7 +141,7 @@ const NavigationBar = () => {
     );
   } else {
     content = (
-      <div className="inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[40px]">
+      <div className="inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[30px] w-[240px]">
         <Link href="/signin">
           <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px] cursor-pointer">
             로그인

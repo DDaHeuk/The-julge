@@ -1,4 +1,3 @@
-import FetchAllNotice from '@/apis/notice/fetchAllNotice';
 import fetchNoticeDetail from '@/apis/notice/noticeDetail';
 import MyPost from '@/components/myPost';
 import NoticeDetailContainer from '@/components/noticeDetailContainer';
@@ -19,23 +18,6 @@ export default async function MyShopNoticeDetailPage({ params }: { params: Param
   await queryClient.prefetchQuery({
     queryKey: ['noticeDetail'],
     queryFn: () => fetchNoticeDetail({ shopId, noticeId, token }),
-  });
-
-  const offset = 0;
-  const limit = 6;
-
-  await queryClient.prefetchQuery({
-    queryKey: ['noticeAll'],
-    queryFn: () =>
-      FetchAllNotice({
-        offset,
-        limit,
-        address: undefined,
-        keyword: undefined,
-        startsAtGte: undefined,
-        hourlyPayGte: undefined,
-        sort: 'time',
-      }),
   });
 
   return (

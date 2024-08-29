@@ -25,6 +25,7 @@ import getUserApplications from '@/apis/user/getUserApplications';
 interface ApplicationItem {
   item: {
     id: string;
+    status: string;
   };
 }
 
@@ -88,8 +89,10 @@ export default function SignInForm() {
               const offset = 0;
               const limit = 100;
               const response = await getUserApplications({ userId, offset, limit, token });
-              const applicationIds = response.items.map((item: ApplicationItem) => item.item.id);
-              setUserApplication(applicationIds);
+              const pendingApplicationIds = response.items
+                .filter((item: ApplicationItem) => item.item.status === 'pending')
+                .map((item: ApplicationItem) => item.item.id);
+              setUserApplication(pendingApplicationIds);
             } catch (error) {
               console.error(error);
             }

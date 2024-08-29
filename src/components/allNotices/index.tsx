@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 // import { SORTING_OPTIONS } from '@/types/sortingOptions';
+import { useSearchParams } from 'next/navigation';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import FetchAllNotice from '@/apis/notice/fetchAllNotice';
 import useDetailedFilterData from '@/stores/storeDetailedFilter';
@@ -47,7 +48,7 @@ const SORTING_OPTIONS = [
 
 const AllNotices = () => {
   const { keyword, address, startsAtGte, hourlyPayGte } = useDetailedFilterData();
-
+  const searchParams = useSearchParams();
   const [page, setPage] = useState(0);
   const [selectedSort, setSelectedSort] = useState<'time' | 'pay' | 'hour' | 'shop' | string>(
     SORTING_OPTIONS[0].value,
@@ -55,6 +56,14 @@ const AllNotices = () => {
   const limit = 6; // 한 페이지당 나오는 item 개수. 임의로 설정. 추후 변경 필요
   const offset = page * limit;
   const [allNoticeTitle, setAllNoticeTitle] = useState<string>('전체 공고');
+
+  useEffect(() => {
+    if (searchParams.get('page')) {
+      setPage(Number(searchParams.get('page')) - 1);
+    } else {
+      setPage(0);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (keyword) {

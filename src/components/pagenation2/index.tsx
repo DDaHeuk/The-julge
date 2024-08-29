@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface PaginationProps {
@@ -30,6 +30,10 @@ function Pagination2({ totalPages, currentPage, onPageChange }: PaginationProps)
       handleClick(selectedPage + 1);
     }
   };
+
+  useEffect(() => {
+    setSelectedPage(currentPage);
+  }, [currentPage]);
 
   return (
     <div className="flex justify-center items-center mt-4 mb-4 h-[32px] md:h-[40px] text-[14px] md:text-[16px]">

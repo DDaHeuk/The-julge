@@ -44,14 +44,12 @@ export default function NoticeDetailContainer({
     e.preventDefault();
     if (userAddress) {
       // 프로필 등록 되있는 경우
-      console.log(userId, userApplicationData?.id);
+
       applyNotice(
         { shopId, noticeId },
         {
           onSuccess: (applicationData) => {
-            console.log('1', userApplication);
             setUserApplication([...userApplication, applicationData?.item?.id]);
-            console.log('2', userApplication);
           },
         },
       );
@@ -65,7 +63,7 @@ export default function NoticeDetailContainer({
   const handleCancelClick = () => {
     router.push(`/myprofile/${userId}`);
   };
-  console.log(userApplication.includes(userApplicationData?.id));
+
   const isApplied = userApplication.includes(userApplicationData?.id);
 
   return (

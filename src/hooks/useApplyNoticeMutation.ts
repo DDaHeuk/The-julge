@@ -36,9 +36,7 @@ const useApplyNotice = (): UseMutationResult<ApplyNoticeResponse, AxiosError, Ap
     mutationFn: ({ shopId, noticeId }: ApplyNoticeData) => applyNotice({ shopId, noticeId }),
     onSuccess: () => {
       toast.success('공고 신청 성공');
-      setTimeout(() => {
-        router.back();
-      }, 800);
+      router.refresh();
     },
     onError: (error) => {
       if (error.response) {

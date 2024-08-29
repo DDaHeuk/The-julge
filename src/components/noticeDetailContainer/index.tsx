@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-useless-fragment */
+
 'use client';
 
 import Image from 'next/image';
@@ -7,7 +9,7 @@ import { formatWorkSchedule } from '@/utils/dateTimeFormat';
 import formatCurrency from '@/utils/currencyFormat';
 import Link from 'next/link';
 import useApplyNotice from '@/hooks/useApplyNoticeMutation';
-import { useAddress, useMyType, useUserId } from '@/stores/storeUserInfo';
+import { useAddress, useApplication, useMyType, useUserId } from '@/stores/storeUserInfo';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import Button from '../button';
@@ -19,28 +21,52 @@ interface NoticeDetailContainerProps {
   token: string | undefined;
 }
 
-export default function NoticeDetailContainer({ shopId, noticeId, token }: NoticeDetailContainerProps) {
+export default function NoticeDetailContainer({
+  shopId,
+  noticeId,
+  token,
+}: NoticeDetailContainerProps) {
   const { data } = useSuspenseQuery({
     queryKey: ['noticeDetail', shopId, noticeId],
     queryFn: () => fetchNoticeDetail({ shopId, noticeId, token }),
   });
+  const userApplicationData = data?.item?.currentUserApplication?.item;
   const shopInfo = data?.item?.shop?.item;
   const noticeInfo = data?.item;
   const { mutate: applyNotice } = useApplyNotice();
   const { myType } = useMyType();
   const { userId } = useUserId();
   const { userAddress } = useAddress();
+  const { userApplication, setUserApplication } = useApplication();
   const router = useRouter();
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+  const handleApplyClick = (e: React.MouseEvent<HTMLElement>) => {
     // Mutate 함수
     e.preventDefault();
     if (userAddress) {
-      applyNotice({ shopId, noticeId });
+      // 프로필 등록 되있는 경우
+      console.log(userId, userApplicationData?.id);
+      applyNotice(
+        { shopId, noticeId },
+        {
+          onSuccess: (applicationData) => {
+            console.log('1', userApplication);
+            setUserApplication([...userApplication, applicationData?.item?.id]);
+            console.log('2', userApplication);
+          },
+        },
+      );
     } else {
+      // 프로필 등록 되어있지 않는 경우
       toast.error('내 프로필을 먼저 등록해주세요.');
       router.push(`/myprofile/${userId}`);
     }
   };
+
+  const handleCancelClick = () => {
+    router.push(`/myprofile/${userId}`);
+  };
+  console.log(userApplication.includes(userApplicationData?.id));
+  const isApplied = userApplication.includes(userApplicationData?.id);
 
   return (
     <div className="flex flex-col">
@@ -105,14 +131,27 @@ export default function NoticeDetailContainer({ shopId, noticeId, token }: Notic
                   </Button>
                 </Link>
               ) : (
-                <Button
-                  onClick={handleClick}
-                  type="button"
-                  color="filled"
-                  className="w-full h-[38px] md:h-[48px]"
-                >
-                  신청하기
-                </Button>
+                <>
+                  {!isApplied ? (
+                    <Button
+                      onClick={handleApplyClick}
+                      type="button"
+                      color="filled"
+                      className="w-full h-[38px] md:h-[48px]"
+                    >
+                      신청하기
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={handleCancelClick}
+                      type="button"
+                      color="noFilled"
+                      className="w-full h-[38px] md:h-[48px]"
+                    >
+                      취소하기
+                    </Button>
+                  )}
+                </>
               )}
             </div>
           </div>

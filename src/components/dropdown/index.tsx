@@ -48,7 +48,7 @@ export default function DropDown({ menuItems, className, onSelect, initialValue 
           className="flex items-center justify-between w-full  gap-[10px]"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {selectedItem ? <p>{selectedItem}</p> : <p className="text-gray40">선택</p>}
+          {selectedItem ? <p>{selectedItem}</p> : <p className="text-gray40 ">선택</p>}
 
           <div>
             {isOpen ? (
@@ -69,7 +69,7 @@ export default function DropDown({ menuItems, className, onSelect, initialValue 
           </div>
         </button>
         <ul
-          className={`absolute top-[110%] left-0 w-full bg-white rounded-md border border-gray20 max-h-[230px] z-10 overflow-y-auto ${isOpen ? 'block' : 'hidden'}`}
+          className={`absolute top-[110%] left-0 w-full bg-white rounded-md border border-gray20 max-h-[230px] z-10 overflow-y-auto ${isOpen ? 'block' : 'hidden'} `}
         >
           {menuItems.map((item: string, index: number) => (
             <React.Fragment key={index}>
@@ -79,7 +79,7 @@ export default function DropDown({ menuItems, className, onSelect, initialValue 
                 onClick={() => handleItemClick(item)}
                 className="flex justify-center cursor-pointer my-3"
               >
-                <p className="text-[14px] md:text-[18px]">{item}</p>
+                <p className="text-[14px] md:text-[18px] hover:text-primary">{item}</p>
               </li>
               {index < menuItems.length - 1 && <hr className="border border-gray20" />}
             </React.Fragment>

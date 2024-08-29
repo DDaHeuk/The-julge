@@ -7,7 +7,7 @@ const NoticeAssignList = () => {
         아직 신청 내역이 없어요.
       </span>
       <Link
-        href={'/'}
+        href="/"
         type="button"
         className="flex w-[140px] h-[37px] md:w-[380px] md:h-[47px] justify-center items-center rounded-[6px] bg-[#EA3C12] px-[20px] py-[10px] md:px-[136px] md:py-[14px] text-white font-bold text-center text-[14px] md:text-[16px]"
       >

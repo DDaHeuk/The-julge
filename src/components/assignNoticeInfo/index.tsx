@@ -5,7 +5,11 @@ import Button from '@/components/button';
 import useAssignNotice from '@/hooks/useAssignNoticeMutation';
 import Input from '../input';
 
-const AssignNoticeInfo = () => {
+interface AssignNoticeInfoProps {
+  token: string | undefined;
+}
+
+const AssignNoticeInfo = ({ token }: AssignNoticeInfoProps) => {
   const { mutate: assignNotice } = useAssignNotice();
 
   const [assignNoticeInfo, setAssignNoticeInfo] = useState({
@@ -33,8 +37,7 @@ const AssignNoticeInfo = () => {
 
   const handleSubmitNotice = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(assignNoticeInfo);
-    assignNotice(assignNoticeInfo);
+    assignNotice({ assignNoticeInfo, token });
   };
 
   return (

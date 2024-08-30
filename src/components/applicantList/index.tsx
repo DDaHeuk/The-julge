@@ -34,9 +34,10 @@ interface ApplicationData {
 interface ApplicantListProps {
   shopId: string;
   noticeId: string;
+  token: string | undefined;
 }
 
-export default function ApplicantList({ shopId, noticeId }: ApplicantListProps) {
+export default function ApplicantList({ shopId, noticeId, token }: ApplicantListProps) {
   const queryClient = useQueryClient();
 
   const [page, setPage] = useState(0);
@@ -54,7 +55,7 @@ export default function ApplicantList({ shopId, noticeId }: ApplicantListProps) 
 
   const handleAccept = (applicationId: string) => {
     applicationProcess(
-      { applicationId, status: 'accepted', shopId, noticeId },
+      { applicationId, status: 'accepted', shopId, noticeId, token },
       {
         onSuccess: () => {
           queryClient.invalidateQueries({
@@ -67,7 +68,7 @@ export default function ApplicantList({ shopId, noticeId }: ApplicantListProps) 
 
   const handleReject = (applicationId: string) => {
     applicationProcess(
-      { applicationId, status: 'rejected', shopId, noticeId },
+      { applicationId, status: 'rejected', shopId, noticeId, token },
       {
         onSuccess: () => {
           queryClient.invalidateQueries({

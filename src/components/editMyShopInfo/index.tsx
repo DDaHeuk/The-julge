@@ -16,9 +16,10 @@ import Input from '../input';
 
 interface EditMyShopInfoProps {
   shopId: string;
+  token: string | undefined;
 }
 
-const EditMyShopInfo = ({ shopId }: EditMyShopInfoProps) => {
+const EditMyShopInfo = ({ shopId, token }: EditMyShopInfoProps) => {
   const searchParams = useSearchParams();
 
   const [imageUrl, setImageUrl] = useState<string>(searchParams.get('imageUrl') ?? '');
@@ -64,7 +65,7 @@ const EditMyShopInfo = ({ shopId }: EditMyShopInfoProps) => {
   // 테스트용 함수
   const testFunc = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    editShop({ data: editShopInfo, shopId });
+    editShop({ data: editShopInfo, shopId, token });
   };
 
   // 이미지 부분 클릭시

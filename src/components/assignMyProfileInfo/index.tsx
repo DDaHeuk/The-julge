@@ -8,7 +8,10 @@ import LOCATION from '@/constant/location';
 import Input from '../input';
 import DropDown from '../dropdown';
 
-const AssignMyProfileInfo = () => {
+interface AssignMyProfileInfoProps {
+  token: string | undefined;
+}
+const AssignMyProfileInfo = ({ token }: AssignMyProfileInfoProps) => {
   const searchParams = useSearchParams();
   const [assignProfileInfo, setAssignProfileInfo] = useState({
     name: searchParams.get('name') ?? '',
@@ -48,7 +51,7 @@ const AssignMyProfileInfo = () => {
   // 테스트용 함수
   const testFunc = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    assignProfile(assignProfileInfo);
+    assignProfile({ data: assignProfileInfo, token });
   };
 
   return (

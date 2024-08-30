@@ -1,8 +1,11 @@
 import axios from 'axios';
 import { AssignNoticeInfoData } from '@/types/assignNoticeInfoData';
 
-const assignNotice = async (shopId: string, data: AssignNoticeInfoData) => {
-  const token = localStorage.getItem('token');
+const assignNotice = async (
+  shopId: string,
+  data: AssignNoticeInfoData,
+  token: string | undefined,
+) => {
   if (!token) {
     throw new Error('No token found');
   }

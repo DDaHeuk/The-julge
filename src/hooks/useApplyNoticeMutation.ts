@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 interface ApplyNoticeData {
   shopId: string;
   noticeId: string;
+  token: string | undefined;
 }
 
 interface ApplyNoticeResponse {
@@ -33,7 +34,8 @@ const useApplyNotice = (): UseMutationResult<ApplyNoticeResponse, AxiosError, Ap
   const router = useRouter();
   const { userId } = useUserId();
   return useMutation({
-    mutationFn: ({ shopId, noticeId }: ApplyNoticeData) => applyNotice({ shopId, noticeId }),
+    mutationFn: ({ shopId, noticeId, token }: ApplyNoticeData) =>
+      applyNotice({ shopId, noticeId, token }),
     onSuccess: () => {
       toast.success('공고 신청 성공');
       router.refresh();

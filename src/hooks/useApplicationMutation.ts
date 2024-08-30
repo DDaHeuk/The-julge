@@ -6,6 +6,7 @@ interface ApplicationData {
   status: 'accepted' | 'rejected' | 'canceled';
   shopId: string;
   noticeId: string;
+  token: string | undefined;
 }
 
 const useApplicationProcess = (): UseMutationResult<unknown, Error, ApplicationData> => {

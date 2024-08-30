@@ -13,7 +13,11 @@ import useAssignShop from '@/hooks/useAssignShopMutation';
 import DropDown from '../dropdown';
 import Input from '../input';
 
-const AssignMyShopInfo = () => {
+interface AssignMyShopInfoProps {
+  token: string | undefined;
+}
+
+const AssignMyShopInfo = ({ token }: AssignMyShopInfoProps) => {
   const [imageUrl, setImageUrl] = useState<string>('');
   const [assignShopInfo, setAssignShopInfo] = useState({
     name: '',
@@ -57,7 +61,7 @@ const AssignMyShopInfo = () => {
   // 테스트용 함수
   const testFunc = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    assignShop(assignShopInfo);
+    assignShop({ assignShopInfo, token });
   };
 
   // 이미지 부분 클릭시

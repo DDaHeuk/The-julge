@@ -11,13 +11,14 @@ interface EditShopVariables {
   data: EditNoticeInfoData;
   shopId: string;
   noticeId: string;
+  token: string | undefined;
 }
 
 const useEditNotice = (): UseMutationResult<EditNoticeResponse, AxiosError, EditShopVariables> => {
   const queryClient = useQueryClient();
   const router = useRouter();
   return useMutation<EditNoticeResponse, AxiosError, EditShopVariables>({
-    mutationFn: ({ data, shopId, noticeId }) => editNotice(data, shopId, noticeId),
+    mutationFn: ({ data, shopId, noticeId, token }) => editNotice(data, shopId, noticeId, token),
     onSuccess: (data) => {
       toast.success('공고 편집 성공');
       queryClient.invalidateQueries({ queryKey: ['noticeDetail'] });

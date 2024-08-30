@@ -7,11 +7,20 @@ import { toast } from 'sonner';
 import { AxiosError } from 'axios';
 import { ErrorResponseData } from '@/types/errorResponseData';
 
-const useAssignShop = (): UseMutationResult<AssignShopResponse, AxiosError, AssignShopInfoData> => {
+interface AssignShopInfoVariables {
+  assignShopInfo: AssignShopInfoData;
+  token: string | undefined;
+}
+
+const useAssignShop = (): UseMutationResult<
+  AssignShopResponse,
+  AxiosError,
+  AssignShopInfoVariables
+> => {
   const router = useRouter();
   const { setShopId } = useShopId();
-  return useMutation<AssignShopResponse, AxiosError, AssignShopInfoData>({
-    mutationFn: assignShop,
+  return useMutation<AssignShopResponse, AxiosError, AssignShopInfoVariables>({
+    mutationFn: ({ assignShopInfo, token }) => assignShop({ assignShopInfo, token }),
     onSuccess: (data) => {
       toast.success('가게 등록 성공');
       const shopId = data.item.id;

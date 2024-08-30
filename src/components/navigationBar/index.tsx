@@ -6,6 +6,7 @@
 import Image from 'next/image';
 import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react';
 import Link from 'next/link';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useShopId, useMyType, useUserId, useAddress } from '@/stores/storeUserInfo';
 import getUserAlert from '@/apis/alert/getUserAlert';
 import useDetailedFilterData from '@/stores/storeDetailedFilter';
@@ -13,6 +14,8 @@ import { NotificationItem } from '@/types/notificationItem';
 import NotificationModal from '../notificationModal';
 
 const NavigationBar = () => {
+  const router = useRouter(); // useRouter 훅 사용
+  const searchParams = useSearchParams();
   const { setKeyword } = useDetailedFilterData();
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [isNotification, setIsNotification] = useState<boolean>(false);
@@ -54,6 +57,13 @@ const NavigationBar = () => {
     setIsLoading(false); // 로딩 끝
   }, [userId]);
 
+  // SearchParams에서 keyword 가져오기
+  useEffect(() => {
+    const keyword = searchParams.get('keyword') || ''; // URL에서 keyword 가져오기
+    setInputValue(keyword); // 검색창에 keyword 값 반영
+    setKeyword(keyword); // 상태 업데이트
+  }, [searchParams, setKeyword]);
+
   const handleNotiifcation = () => {
     setIsOpenNotification(!isOpenNotification);
   };
@@ -65,11 +75,21 @@ const NavigationBar = () => {
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       setKeyword(inputValue); // 엔터 키를 눌렀을 때 keyword 업데이트
+      if (inputValue) {
+        router.push(`?keyword=${inputValue}&page=1`);
+      } else {
+        router.push(`?page=1`);
+      }
     }
   };
 
   const handleFocusOut = () => {
     setKeyword(inputValue); // 포커스 아웃 시 keyword 업데이트
+    if (inputValue) {
+      router.push(`?keyword=${inputValue}&page=1`);
+    } else {
+      router.push(`?page=1`);
+    }
   };
 
   const handleCloseNotification = () => {

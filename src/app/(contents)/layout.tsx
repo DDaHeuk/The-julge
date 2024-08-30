@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import NavigationBar from '@/components/navigationBar';
 import Footer from '@/components/footer';
 
@@ -15,7 +16,9 @@ export default function ContentsLayout({
   return (
     <div className=" flex-col min-h-screen">
       <div className=" flex-col min-h-[calc(100vh-126px)] md:min-h-[calc(100vh-100px)]">
-        <NavigationBar />
+        <Suspense>
+          <NavigationBar />
+        </Suspense>
         {children}
       </div>
       <Footer />

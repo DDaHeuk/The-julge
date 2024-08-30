@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
+import { useSearchParams } from 'next/navigation';
 import { PulseLoader } from 'react-spinners';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -17,6 +18,14 @@ const CustomNotice = () => {
   const limit = 6;
 
   const { userAddress } = useAddress();
+  const searchParams = useSearchParams();
+  const [keyword, setKeyword] = useState('');
+
+  // SearchParams에서 keyword 가져오기
+  useEffect(() => {
+    const keywordParams = searchParams.get('keyword') || ''; // URL에서 keyword 가져오기
+    setKeyword(keywordParams);
+  }, [searchParams]);
 
   const { data, isFetching } = useSuspenseQuery<NoticeListResponse>({
     queryKey: ['noticeAll', userAddress],
@@ -56,6 +65,11 @@ const CustomNotice = () => {
       },
     ],
   };
+
+  if (keyword) {
+    return null;
+  }
+
   return (
     <div className="flex px-[30px] md:px-[36px] lg:px-[400px] py-[40px] md:py-[60px] flex-col items-start bg-red10 mt-[10px]">
       <div className="flex flex-col gap-[20px] w-[100%]">

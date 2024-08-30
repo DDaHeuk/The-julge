@@ -1,4 +1,4 @@
-import ShopDetailContainer from '@/components/shopDetailContainer';
+import ShopDetailContainer from '@/components/myInfoComponents/shopDetailContainer';
 import getShopDetail from '@/apis/shop/shopDetail';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import getMyNotices from '@/apis/notice/myNotice';

@@ -1,6 +1,6 @@
 import fetchNoticeDetail from '@/apis/notice/noticeDetail';
-import MyPost from '@/components/myPost';
-import NoticeDetailContainer from '@/components/noticeDetailContainer';
+import MyPost from '@/components/myInfoComponents/myPost';
+import NoticeDetailContainer from '@/components/noticeComponents/noticeDetailContainer';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { cookies } from 'next/headers';
 

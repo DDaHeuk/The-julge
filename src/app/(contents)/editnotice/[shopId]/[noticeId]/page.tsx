@@ -1,5 +1,5 @@
-import AssignHeader from '@/components/assignHeader';
-import EditNoticeInfo from '@/components/editNoticeInfo';
+import AssignHeader from '@/components/commonComponents/assignHeader';
+import EditNoticeInfo from '@/components/editComponents/editNoticeInfo';
 
 interface EditNoticeProps {
   params: {

@@ -1,7 +1,7 @@
 import fetchNoticeApplication from '@/apis/notice/fetchNoticeApplication';
 import fetchNoticeDetail from '@/apis/notice/noticeDetail';
-import ApplicantList from '@/components/applicantList';
-import NoticeDetailContainer from '@/components/noticeDetailContainer';
+import ApplicantList from '@/components/commonComponents/applicantList';
+import NoticeDetailContainer from '@/components/noticeComponents/noticeDetailContainer';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { cookies } from 'next/headers';
 

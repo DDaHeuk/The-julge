@@ -1,9 +1,10 @@
-import CustomNotice from '@/components/customNotice';
-import NavigationBar from '@/components/navigationBar';
-import Footer from '@/components/footer';
+import CustomNotice from '@/components/homeComponents/customNotice';
+import Footer from '@/components/commonComponents/footer';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import FetchAllNotice from '@/apis/notice/fetchAllNotice';
-import AllNotices from '@/components/allNotices';
+import AllNotices from '@/components/homeComponents/allNotices';
+import NavigationBar from '@/components/commonComponents/navigationBar';
+// import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 
 export default async function Home() {

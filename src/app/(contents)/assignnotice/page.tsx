@@ -1,5 +1,5 @@
-import AssignHeader from '@/components/assignHeader';
-import AssignNoticeInfo from '@/components/assignNoticeInfo';
+import AssignHeader from '@/components/commonComponents/assignHeader';
+import AssignNoticeInfo from '@/components/noticeComponents/assignNoticeInfo';
 
 const assignNotice = () => {
   return (

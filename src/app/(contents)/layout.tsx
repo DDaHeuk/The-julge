@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import NavigationBar from '@/components/navigationBar';
-import Footer from '@/components/footer';
+import Footer from '@/components/commonComponents/footer';
+import NavigationBar from '@/components/commonComponents/navigationBar';
 
 export const metadata: Metadata = {
   title: 'The Julge',

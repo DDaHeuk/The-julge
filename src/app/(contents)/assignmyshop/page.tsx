@@ -1,5 +1,5 @@
-import AssignHeader from '@/components/assignHeader';
-import AssignMyShopInfo from '@/components/assignMyShopInfo';
+import AssignHeader from '@/components/commonComponents/assignHeader';
+import AssignMyShopInfo from '@/components/myInfoComponents/assignMyShopInfo';
 
 const assignMyShop = () => {
   return (

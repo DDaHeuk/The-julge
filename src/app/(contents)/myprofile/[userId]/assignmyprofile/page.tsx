@@ -1,5 +1,5 @@
-import AssignHeader from '@/components/assignHeader';
-import AssignMyProfileInfo from '@/components/assignMyProfileInfo';
+import AssignHeader from '@/components/commonComponents/assignHeader';
+import AssignMyProfileInfo from '@/components/myInfoComponents/assignMyProfileInfo';
 
 export default function assignMyProfile() {
   return (

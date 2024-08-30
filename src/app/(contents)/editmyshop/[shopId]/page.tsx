@@ -1,5 +1,5 @@
-import AssignHeader from '@/components/assignHeader';
-import EditMyShopInfo from '@/components/editMyShopInfo';
+import AssignHeader from '@/components/commonComponents/assignHeader';
+import EditMyShopInfo from '@/components/editComponents/editMyShopInfo';
 
 interface EditMyShopProps {
   params: {

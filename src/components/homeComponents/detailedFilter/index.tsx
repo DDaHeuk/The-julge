@@ -10,8 +10,8 @@ import LOCATION from '@/constant/location';
 import useDetailedFilterData from '@/stores/storeDetailedFilter';
 import { isPastTimeKST } from '@/utils/dateTimeFormat';
 import { toast } from 'sonner';
-import Button from '../commonComponents/button';
-import Input from '../commonComponents/input';
+import Input from '@/components/commonComponents/input';
+import Button from '@/components/commonComponents/button';
 
 interface DetailedFilterProps {
   onClose: () => void;

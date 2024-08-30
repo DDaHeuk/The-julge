@@ -3,9 +3,9 @@ import axios from 'axios';
 interface ApplyNoticeProps {
   shopId: string;
   noticeId: string;
+  token: string | undefined;
 }
-const applyNotice = async ({ shopId, noticeId }: ApplyNoticeProps) => {
-  const token = localStorage.getItem('token');
+const applyNotice = async ({ shopId, noticeId, token }: ApplyNoticeProps) => {
   if (!token) {
     throw new Error('No token found');
   }

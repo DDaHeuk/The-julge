@@ -52,7 +52,7 @@ export default function NoticeDetailContainer({
     if (userAddress) {
       // 프로필 등록 되있는 경우
       applyNotice(
-        { shopId, noticeId },
+        { shopId, noticeId, token },
         {
           onSuccess: (applicationData) => {
             setUserApplication([...userApplication, applicationData?.item?.id]);

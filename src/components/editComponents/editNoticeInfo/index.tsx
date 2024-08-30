@@ -11,9 +11,10 @@ import Button from '@/components/commonComponents/button';
 interface EditNoticeInfoProps {
   shopId: string;
   noticeId: string;
+  token: string | undefined;
 }
 
-const EditNoticeInfo = ({ shopId, noticeId }: EditNoticeInfoProps) => {
+const EditNoticeInfo = ({ shopId, noticeId, token }: EditNoticeInfoProps) => {
   const searchParams = useSearchParams();
   const { mutate: editNotice } = useEditNotice();
 
@@ -42,7 +43,7 @@ const EditNoticeInfo = ({ shopId, noticeId }: EditNoticeInfoProps) => {
 
   const handleSubmitNotice = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    editNotice({ data: editNoticeInfo, shopId, noticeId });
+    editNotice({ data: editNoticeInfo, shopId, noticeId, token });
   };
 
   const calculateDate = (dateTime: string) => {

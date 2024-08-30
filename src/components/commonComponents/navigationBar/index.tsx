@@ -32,7 +32,16 @@ const NavigationBar = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true); // 로딩 상태 추가
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const getCookieValue = (name: string): string | undefined => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) {
+        return parts.pop()?.split(';').shift();
+      }
+      return undefined; // 명시적으로 undefined 반환
+    };
+
+    const token = getCookieValue('token');
     if (token) {
       setIsAuthorized(true);
       const fetchAlerts = async () => {
@@ -97,7 +106,6 @@ const NavigationBar = () => {
   };
 
   const handleRemoveToken = () => {
-    localStorage.clear();
     setShopId('');
     setMyType('');
     setUserId('');

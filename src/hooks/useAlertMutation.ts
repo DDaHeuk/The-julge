@@ -4,6 +4,7 @@ import readAlert from '@/apis/alert/putAlert';
 interface AlertData {
   userId: string;
   alertId: string;
+  token: string | undefined;
 }
 
 const useAlertMutation = (): UseMutationResult<unknown, Error, AlertData> => {

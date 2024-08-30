@@ -1,6 +1,7 @@
 export interface ReadAlertData {
   userId: string;
   alertId: string;
+  token: string | undefined;
 }
 
 export interface ReadAlertResponse {

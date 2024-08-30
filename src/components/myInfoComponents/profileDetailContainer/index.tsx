@@ -74,7 +74,7 @@ const ProfileDetailContainer = ({ userId, token }: ProfileDetailContainerProps) 
 
   const handleCancel = (applicationId: string, shopId: string, noticeId: string) => {
     applicationProcess(
-      { applicationId, status: 'canceled', shopId, noticeId },
+      { applicationId, status: 'canceled', shopId, noticeId, token },
       {
         onSuccess: () => {
           queryClient.invalidateQueries({

@@ -17,13 +17,22 @@ interface NotificationModalProps {
 }
 
 const NotificationModal = ({ onClose, notificationData }: NotificationModalProps) => {
+  const getCookieValue = (name: string): string | undefined => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      return parts.pop()?.split(';').shift();
+    }
+    return undefined; // 명시적으로 undefined 반환
+  };
+
+  const token = getCookieValue('token');
   const { userId } = useUserId();
   const { mutate: readAlert } = useAlertMutation();
   const unreadNotifications = notificationData.filter((alertItem) => !alertItem.item.read);
   const handleAllertClick = (alertId: string) => {
-    console.log(alertId);
     readAlert(
-      { userId, alertId },
+      { userId, alertId, token },
       {
         onSuccess: () => {
           console.log('알림 읽음');

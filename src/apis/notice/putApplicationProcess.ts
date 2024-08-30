@@ -5,6 +5,7 @@ interface ApplicationData {
   status: 'accepted' | 'rejected' | 'canceled';
   shopId: string;
   noticeId: string;
+  token: string | undefined;
 }
 
 export interface ApplicationResponse {
@@ -56,8 +57,8 @@ const applicationProcess = async ({
   status,
   shopId,
   noticeId,
+  token,
 }: ApplicationData): Promise<ApplicationResponse> => {
-  const token = localStorage.getItem('token');
   if (!token) {
     throw new Error('No token found');
   }

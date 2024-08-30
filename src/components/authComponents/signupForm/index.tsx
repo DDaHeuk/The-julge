@@ -82,7 +82,16 @@ export default function SignUpForm() {
     userInfo.type !== '';
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const getCookieValue = (name: string): string | undefined => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) {
+        return parts.pop()?.split(';').shift();
+      }
+      return undefined; // 명시적으로 undefined 반환
+    };
+
+    const token = getCookieValue('token');
 
     if (token) {
       router.push('/');

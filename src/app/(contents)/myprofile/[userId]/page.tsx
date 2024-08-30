@@ -1,6 +1,6 @@
 import getUserApplications from '@/apis/user/getUserApplications';
 import getUserInfo from '@/apis/user/getUserInfo';
-import ProfileDetailContainer from '@/components/profileDetailContainer';
+import ProfileDetailContainer from '@/components/myInfoComponents/profileDetailContainer';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { cookies } from 'next/headers';
 

@@ -1,5 +1,5 @@
-import AllNotices from '@/components/allNotices';
-import CustomNotice from '@/components/customNotice';
+import AllNotices from '@/components/homeComponents/allNotices';
+import CustomNotice from '@/components/homeComponents/customNotice';
 
 const noticeList = () => {
   return (

@@ -40,11 +40,16 @@ export default function NoticeDetailContainer({
   const { userApplication, setUserApplication } = useApplication();
   const router = useRouter();
   const handleApplyClick = (e: React.MouseEvent<HTMLElement>) => {
-    // Mutate 함수
     e.preventDefault();
+
+    if (!token) {
+      // token이 없을 경우
+      toast.error('로그인을 먼저 해주세요.');
+      router.push(`/signin`);
+      return; // 이후 코드 실행 중단
+    }
     if (userAddress) {
       // 프로필 등록 되있는 경우
-
       applyNotice(
         { shopId, noticeId },
         {

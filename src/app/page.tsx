@@ -20,10 +20,12 @@ export default async function Home() {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div className=" flex-col min-h-screen">
         <div className=" flex-col min-h-[calc(100vh-126px)] md:min-h-[calc(100vh-100px)]">
-          <NavigationBar />
+          <Suspense>
+            <NavigationBar />
+          </Suspense>
           <div className="flex flex-col w-[100%]">
-            <CustomNotice />
             <Suspense>
+              <CustomNotice />
               <AllNotices />
             </Suspense>
           </div>

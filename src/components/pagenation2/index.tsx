@@ -16,7 +16,12 @@ function Pagination2({ totalPages, currentPage, onPageChange }: PaginationProps)
   const handleClick = (page: number) => {
     setSelectedPage(page);
     onPageChange(page);
-    router.push(`?page=${page}`); // URL 업데이트
+    // 현재 URL에서 쿼리 파라미터 유지
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('page', String(page));
+
+    // URL 업데이트
+    router.push(currentUrl.toString()); // URL 업데이트
   };
 
   const handlePrevious = () => {

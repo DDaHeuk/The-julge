@@ -1,4 +1,4 @@
-![header](https://capsule-render.vercel.app/api?type=waving&color=auto&height=300&section=header&text=MOGAZOA%204-18&fontSize=80)
+![header](https://capsule-render.vercel.app/api?type=Rounded&color=F2F2F3&height=300&section=header&text=The-Julge&fontSize=100&fontColor=EA3C12)
 
 
 # 3배 줄께
@@ -13,7 +13,7 @@
 
 |<img src="https://avatars.githubusercontent.com/u/110890911?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/108421517?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/54311686?v=4" width="150" height="150"/>|
 |:-:|:-:|:-:|
-|황지홍<br/>[@ClownNero](https://github.com/ClownNero)<br/>Navigation Bar<br/>프로필 화면<br/>팀장|박기범<br/>[@gibeom0218](https://github.com/gibeom0218)<br/>Input Component<br/>로그인/회원가입 화면<br/>발표|최희문<br/>[@ChoiHeeMoon99](https://github.com/ChoiHeeMoon99)<br/>Button Component<br/>홈 화면|
+|황지홍<br/>[@ClownNero](https://github.com/ClownNero)<br/>레이아웃 적용 (NavBar, Footer)<br/>공고 컴포넌트<br/>가게 등록/편집 페이지<br/>공고 등록/편집 페이지<br/>가게 정보 상세 페이지<br/>공고리스트 페이지(디자인, 검색, 상세 필터)|박기범<br/>[@gibeom0218](https://github.com/gibeom0218)<br/>레이아웃 적용 (NavBar, Footer)<br/>공고 컴포넌트<br/>가게 등록/편집 페이지<br/>공고 등록/편집 페이지<br/>가게 정보 상세 페이지<br/>공고리스트 페이지(디자인, 검색, 상세 필터)|최희문<br/>[@ChoiHeeMoon99](https://github.com/ChoiHeeMoon99)<br/>공통 Input,Button,Dropdown 컴포넌트<br/>로그인, 회원가입 페이지<br/>공고 상세 페이지(table 컴포넌트, 공고 상세 내용, 페이지네이션)<br/>공고 리스트 페이지( 페이지네이션, 공고 정렬 )<br/>NavBar ( 알림 기능 )|
 
 ---
 ## ⭐️ 프로젝트 소개

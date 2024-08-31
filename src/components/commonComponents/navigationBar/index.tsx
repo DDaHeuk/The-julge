@@ -121,7 +121,7 @@ const NavigationBar = () => {
     content = <div className="flex justify-center items-center w-[240px]" />;
   } else if (isAuthorized) {
     content = (
-      <div className="relative inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[30px] w-[240px]">
+      <div className="relative inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[30px]">
         {myType === 'employer' ? (
           <Link href={`/myshop/${shopId}`}>
             <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px]">

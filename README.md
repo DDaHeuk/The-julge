@@ -105,7 +105,8 @@
 </div>
 
 <hr />
-2. 디렉토리 구조
+
+## 디렉토리 구조
 
 ```
 📦src
@@ -153,21 +154,81 @@
  ┃ ┣ 📜layout.tsx
  ┃ ┗ 📜page.tsx
 ```
-3. 화면 구성
-   - 홈페이지
-     ![스크린샷 2024-06-25 00 39 02](https://github.com/Team18-Mogazoa/MOGAZOA/assets/155204900/1e212b89-ee0c-4534-8670-f9bed69e71c0)
+## 화면 구성
+<table style="text-align: center; width: 100%">
+  <tbody>
+    <h3>비로그인</h3>
+    <tr>
+      <tr>
+        <td><img src="https://github.com/user-attachments/assets/1ca2596b-d36d-47d0-8bc8-bd869499f50a"></td>
+        <td><img src="https://github.com/user-attachments/assets/18089bf0-0992-48d6-9286-0f0c1d2c7f92"></td>
+      </tr>
+      <tr>
+        <td><p align="center">로그인</p></td>
+        <td><p align="center">회원가입</p></td>
+      </tr>
+      <tr>
+        <td><img src="https://github.com/user-attachments/assets/1cb09ca2-7d6e-4a88-b5ef-cd87f4f79689"></td>
+        <td><img src="https://github.com/user-attachments/assets/1493da64-87d1-40dc-ba87-1128a41f44c8"></td>
+      </tr>
+      <tr>
+        <td><p align="center">메인화면 (공고 리스트)</p></td>
+        <td><p align="center">공고 상세</p></td>
+      </tr>
+      </tbody>
+</table>
+<hr />
+<table style="text-align: center; width: 100%">
+  <tbody>
+    <h3>로그인 (사장님)</h3>
+    <tr>
+      <tr>
+        <td><img src="https://github.com/user-attachments/assets/6d200c3c-00cf-4632-992d-3aa8d7ba6d06"></td>
+        <td><img src="https://github.com/user-attachments/assets/fe2fec6b-e5cf-459a-90b0-9c791aaaad67"></td>
+      </tr>
+      <tr>
+        <td><p align="center">가게 정보 등록</p></td>
+        <td><p align="center">가게 정보 편집</p></td>
+      </tr>
+      <tr>
+        <td><img src="https://github.com/user-attachments/assets/87775449-250d-40a9-8355-b4b7d32745b8"></td>
+        <td><img src="https://github.com/user-attachments/assets/699fccf3-f817-4a4b-9512-8615f878b5bf"></td>
+      </tr>
+      <tr>
+        <td><p align="center">공고 등록</p></td>
+        <td><p align="center">공고 편집</p></td>
+      </tr>
+      <tr>
+        <td><img src="https://github.com/user-attachments/assets/8bedbf0d-798c-4628-b952-196335556852"></td>
+        <td><img src="https://github.com/user-attachments/assets/5a5f1d6a-c409-4704-9164-7e4c699cda69"></td>
+      </tr>
+      <tr>
+        <td><p align="center">가게 정보 상세</p></td>
+        <td><p align="center">공고 상세</p></td>
+      </tr>
+      </tbody>
+</table>
+<hr />
+<table style="text-align: center; width: 100%">
+  <tbody>
+    <h3>로그인 (알바님)</h3>
+    <tr>
+      <tr>
+        <td><img src="https://github.com/user-attachments/assets/03f44c72-5fd5-41d4-87ce-12c2f48e9e54"></td>
+        <td><img src="https://github.com/user-attachments/assets/9b06271d-bc9f-4df0-a966-7b8b1361cc34"></td>
+      </tr>
+      <tr>
+        <td><p align="center">내 프로필 등록</p></td>
+        <td><p align="center">내 프로필 편집</p></td>
+      </tr>
+      <tr>
+        <td><img src="https://github.com/user-attachments/assets/c7744432-d981-4b6e-97c3-67ebd77e858b"></td>
+        <td><img src="https://github.com/user-attachments/assets/625bda8b-a902-443b-af96-d62d66c7ac79"></td>
+      </tr>
+      <tr>
+        <td><p align="center">내 프로필 상세</p></td>
+        <td><p align="center">공고 상세</p></td>
+      </tr>
+      </tbody>
+</table>
 
-   - 로그인
-     ![스크린샷 2024-06-25 00 40 36](https://github.com/Team18-Mogazoa/MOGAZOA/assets/155204900/f384be34-6af2-4b4b-b536-39d3cecbbadb)
-
-   - 회원가입
-     ![스크린샷 2024-06-25 00 40 45](https://github.com/Team18-Mogazoa/MOGAZOA/assets/155204900/5a4be506-c662-4ea6-9633-b0e69cde01c5)
-
-   - 비교하기
-     ![스크린샷 2024-06-25 00 40 22](https://github.com/Team18-Mogazoa/MOGAZOA/assets/155204900/489f1143-0a01-487a-a6b6-a5b60b41feba)
-
-   - 상품상세
-     ![스크린샷 2024-06-25 00 40 07](https://github.com/Team18-Mogazoa/MOGAZOA/assets/155204900/5b826219-2017-4835-871a-230e01727046)
-
-   - 프로필
-     ![스크린샷 2024-06-25 00 39 46](https://github.com/Team18-Mogazoa/MOGAZOA/assets/155204900/68e2f171-79d5-41f1-a0a4-95895e79fa96)

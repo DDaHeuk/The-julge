@@ -110,46 +110,68 @@
 
 ```
 📦src
- ┣ 📂Apis
- ┃ ┣ 📂Auth
- ┃ ┣ 📂Category
- ┃ ┣ 📂Follow
- ┃ ┣ 📂Image
- ┃ ┣ 📂Oauth
- ┃ ┣ 📂Product
- ┃ ┣ 📂Review
- ┃ ┣ 📂User
- ┣ 📂Components
- ┃ ┣ 📂Auth
- ┃ ┣ 📂Commons
- ┃ ┃ ┣ 📂Button
- ┃ ┃ ┣ 📂Cards
- ┃ ┃ ┣ 📂Chip
- ┃ ┃ ┣ 📂Dropdown
- ┃ ┃ ┣ 📂Icon
- ┃ ┃ ┣ 📂Input
- ┃ ┃ ┣ 📂ModalContainer
- ┃ ┃ ┣ 📂NavigationBar
- ┃ ┃ ┗ 📂Profile
- ┃ ┣ 📂Compare
- ┃ ┗ 📂HomeComponents
- ┣ 📂Constant
- ┣ 📂Context
- ┣ 📂Hooks
- ┣ 📂Types
- ┣ 📂Utils
+ ┣ 📂apis
+ ┃ ┣ 📂alert
+ ┃ ┣ 📂assignNoticeInfo
+ ┃ ┣ 📂assignShopInfo
+ ┃ ┣ 📂auth
+ ┃ ┣ 📂editNoticeInfo
+ ┃ ┣ 📂editProfileInfo
+ ┃ ┣ 📂editShopInfo
+ ┃ ┣ 📂imageUpload
+ ┃ ┣ 📂notice
+ ┃ ┣ 📂profile
+ ┃ ┣ 📂shop
+ ┃ ┣ 📂user
+ ┣ 📂components
+ ┃ ┣ 📂authComponents
+ ┃ ┣ 📂commonComponents
+ ┃ ┃ ┣ 📂button
+ ┃ ┃ ┣ 📂dropdown
+ ┃ ┃ ┣ 📂footer
+ ┃ ┃ ┣ 📂navigationBar
+ ┃ ┃ ┣ 📂pagination
+ ┃ ┃ ┣ 📂input
+ ┃ ┃ ┣ 📂status
+ ┃ ┃ ┣ 📂applicationList
+ ┃ ┃ ┗ 📂hourlypayCalc
+ ┃ ┣ 📂editComponents
+ ┃ ┣ 📂homeComponents
+ ┃ ┣ 📂myInfoComponents
+ ┃ ┗ 📂noticeComponents
+ ┣ 📂constant
+ ┣ 📂hooks
+ ┣ 📂provider
+ ┣ 📂stores
+ ┣ 📂styles
+ ┣ 📂utils
  ┗ 📂app
- ┃ ┣ 📂api
- ┃ ┃ ┗ 📂auth
- ┃ ┃ ┃ ┗ 📂[...nextauth]
- ┃ ┣ 📂compare
- ┃ ┣ 📂input
- ┃ ┣ 📂login
- ┃ ┣ 📂signup
- ┃ ┣ 📂userprofile
- ┃ ┃ ┗ 📂[userprofileId]
- ┃ ┣ 📜Providers.tsx
- ┃ ┣ 📜SearchContext.tsx
+ ┃ ┣ 📂(auth)
+ ┃ ┃ ┣ 📂signin
+ ┃ ┃ ┣ 📂signup
+ ┃ ┃ ┗ 📜loading.tsx
+ ┃ ┣ 📂(contents)
+ ┃ ┃ ┣ 📂assignmyshop
+ ┃ ┃ ┣ 📂assignnotice
+ ┃ ┃ ┣ 📂editmyshop
+ ┃ ┃ ┣ ┗ 📂[shopId]
+ ┃ ┃ ┣ 📂editnotice
+ ┃ ┃ ┣ ┗ 📂[shopId]
+ ┃ ┃ ┣ ┗ ┗ 📂[noticeId]
+ ┃ ┃ ┣ 📂myprofile
+ ┃ ┃ ┣ ┗ 📂[userId]
+ ┃ ┃ ┣ ┗ ┗ 📂assignmyprofile
+ ┃ ┃ ┣ 📂myshop
+ ┃ ┃ ┣ ┗ 📂[shopId]
+ ┃ ┃ ┣ ┗ ┗ 📂notices
+ ┃ ┃ ┣ ┗ ┗ ┗ 📂[noticesId]
+ ┃ ┃ ┣ 📂noticelist
+ ┃ ┃ ┣ 📂shop
+ ┃ ┃ ┣ ┗ 📂[shopId]
+ ┃ ┃ ┣ ┗ ┗ 📂notice
+ ┃ ┃ ┣ ┗ ┗ ┗ 📂[noticeId]
+ ┃ ┃ ┣ 📜layout.tsx
+ ┃ ┃ ┗ 📜page.tsx
  ┃ ┣ 📜globals.css
  ┃ ┣ 📜layout.tsx
  ┃ ┗ 📜page.tsx

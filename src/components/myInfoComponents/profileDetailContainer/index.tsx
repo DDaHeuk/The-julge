@@ -68,8 +68,6 @@ const ProfileDetailContainer = ({ userId, token }: ProfileDetailContainerProps) 
     queryFn: () => getUserApplications({ userId, offset, limit, token }),
   }); // userId가 없을 때 applications는 null로 설정
 
-  console.log(applications);
-
   const { mutate: applicationProcess } = useApplicationProcess();
 
   const handleCancel = (applicationId: string, shopId: string, noticeId: string) => {

@@ -9,7 +9,7 @@ import { AxiosError } from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { toast } from 'sonner';
 
 interface UserInfoType {
@@ -80,23 +80,6 @@ export default function SignUpForm() {
     validateEmail(userInfo.email) === '' &&
     userInfo.password === userInfo.passwordVerify &&
     userInfo.type !== '';
-
-  useEffect(() => {
-    const getCookieValue = (name: string): string | undefined => {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) {
-        return parts.pop()?.split(';').shift();
-      }
-      return undefined; // 명시적으로 undefined 반환
-    };
-
-    const token = getCookieValue('token');
-
-    if (token) {
-      router.push('/');
-    }
-  }, [router]);
 
   return (
     <div className="flex flex-col items-center">

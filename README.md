@@ -13,7 +13,7 @@
 
 |<img src="https://avatars.githubusercontent.com/u/110890911?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/108421517?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/54311686?v=4" width="150" height="150"/>|
 |:-:|:-:|:-:|
-|황지홍<br/>[@ClownNero](https://github.com/ClownNero)<br/>레이아웃 적용 (NavBar, Footer)<br/>공고 컴포넌트<br/>가게 등록/편집 페이지<br/>공고 등록/편집 페이지<br/>가게 정보 상세 페이지<br/>공고리스트 페이지(디자인, 검색, 상세 필터)|박기범<br/>[@gibeom0218](https://github.com/gibeom0218)<br/>레이아웃 적용 (NavBar, Footer)<br/>공고 컴포넌트<br/>가게 등록/편집 페이지<br/>공고 등록/편집 페이지<br/>가게 정보 상세 페이지<br/>공고리스트 페이지(디자인, 검색, 상세 필터)|최희문<br/>[@ChoiHeeMoon99](https://github.com/ChoiHeeMoon99)<br/>공통 Input,Button,Dropdown 컴포넌트<br/>로그인, 회원가입 페이지<br/>공고 상세 페이지(table 컴포넌트, 공고 상세 내용, 페이지네이션)<br/>공고 리스트 페이지( 페이지네이션, 공고 정렬 )<br/>NavBar ( 알림 기능 )|
+|황지홍<br/>[@ClownNero](https://github.com/ClownNero)<br/>API 활용한 데이터(GET,POST,PUT) 적용<br/>내 프로필 등록/편집 페이지(데이터 변경 쿼리 자동 업데이트 적용)<br/>내 프로필 정보 상세 페이지(SSR적용)<br/>공통 컴포넌트(테이블 상태, 최근 본 공고)<br/>새로고침 후 정보 유지를 위한 Zustand persist 상태관리<br/>기존 token 저장 방식을 쿠키로 변경 및 적용<br/>middleware.ts로 리디렉션 리팩토링|박기범<br/>[@gibeom0218](https://github.com/gibeom0218)<br/>레이아웃 적용 (NavBar, Footer)<br/>공고 컴포넌트<br/>가게 등록/편집 페이지<br/>공고 등록/편집 페이지<br/>가게 정보 상세 페이지<br/>공고리스트 페이지(디자인, 검색, 상세 필터)|최희문<br/>[@ChoiHeeMoon99](https://github.com/ChoiHeeMoon99)<br/>공통 Input,Button,Dropdown 컴포넌트<br/>로그인, 회원가입 페이지<br/>공고 상세 페이지(table 컴포넌트, 공고 상세 내용, 페이지네이션)<br/>공고 리스트 페이지( 페이지네이션, 공고 정렬 )<br/>NavBar ( 알림 기능 )|
 
 ---
 ## ⭐️ 프로젝트 소개

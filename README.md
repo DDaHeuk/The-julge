@@ -106,6 +106,12 @@
 
 <hr />
 
+## ⭐️ 아키텍처
+
+![아키텍처](https://github.com/user-attachments/assets/832f5bd1-ce47-4d4f-976f-c30c6bcdb879)
+
+<hr />
+
 ## 디렉토리 구조
 
 ```
@@ -254,3 +260,26 @@
       </tbody>
 </table>
 
+<hr />
+
+## Troble Shooting
+
+### ⚠️ 새로고침 시 props로 받은 id가 undefined가 떠서 빈 데이터가 나타나는 이슈 (가게 편집,공고 편집)
+
+✅   페이지를 이동하기 전 컴포넌트에서 가게 데이터를 사용하고 있어 Link태그에 query로 데이터들을 전달해줌.
+
+### ⚠️ querykey를 특정하지 않아 데이터가 제대로 fetch를 하지않는 이슈
+
+✅   querykey를 특정하지 않아 기존의 캐싱된 데이터가 참조하게 됨. -> 고유한 querykey를 만들기 위해 userId를 추가함.
+
+### ⚠️ 가게 정보 상세 페이지 (/myshop/{shopId}) 에서 임의로 shopId를 지웠을 때 가게 정보가 안뜨고 등록이 안된 상태의 페이지가 뜨는 이슈 
+
+✅  쿠키로 로그인하거나 가게를 등록했을 때 shopId를 저장해주고 (/myshop) 페이지에서 쿠키 값을 가져와서 만약 있다면 (/myshop/{shopId})로 리다이렉션 되게끔 해줌.
+
+### ⚠️ 무한스크롤 구현 시 서버 컴포넌트에서 prefetchQuery 사용해서 prefetch를 할때 오류가 떴었다. 
+
+✅   prefetchQuery는 단일 페이지의 데이터를 로드할때 사용하는 것이고 페이지네이션이나 무한스크롤에 특화된 prefetchInfiniteQuery을 사용하여 useInfiniteQuery와 함께 사용함으로써 여러 페이지의 데이터를 미리 로드하였음.
+
+### ⚠️ 클라이언트 컴포넌트에서 useSearchParams()를 사용하였는데 빌드과정에서 useSearchParams에서 Suspense 경계가 누락되었다는 것을 발견함.
+
+✅  이 오류는 SSR 환경에서 CSR이 일어날 경우에 발생하는 오류로써 Suspense 컴포넌트를 사용하여 CSR과 SSR 사이의 경계를 만듦으로써 감싸진 컴포넌트가 렌더링되기 전에 필요한 데이터를 비동기적으로 로드할 수 있는 시간을 제공하도록 함.

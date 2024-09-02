@@ -13,7 +13,7 @@
 
 |<img src="https://avatars.githubusercontent.com/u/110890911?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/108421517?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/54311686?v=4" width="150" height="150"/>|
 |:-:|:-:|:-:|
-|황지홍<br/>[@ClownNero](https://github.com/ClownNero)<br/>레이아웃 적용 (NavBar, Footer)<br/>공고 컴포넌트<br/>가게 등록/편집 페이지<br/>공고 등록/편집 페이지<br/>가게 정보 상세 페이지<br/>공고리스트 페이지(디자인, 검색, 상세 필터)|박기범<br/>[@gibeom0218](https://github.com/gibeom0218)<br/>레이아웃 적용 (NavBar, Footer)<br/>공고 컴포넌트<br/>가게 등록/편집 페이지<br/>공고 등록/편집 페이지<br/>가게 정보 상세 페이지<br/>공고리스트 페이지(디자인, 검색, 상세 필터)|최희문<br/>[@ChoiHeeMoon99](https://github.com/ChoiHeeMoon99)<br/>공통 Input,Button,Dropdown 컴포넌트<br/>로그인, 회원가입 페이지<br/>공고 상세 페이지(table 컴포넌트, 공고 상세 내용, 페이지네이션)<br/>공고 리스트 페이지( 페이지네이션, 공고 정렬 )<br/>NavBar ( 알림 기능 )|
+|황지홍<br/>[@ClownNero](https://github.com/ClownNero)<br/>API 활용한 데이터(GET,POST,PUT) 적용<br/>내 프로필 등록/편집 페이지(데이터 변경 쿼리 자동 업데이트 적용)<br/>내 프로필 정보 상세 페이지(SSR적용)<br/>공통 컴포넌트(테이블 상태, 최근 본 공고)<br/>새로고침 후 정보 유지를 위한 Zustand persist 상태관리<br/>기존 token 저장 방식을 쿠키로 변경 및 적용<br/>middleware.ts로 리디렉션 리팩토링|박기범<br/>[@gibeom0218](https://github.com/gibeom0218)<br/>레이아웃 적용 (NavBar, Footer)<br/>공고 컴포넌트<br/>가게 등록/편집 페이지<br/>공고 등록/편집 페이지<br/>가게 정보 상세 페이지<br/>공고리스트 페이지(디자인, 검색, 상세 필터)|최희문<br/>[@ChoiHeeMoon99](https://github.com/ChoiHeeMoon99)<br/>공통 Input,Button,Dropdown 컴포넌트<br/>로그인, 회원가입 페이지<br/>공고 상세 페이지(table 컴포넌트, 공고 상세 내용, 페이지네이션)<br/>공고 리스트 페이지( 페이지네이션, 공고 정렬 )<br/>NavBar ( 알림 기능 )|
 
 ---
 ## ⭐️ 프로젝트 소개
@@ -103,6 +103,12 @@
 <img height='26px' src="https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=Discord&logoColor=white&color=5865F2"/>
 <img height='26px' src='https://img.shields.io/badge/Figma-white?style=flat-square&logo=figma&logoColor=white&color=F24E1E'/>
 </div>
+
+<hr />
+
+## ⭐️ 아키텍처
+
+![아키텍처](https://github.com/user-attachments/assets/832f5bd1-ce47-4d4f-976f-c30c6bcdb879)
 
 <hr />
 
@@ -254,3 +260,26 @@
       </tbody>
 </table>
 
+<hr />
+
+## Trouble Shooting
+
+### ⚠️ 새로고침 시 props로 받은 id가 undefined가 떠서 빈 데이터가 나타나는 이슈 (가게 편집,공고 편집)
+
+✅   페이지를 이동하기 전 컴포넌트에서 가게 데이터를 사용하고 있어 Link태그에 query로 데이터들을 전달해줌.
+
+### ⚠️ querykey를 특정하지 않아 데이터가 제대로 fetch를 하지않는 이슈
+
+✅   querykey를 특정하지 않아 기존의 캐싱된 데이터가 참조하게 됨. -> 고유한 querykey를 만들기 위해 userId를 추가함.
+
+### ⚠️ 가게 정보 상세 페이지 (/myshop/{shopId}) 에서 임의로 shopId를 지웠을 때 가게 정보가 안뜨고 등록이 안된 상태의 페이지가 뜨는 이슈 
+
+✅  쿠키로 로그인하거나 가게를 등록했을 때 shopId를 저장해주고 (/myshop) 페이지에서 쿠키 값을 가져와서 만약 있다면 (/myshop/{shopId})로 리다이렉션 되게끔 해줌.
+
+### ⚠️ 무한스크롤 구현 시 서버 컴포넌트에서 prefetchQuery 사용해서 prefetch를 할때 오류가 떴었다. 
+
+✅   prefetchQuery는 단일 페이지의 데이터를 로드할때 사용하는 것이고 페이지네이션이나 무한스크롤에 특화된 prefetchInfiniteQuery을 사용하여 useInfiniteQuery와 함께 사용함으로써 여러 페이지의 데이터를 미리 로드하였음.
+
+### ⚠️ 클라이언트 컴포넌트에서 useSearchParams()를 사용하였는데 빌드과정에서 useSearchParams에서 Suspense 경계가 누락되었다는 것을 발견함.
+
+✅  이 오류는 SSR 환경에서 CSR이 일어날 경우에 발생하는 오류로써 Suspense 컴포넌트를 사용하여 CSR과 SSR 사이의 경계를 만듦으로써 감싸진 컴포넌트가 렌더링되기 전에 필요한 데이터를 비동기적으로 로드할 수 있는 시간을 제공하도록 함.

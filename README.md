@@ -262,7 +262,7 @@
 
 <hr />
 
-## Troble Shooting
+## Trouble Shooting
 
 ### ⚠️ 새로고침 시 props로 받은 id가 undefined가 떠서 빈 데이터가 나타나는 이슈 (가게 편집,공고 편집)
 

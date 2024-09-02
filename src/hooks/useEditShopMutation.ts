@@ -11,6 +11,7 @@ import { ErrorResponseData } from '@/types/errorResponseData';
 interface EditShopVariables {
   data: AssignShopInfoData;
   shopId: string;
+  token: string | undefined;
 }
 
 const useEditShop = (): UseMutationResult<AssignShopResponse, AxiosError, EditShopVariables> => {
@@ -18,7 +19,7 @@ const useEditShop = (): UseMutationResult<AssignShopResponse, AxiosError, EditSh
   const router = useRouter();
   const { setShopId } = useShopId();
   return useMutation<AssignShopResponse, AxiosError, EditShopVariables>({
-    mutationFn: ({ data, shopId }) => editShop(data, shopId),
+    mutationFn: ({ data, shopId, token }) => editShop(data, shopId, token),
     onSuccess: (data) => {
       toast.success('가게 편집 성공');
       const shopId = data.item.id;

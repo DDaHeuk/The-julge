@@ -7,17 +7,22 @@ import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
+interface AssignProfileInfoVariables {
+  data: AssignProfileInfoData;
+  token: string | undefined;
+}
+
 const useEditProfile = (): UseMutationResult<
   AssignProfileResponse,
   AxiosError,
-  AssignProfileInfoData
+  AssignProfileInfoVariables
 > => {
   const { userId } = useUserId();
   const { setUserAddress } = useAddress();
   const queryClient = useQueryClient();
   const router = useRouter();
   return useMutation({
-    mutationFn: (data: AssignProfileInfoData) => editProfile(userId, data),
+    mutationFn: ({ data, token }: AssignProfileInfoVariables) => editProfile(userId, data, token),
     onSuccess: (data) => {
       toast.success('프로필 편집 성공');
       setUserAddress(data.item.address);

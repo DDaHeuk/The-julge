@@ -1,4 +1,4 @@
-import ShopDetailContainer from '@/components/shopDetailContainer';
+import ShopDetailContainer from '@/components/myInfoComponents/shopDetailContainer';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 

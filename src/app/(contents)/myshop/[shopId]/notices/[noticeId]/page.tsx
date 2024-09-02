@@ -1,8 +1,9 @@
 import fetchNoticeApplication from '@/apis/notice/fetchNoticeApplication';
 import fetchNoticeDetail from '@/apis/notice/noticeDetail';
-import ApplicantList from '@/components/applicantList';
-import NoticeDetailContainer from '@/components/noticeDetailContainer';
+import ApplicantList from '@/components/commonComponents/applicantList';
+import NoticeDetailContainer from '@/components/noticeComponents/noticeDetailContainer';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { cookies } from 'next/headers';
 
 interface Params {
   shopId: string;
@@ -11,12 +12,13 @@ interface Params {
 
 export default async function NoticeDetailPage({ params }: { params: Params }) {
   const queryClient = new QueryClient();
-
+  const cookieStore = cookies();
+  const token = cookieStore.get('token')?.value;
   const { shopId, noticeId } = params;
 
   await queryClient.prefetchQuery({
     queryKey: ['noticeDetail'],
-    queryFn: () => fetchNoticeDetail({ shopId, noticeId }),
+    queryFn: () => fetchNoticeDetail({ shopId, noticeId, token }),
   });
 
   const limit = 5;
@@ -30,10 +32,10 @@ export default async function NoticeDetailPage({ params }: { params: Params }) {
   return (
     <div className="bg-gray5">
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <NoticeDetailContainer shopId={shopId} noticeId={noticeId} memberType="owner" />
-        <div className="flex flex-col gap-3 px-[12px] py-[40px] md:px-[32px] md:py-[60px] lg:px-[238px]">
+        <NoticeDetailContainer shopId={shopId} noticeId={noticeId} token={token} />
+        <div className="flex flex-col gap-3 px-[12px] py-[40px] md:px-[32px] md:py-[60px] lg:px-[400px]">
           <h2 className="text-black text-5 font-bold md:text-[28px]">신청자목록</h2>
-          <ApplicantList shopId={shopId} noticeId={noticeId} />
+          <ApplicantList shopId={shopId} noticeId={noticeId} token={token} />
         </div>
       </HydrationBoundary>
     </div>

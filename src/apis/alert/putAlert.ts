@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { ReadAlertData, ReadAlertResponse } from '@/types/alertRead';
 
-const readAlert = async ({ userId, alertId }: ReadAlertData): Promise<ReadAlertResponse> => {
-  const token = localStorage.getItem('token');
+const readAlert = async ({ userId, alertId, token }: ReadAlertData): Promise<ReadAlertResponse> => {
   if (!token) {
     throw new Error('No token found');
   }

@@ -7,17 +7,23 @@ import { toast } from 'sonner';
 import { AxiosError } from 'axios';
 import { ErrorResponseData } from '@/types/errorResponseData';
 
+interface AssignNoticeInfoVariables {
+  assignNoticeInfo: AssignNoticeInfoData;
+  token: string | undefined;
+}
+
 const useAssignNotice = (): UseMutationResult<
   AssignNoticeResponse,
   AxiosError,
-  AssignNoticeInfoData
+  AssignNoticeInfoVariables
 > => {
   const { shopId } = useShopId();
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  return useMutation<AssignNoticeResponse, AxiosError, AssignNoticeInfoData>({
-    mutationFn: (data: AssignNoticeInfoData) => assignNotice(shopId, data),
+  return useMutation<AssignNoticeResponse, AxiosError, AssignNoticeInfoVariables>({
+    mutationFn: ({ assignNoticeInfo, token }: AssignNoticeInfoVariables) =>
+      assignNotice(shopId, assignNoticeInfo, token),
     onSuccess: () => {
       toast.success('공고 등록 성공');
       queryClient.invalidateQueries({ queryKey: ['myNotices', shopId] });

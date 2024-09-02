@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import NavigationBar from '@/components/navigationBar';
-import Footer from '@/components/footer';
+import Footer from '@/components/commonComponents/footer';
+import NavigationBar from '@/components/commonComponents/navigationBar';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'The Julge',
@@ -15,7 +16,9 @@ export default function ContentsLayout({
   return (
     <div className=" flex-col min-h-screen">
       <div className=" flex-col min-h-[calc(100vh-126px)] md:min-h-[calc(100vh-100px)]">
-        <NavigationBar />
+        <Suspense>
+          <NavigationBar />
+        </Suspense>
         {children}
       </div>
       <Footer />

@@ -165,6 +165,7 @@ export default function Input({
             <div ref={calendarRef} className="relative">
               <StyledInputCalendar>
                 <Calendar
+                  locale="ko"
                   className="bg-white p-4 rounded-lg shadow-lg"
                   onChange={handleDateChange}
                 />

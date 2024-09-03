@@ -96,7 +96,7 @@ export default function SignInForm() {
               console.error(error);
             }
           }
-          router.back();
+          router.push('/');
         },
         onError: (error: unknown) => {
           let errorMessage = '로그인 실패';

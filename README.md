@@ -227,7 +227,7 @@
         <td><p align="center">공고 편집</p></td>
       </tr>
       <tr>
-        <td><img src="https://github.com/user-attachments/assets/8bedbf0d-798c-4628-b952-196335556852"></td>
+        <td><img src="https://github.com/user-attachments/assets/436bc2ef-f2b4-4b12-b033-43c9071a58d4"></td>
         <td><img src="https://github.com/user-attachments/assets/5a5f1d6a-c409-4704-9164-7e4c699cda69"></td>
       </tr>
       <tr>

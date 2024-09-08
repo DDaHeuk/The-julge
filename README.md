@@ -108,7 +108,14 @@
 
 ## ⭐️ 아키텍처
 
-![아키텍처](https://github.com/user-attachments/assets/832f5bd1-ce47-4d4f-976f-c30c6bcdb879)
+![아키텍처](https://github.com/user-attachments/assets/4fd7d367-5966-4790-a9ab-eaf99aee6403)
+
+<hr />
+
+
+## ⭐️ Flow-Chart
+
+![Flow-Chart](https://github.com/user-attachments/assets/832f5bd1-ce47-4d4f-976f-c30c6bcdb879)
 
 <hr />
 

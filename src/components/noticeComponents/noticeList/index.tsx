@@ -41,14 +41,15 @@ export default function NoticeList({ noticeData }: { noticeData: NoticeData }) {
   return (
     <Link href={`/shop/${processedShopData.id}/notice/${processedData.id}`} onClick={handleClick}>
       <div className="flex p-[12px] md:p-[16px] flex-col items-start gap-[12px] md:gap-[20px] rounded-[12px] border border-gray20 bg-white">
-        <div
-          style={{
-            backgroundImage: `url('${processedShopData?.imageUrl}')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-          className="relative flex justify-center items-center rounded-[12px] w-[100%] h-[171px] lg:h-[160px]"
-        >
+        <div className="relative flex justify-center items-center rounded-[12px] w-[100%] h-[171px] lg:h-[160px]">
+          <Image
+            src={processedShopData?.imageUrl || '/default-image.jpg'}
+            alt={`${processedShopData?.name} 이미지`}
+            sizes="(min-width: 1440px) 100vw, (min-width: 744px) 50vw, 33vw"
+            fill
+            style={{ objectFit: 'cover' }}
+            className="rounded-[12px]"
+          />
           {processedData.closed && (
             <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center rounded-[12px]">
               <span className="text-gray30 text-center font-bold text-[20px] md:text-[28px]">

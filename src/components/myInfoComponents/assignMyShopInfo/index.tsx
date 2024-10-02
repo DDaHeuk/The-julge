@@ -144,15 +144,19 @@ const AssignMyShopInfo = ({ token }: AssignMyShopInfoProps) => {
       <div className="inline-flex flex-col items-start gap-[8px] md:w-[49%]">
         <span className="text-black text-[16px]">가게 이미지</span>
         <div
-          className="cursor-pointer rounded-[12px] border border-gray30 bg-gray10 w-[100%] h-[200px] py-[68px]"
-          style={{
-            backgroundImage: `url(${imageUrl})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
+          className="relative cursor-pointer rounded-[12px] border border-gray30 bg-gray10 w-[100%] h-[200px] py-[68px]"
           onClick={handleImageClick}
         >
-          {!imageUrl && (
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              alt={`${imageUrl} 이미지`}
+              sizes="(min-width: 1440px) 100vw, (min-width: 744px) 50vw, 33vw"
+              fill
+              style={{ objectFit: 'cover' }}
+              className="rounded-[12px]"
+            />
+          ) : (
             <div className="flex flex-col items-center gap-[11px] justify-center h-full">
               <Image src="/icons/camera.svg" alt="카메라 아이콘" width={32} height={32} />
               <span className="text-gray40 text-center text-[16px] font-bold">이미지 추가하기</span>

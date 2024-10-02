@@ -17,14 +17,16 @@ const MyShopInfo = ({ shopInfo, shopId }: MyShopInfoProps) => {
 
   return (
     <div className="flex flex-col lg:flex-row p-[20px] md:p-[24px] justify-between items-start rounded-[12px] gap-[12px] lg:gap-[30px] 2xl:gap-[70px] bg-red10 mt-[12px]">
-      <div
-        className="flex justify-center items-center rounded-[12px] w-[100%] h-[308px] md:h-[360px] lg:h-[308px]"
-        style={{
-          backgroundImage: `url(${shopInfo.imageUrl})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
+      <div className="relative flex justify-center items-center rounded-[12px] w-[100%] h-[308px] md:h-[360px] lg:h-[308px]">
+        <Image
+          src={shopInfo.imageUrl}
+          alt={`${shopInfo.imageUrl} 이미지`}
+          sizes="(min-width: 1440px) 100vw, (min-width: 744px) 50vw, 33vw"
+          fill
+          style={{ objectFit: 'cover' }}
+          className="rounded-[12px]"
+        />
+      </div>
       <div className="flex flex-col items-start self-stretch gap-[24px] md:gap-[40px] pt-0 md:pt-[16px]">
         <div className="flex flex-col items-start gap-[8px] md:gap-[12px] md:w-[346px]  2xl:w-[550px] self-stretch">
           <div className="flex flex-col items-start gap-[8px]">

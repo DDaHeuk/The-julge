@@ -3,9 +3,11 @@
 import { StyledInputCalendar } from '@/styles/StyledCalendar';
 import { validateEmail, validatePassword, validateVerifyPassword } from '@/utils/validation';
 import React, { useState, useRef, useEffect } from 'react';
+import { UseFormRegister, FieldError } from 'react-hook-form';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import TIME from '@/constant/time';
+import SignForm from '@/types/signForm';
 import { SelectedDate } from '@/types/date';
 import { dateTimeToString, dateTimeToISO } from '@/utils/dateTimeFormat';
 import Button from '@/components/commonComponents/button';
@@ -13,18 +15,24 @@ import DropDown from '../dropdown';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   variant: 'normal' | 'email' | 'password' | 'passwordVerify' | 'unit' | 'dateTime' | 'date';
+  variant2?: 'email' | 'password' | 'passwordVerify' | undefined;
   label?: string;
   value?: string | number;
   unitLabel?: string;
   originalPassword?: string;
+  register: UseFormRegister<SignForm>;
+  error?: FieldError;
 }
 
 export default function Input({
   variant,
+  variant2,
   originalPassword,
   value,
   label,
   unitLabel,
+  register,
+  error,
   ...rest
 }: InputProps) {
   const { onChange, className, ...restProps } = rest;
@@ -207,15 +215,30 @@ export default function Input({
       <p>{label}</p>
       <input
         {...restProps}
+        {...(variant2
+          ? register(variant2, {
+              required: `${label}을 입력해주세요.`,
+              pattern:
+                variant2 === 'email'
+                  ? { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: '이메일 형식이 맞지 않습니다.' }
+                  : undefined,
+              minLength:
+                variant2 === 'password'
+                  ? { value: 8, message: '비밀번호는 8자리 이상이어야 합니다.' }
+                  : undefined,
+              validate:
+                variant2 === 'passwordVerify'
+                  ? (value) => value === originalPassword || '비밀번호가 일치하지 않습니다.'
+                  : undefined,
+            })
+          : {})}
         className={` h-[58px] mb-2 px-4 py-5 rounded-md border ${
           errMsg ? 'border-red40' : 'border-gray30'
         } focus:border-black focus:outline-none `}
-        value={inputValue}
-        onChange={handleChange}
         placeholder={getPlaceholder()}
         type={variant === 'email' || variant === 'normal' ? 'text' : 'password'}
       />
-      {errMsg && <p className="ml-2 text-[12px] text-red40">{errMsg}</p>}
+      {error && <p className="ml-2 text-[12px] text-red40">{error.message}</p>}
     </div>
   );
 }

@@ -3,55 +3,42 @@
 import Button from '@/components/commonComponents/button';
 import Input from '@/components/commonComponents/input';
 import useSignUp from '@/hooks/useSignUpMutation';
+import SignForm from '@/types/signForm';
 import { ErrorResponseData } from '@/types/errorResponseData';
-import { validateEmail } from '@/utils/validation';
 import { AxiosError } from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ChangeEvent, useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { toast } from 'sonner';
 
-interface UserInfoType {
-  email: string;
-  password: string;
-  passwordVerify: string;
-  type: string;
-}
-
 export default function SignUpForm() {
-  const [userInfo, setUserInfo] = useState<UserInfoType>({
-    email: '',
-    password: '',
-    passwordVerify: '',
-    type: '',
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    watch,
+  } = useForm<SignForm>();
 
   const { mutate: signUp } = useSignUp();
   const router = useRouter();
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUserInfo({
-      ...userInfo,
-      [name]: value,
-    });
-  };
-
   const handleMemberType = (type: string) => {
-    setUserInfo({
-      ...userInfo,
-      type,
-    });
+    setValue('type', type);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit: SubmitHandler<SignForm> = (data) => {
+    if (!data.type) {
+      toast.error('회원 유형을 선택해 주세요.');
+      return;
+    }
+
     signUp(
       {
-        email: userInfo.email,
-        password: userInfo.password,
-        type: userInfo.type,
+        email: data.email,
+        password: data.password,
+        type: data.type,
       },
       {
         onSuccess: () => {
@@ -75,12 +62,6 @@ export default function SignUpForm() {
     );
   };
 
-  const isFormValid =
-    userInfo.email !== '' &&
-    validateEmail(userInfo.email) === '' &&
-    userInfo.password === userInfo.passwordVerify &&
-    userInfo.type !== '';
-
   return (
     <div className="flex flex-col items-center">
       <div className="relative flex justify-center mb-10 w-[208px] h-[38px] md:w-[248px] md:h-[45px]">
@@ -88,20 +69,36 @@ export default function SignUpForm() {
           <Image src="/images/logo.svg" alt="logo" fill />
         </Link>
       </div>
-      <form className="flex flex-col gap-7 mb-5" onSubmit={handleSubmit}>
+      <form className="flex flex-col gap-7 mb-5" onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <Input label="이메일" variant="email" name="email" onChange={handleChange} />
-        </div>
-        <div>
-          <Input label="비밀번호" variant="password" name="password" onChange={handleChange} />
+          <Input
+            register={register}
+            error={errors.email}
+            label="이메일"
+            variant="email"
+            variant2="email"
+            name="email"
+          />
         </div>
         <div>
           <Input
+            register={register}
+            error={errors.password}
+            label="비밀번호"
+            variant="password"
+            variant2="password"
+            name="password"
+          />
+        </div>
+        <div>
+          <Input
+            register={register}
+            error={errors.passwordVerify}
             label="비밀번호 확인"
             variant="passwordVerify"
-            originalPassword={userInfo.password}
+            variant2="passwordVerify"
+            originalPassword={watch('password')}
             name="passwordVerify"
-            onChange={handleChange}
           />
         </div>
         <div className="flex flex-col gap-2">
@@ -109,14 +106,14 @@ export default function SignUpForm() {
           <div className="flex justify-between gap-4 w-full">
             <button
               type="button"
-              className={`w-full h-[50px] border border-gray20 rounded-[30px] ${userInfo.type === 'employee' ? 'bg-primary text-white' : ''}`}
+              className={`w-full h-[50px] border border-gray20 rounded-[30px] ${watch('type') === 'employee' ? 'bg-primary text-white' : ''}`}
               onClick={() => handleMemberType('employee')}
             >
               알바님
             </button>
             <button
               type="button"
-              className={`w-full h-[50px] border border-gray20 rounded-[30px] ${userInfo.type === 'employer' ? 'bg-primary text-white' : ''}`}
+              className={`w-full h-[50px] border border-gray20 rounded-[30px] ${watch('type') === 'employer' ? 'bg-primary text-white' : ''}`}
               onClick={() => handleMemberType('employer')}
             >
               사장님
@@ -124,7 +121,7 @@ export default function SignUpForm() {
           </div>
         </div>
         <div>
-          <Button type="submit" color="filled" disabled={!isFormValid} className="w-[350px]">
+          <Button type="submit" color="filled" className="w-[350px]">
             가입하기
           </Button>
         </div>

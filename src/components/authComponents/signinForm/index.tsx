@@ -33,7 +33,9 @@ export default function SignInForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignForm>();
+  } = useForm<SignForm>({
+    mode: 'onBlur',
+  });
 
   const { mutate: signIn } = useSignIn();
   const { setMyType } = useMyType();

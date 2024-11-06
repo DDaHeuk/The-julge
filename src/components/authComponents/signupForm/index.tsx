@@ -19,7 +19,9 @@ export default function SignUpForm() {
     formState: { errors },
     setValue,
     watch,
-  } = useForm<SignForm>();
+  } = useForm<SignForm>({
+    mode: 'onBlur',
+  });
 
   const { mutate: signUp } = useSignUp();
   const router = useRouter();

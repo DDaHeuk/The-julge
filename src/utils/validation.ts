@@ -23,13 +23,16 @@ export const validateVerifyPassword = (password: string, verifyPassword: string)
 };
 
 export const validateShopData = (shopData: AssignShopInfoData): boolean => {
-  return (
-    !!shopData.name.trim() &&
-    !!shopData.category.trim() &&
-    !!shopData.address1.trim() &&
-    !!shopData.address2.trim() &&
-    !!shopData.description.trim() &&
-    !!shopData.imageUrl.trim() &&
-    shopData.originalHourlyPay >= 0
-  );
+  if (
+    shopData.address1 &&
+    shopData.address2 &&
+    shopData.category &&
+    shopData.description &&
+    shopData.imageUrl &&
+    shopData.name &&
+    shopData.originalHourlyPay
+  ) {
+    return false;
+  }
+  return true;
 };

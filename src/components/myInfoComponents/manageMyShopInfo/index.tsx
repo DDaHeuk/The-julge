@@ -5,6 +5,7 @@ import useAssignShop from '@/hooks/useAssignShopMutation';
 import useStoreShopInfo from '@/stores/storeShopInfo';
 import { validateShopData } from '@/utils/validation';
 import useEditShop from '@/hooks/useEditShopMutation';
+import useBeforeUnload from '@/hooks/useBeforeUnload';
 import ShopName from './shopName';
 import ShopClassify from './shopClassify';
 import ShopAddress from './shopAddress';
@@ -23,6 +24,8 @@ const ManageMyShopInfo = ({ token, manageType, shopId }: ManageMyShopInfoProps) 
 
   const { mutate: assignShop } = useAssignShop();
   const { mutate: editShop } = useEditShop();
+
+  useBeforeUnload();
 
   const submitShopData = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

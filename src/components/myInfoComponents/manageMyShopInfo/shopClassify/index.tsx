@@ -3,7 +3,7 @@ import useStoreShopInfo from '@/stores/storeShopInfo';
 import { FOOD_CATEGORIES } from '@/types/foodCategory';
 
 const ShopClassify = () => {
-  const { setShopData } = useStoreShopInfo();
+  const { shopData, setShopData } = useStoreShopInfo();
 
   const handleDropDownChange = (name: string, value: string) => {
     setShopData({ [name]: value });
@@ -16,6 +16,7 @@ const ShopClassify = () => {
         menuItems={FOOD_CATEGORIES}
         className="w-[100%] bg-white h-[58px] border rounded-[6px] border-gray30 py-[16px] px-[20px]"
         onSelect={(value) => handleDropDownChange('category', value)}
+        initialValue={shopData.category}
       />
     </div>
   );

@@ -5,7 +5,7 @@ import useStoreShopInfo from '@/stores/storeShopInfo';
 import { ChangeEvent } from 'react';
 
 const ShopAddress = () => {
-  const { setShopData } = useStoreShopInfo();
+  const { shopData, setShopData } = useStoreShopInfo();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -24,6 +24,7 @@ const ShopAddress = () => {
           menuItems={LOCATION}
           className="w-[100%] bg-white h-[58px] border rounded-[6px] border-gray30 py-[16px] px-[20px]"
           onSelect={(value) => handleDropDownChange('address1', value)}
+          initialValue={shopData.address1}
         />
       </div>
       <Input
@@ -32,6 +33,7 @@ const ShopAddress = () => {
         name="address2"
         label="상세주소"
         onChange={handleInputChange}
+        value={shopData.address2}
       />
     </div>
   );

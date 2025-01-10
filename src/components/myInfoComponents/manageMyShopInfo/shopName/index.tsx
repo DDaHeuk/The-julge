@@ -3,7 +3,7 @@ import useStoreShopInfo from '@/stores/storeShopInfo';
 import { ChangeEvent } from 'react';
 
 const ShopName = () => {
-  const { setShopData } = useStoreShopInfo();
+  const { shopData, setShopData } = useStoreShopInfo();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -17,6 +17,7 @@ const ShopName = () => {
       name="name"
       label="가게 이름"
       onChange={handleInputChange}
+      value={shopData.name}
     />
   );
 };

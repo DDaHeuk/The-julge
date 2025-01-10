@@ -3,7 +3,7 @@ import useStoreShopInfo from '@/stores/storeShopInfo';
 import { ChangeEvent } from 'react';
 
 const ShopCost = () => {
-  const { setShopData } = useStoreShopInfo();
+  const { shopData, setShopData } = useStoreShopInfo();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -17,6 +17,7 @@ const ShopCost = () => {
       name="originalHourlyPay"
       unitLabel="원"
       label="기본 시급"
+      value={shopData.originalHourlyPay}
       onChange={handleInputChange}
     />
   );

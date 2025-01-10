@@ -3,6 +3,7 @@
 import Button from '@/components/commonComponents/button';
 import useAssignShop from '@/hooks/useAssignShopMutation';
 import useStoreShopInfo from '@/stores/storeShopInfo';
+import { validateShopData } from '@/utils/validation';
 import ShopName from './shopName';
 import ShopClassify from './shopClassify';
 import ShopAddress from './shopAddress';
@@ -37,7 +38,12 @@ const AssignMyShopInfo = ({ token }: AssignMyShopInfoProps) => {
       <ShopImage />
       <ShopDescription />
       <div className="flex justify-center">
-        <Button type="submit" className="w-[100%] md:w-[312px]" color="filled">
+        <Button
+          type="submit"
+          className="w-[100%] md:w-[312px]"
+          color="filled"
+          disabled={validateShopData(shopData)}
+        >
           등록하기
         </Button>
       </div>

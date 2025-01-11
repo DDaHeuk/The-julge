@@ -63,7 +63,9 @@ export default function NoticeList({ noticeData }: { noticeData: NoticeData }) {
             <span
               className={`${processedData.closed ? 'text-gray30' : 'text-black'} text-[16px] md:text-[20px] font-bold`}
             >
-              {processedShopData?.name}
+              {processedShopData?.name.length > 10
+                ? `${processedShopData.name.slice(0, 10)}...`
+                : processedShopData.name}
             </span>
             <div className="flex items-start gap-[6px] self-stretch">
               <Image
@@ -96,7 +98,7 @@ export default function NoticeList({ noticeData }: { noticeData: NoticeData }) {
               </span>
             </div>
           </div>
-          <div className="flex flex-col gap-1 md:gap-0 md:flex-row md:justify-between items-start self-stretch">
+          <div className="flex flex-col gap-1 md:gap-0 md:flex-row md:justify-between items-start self-stretch lg:flex-col lg:gap-1 xl:flex-row xl:gap-0">
             <span
               className={`${processedData?.closed ? 'text-gray30' : 'text-black'} text-[18px] md:text-[24px] font-bold`}
             >

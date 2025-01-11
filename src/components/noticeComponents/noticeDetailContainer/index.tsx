@@ -108,7 +108,7 @@ export default function NoticeDetailContainer({
             <div className="flex flex-col gap-6 md:gap-10 lg:w-[40%]">
               <div className="flex flex-col gap-2 md:gap-3">
                 <p className="text-[14px] text-primary font-bold md:text-[16px]">시급</p>
-                <div className="flex gap-2">
+                <div className="flex gap-2 lg:flex-col xl:flex-row">
                   <p className="text-[24px] text-black font-bold md:text-[28px]">
                     {formatCurrency(noticeInfo?.hourlyPay)}원
                   </p>

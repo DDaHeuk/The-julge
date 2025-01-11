@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
 import Button from '@/components/commonComponents/button';
+import useStoreNoticeInfo from '@/stores/storeNoticeInfo';
 import HourlypayCalc from '../../commonComponents/hourlypayCalc';
 
 interface NoticeDetailContainerProps {
@@ -39,6 +40,7 @@ export default function NoticeDetailContainer({
   const { userId } = useUserId();
   const { userAddress } = useAddress();
   const { userApplication, setUserApplication } = useApplication();
+  const { setNoticeData } = useStoreNoticeInfo();
   const router = useRouter();
   const handleApplyClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -68,6 +70,15 @@ export default function NoticeDetailContainer({
 
   const handleCancelClick = () => {
     router.push(`/myprofile/${userId}`);
+  };
+
+  const handleEditClick = () => {
+    setNoticeData({
+      hourlyPay: noticeInfo?.hourlyPay,
+      description: noticeInfo?.description,
+      workhour: noticeInfo?.workhour,
+      startsAt: noticeInfo?.startsAt,
+    });
   };
 
   const isApplied = userApplication.includes(userApplicationData?.id);
@@ -122,15 +133,9 @@ export default function NoticeDetailContainer({
 
               {myType === 'employer' ? (
                 <Link
-                  href={{
-                    pathname: `/editnotice/${shopId}/${noticeId}`,
-                    query: {
-                      hourlyPay: noticeInfo?.hourlyPay,
-                      startsAt: noticeInfo?.startsAt,
-                      workhour: noticeInfo?.workhour,
-                      description: noticeInfo?.description,
-                    },
-                  }}
+                  href={`/editnotice/${shopId}/${noticeId}`}
+                  onClick={handleEditClick}
+                  type="button"
                 >
                   <Button type="button" color="noFilled" className="w-full h-[38px] md:h-[48px]">
                     공고 편집하기

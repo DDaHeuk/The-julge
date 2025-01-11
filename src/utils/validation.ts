@@ -1,3 +1,4 @@
+import { AssignNoticeInfoData } from '@/types/assignNoticeInfoData';
 import { AssignShopInfoData } from '@/types/assignShopInfoData';
 
 export const validateEmail = (value: string): string => {
@@ -31,6 +32,18 @@ export const validateShopData = (shopData: AssignShopInfoData): boolean => {
     shopData.imageUrl &&
     shopData.name &&
     shopData.originalHourlyPay
+  ) {
+    return false;
+  }
+  return true;
+};
+
+export const validateNoticeData = (noticeData: AssignNoticeInfoData): boolean => {
+  if (
+    noticeData.description &&
+    noticeData.hourlyPay &&
+    noticeData.startsAt &&
+    noticeData.workhour
   ) {
     return false;
   }

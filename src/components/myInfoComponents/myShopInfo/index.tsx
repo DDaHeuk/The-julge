@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { ShopDetailData } from '@/types/shopDetailData';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import useStoreShopInfo from '@/stores/storeShopInfo';
 
 interface MyShopInfoProps {
   shopInfo: ShopDetailData['item'];
@@ -10,9 +11,22 @@ interface MyShopInfoProps {
 
 const MyShopInfo = ({ shopInfo, shopId }: MyShopInfoProps) => {
   const router = useRouter();
+  const { setShopData } = useStoreShopInfo();
 
   const moveToAssignPage = () => {
     router.push('/assignnotice');
+  };
+
+  const handleEditClick = () => {
+    setShopData({
+      name: shopInfo.name,
+      category: shopInfo.category,
+      address1: shopInfo.address1,
+      address2: shopInfo.address2,
+      description: shopInfo.description,
+      imageUrl: shopInfo.imageUrl,
+      originalHourlyPay: shopInfo.originalHourlyPay,
+    });
   };
 
   return (
@@ -50,18 +64,8 @@ const MyShopInfo = ({ shopInfo, shopId }: MyShopInfoProps) => {
 
         <div className="flex items-start gap-[8px] self-stretch">
           <Link
-            href={{
-              pathname: `/editmyshop/${shopId}`,
-              query: {
-                name: shopInfo.name,
-                category: shopInfo.category,
-                address1: shopInfo.address1,
-                address2: shopInfo.address2,
-                description: shopInfo.description,
-                imageUrl: shopInfo.imageUrl,
-                originalHourlyPay: shopInfo.originalHourlyPay,
-              },
-            }}
+            href={`/editmyshop/${shopId}`}
+            onClick={handleEditClick}
             type="button"
             className="w-[100%] flex justify-center items-center bg-white border-[#EA3C12] border  h-[38px] md:h-[48px] rounded-[6px] text-[#EA3C12] font-bold text-[14px] md:text-[16px]"
           >

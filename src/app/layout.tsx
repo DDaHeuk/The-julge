@@ -5,8 +5,11 @@ import { Toaster } from 'sonner';
 import spoqaHanSansNeo from '../../public/fonts/localfonts';
 
 export const metadata: Metadata = {
-  title: 'The Julge',
+  title: '3배 Julge',
   description: 'The Julge',
+  icons: {
+    icon: '/images/logo.svg',
+  },
 };
 export default function RootLayout({
   children,

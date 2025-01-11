@@ -1,7 +1,11 @@
 import axios from 'axios';
 import { AssignShopInfoData } from '@/types/assignShopInfoData';
 
-const editShop = async (data: AssignShopInfoData, shopId: string, token: string | undefined) => {
+const editShop = async (
+  data: AssignShopInfoData,
+  shopId: string | undefined,
+  token: string | undefined,
+) => {
   if (!token) {
     throw new Error('No token found');
   }

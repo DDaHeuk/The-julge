@@ -20,6 +20,7 @@ export async function middleware(req: NextRequest) {
   const cookieToken = req.cookies.get('token');
   const cookieType = req.cookies.get('myType');
   const cookieShopId = req.cookies.get('shopId');
+  const cookieUserId = req.cookies.get('userId');
 
   let token;
   let type;
@@ -32,11 +33,21 @@ export async function middleware(req: NextRequest) {
 
   const shopIdFromPath = pathname.startsWith('/myshop') ? pathname.split('/myshop/')[1] : null;
 
-  // Check if shopId in the URL matches the cookieShopId
   if (pathname.startsWith('/myshop') && cookieShopId) {
     const cookieShopIdValue = cookieShopId.value;
     if (shopIdFromPath !== cookieShopIdValue) {
       return NextResponse.redirect(new URL(`/myshop/${cookieShopIdValue}`, req.url));
+    }
+  }
+
+  const userIdIdFromPath = pathname.startsWith('/myprofile')
+    ? pathname.split('/myprofile/')[1]
+    : null;
+
+  if (pathname.startsWith('/myprofile') && cookieUserId) {
+    const cookieUserIdValue = cookieUserId.value;
+    if (userIdIdFromPath !== cookieUserIdValue) {
+      return NextResponse.redirect(new URL(`/myprofile/${cookieUserIdValue}`, req.url));
     }
   }
 

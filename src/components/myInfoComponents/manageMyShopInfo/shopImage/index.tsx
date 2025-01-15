@@ -40,7 +40,7 @@ const ShopImage = () => {
           <Image
             src={shopData.imageUrl}
             alt={`${shopData.imageUrl} 이미지`}
-            sizes="(min-width: 1440px) 100vw, (min-width: 744px) 50vw, 33vw"
+            sizes="(min-width: 1810px) 80vw, (min-width: 1440px) 70vw, (min-width: 744px) 50vw, 33vw"
             fill
             style={{ objectFit: 'cover' }}
             className="rounded-[12px]"

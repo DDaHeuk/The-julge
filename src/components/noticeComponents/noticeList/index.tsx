@@ -45,7 +45,7 @@ export default function NoticeList({ noticeData }: { noticeData: NoticeData }) {
           <Image
             src={processedShopData?.imageUrl || '/default-image.jpg'}
             alt={`${processedShopData?.name} 이미지`}
-            sizes="(min-width: 1440px) 100vw, (min-width: 744px) 50vw, 33vw"
+            sizes="(min-width: 1810px) 80vw, (min-width: 1440px) 70vw, (min-width: 744px) 50vw, 33vw"
             fill
             style={{ objectFit: 'cover' }}
             className="rounded-[12px]"

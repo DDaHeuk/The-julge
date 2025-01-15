@@ -1,3 +1,6 @@
+import { AssignNoticeInfoData } from '@/types/assignNoticeInfoData';
+import { AssignShopInfoData } from '@/types/assignShopInfoData';
+
 export const validateEmail = (value: string): string => {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailPattern.test(value)) {
@@ -18,4 +21,31 @@ export const validateVerifyPassword = (password: string, verifyPassword: string)
     return '패스워드가 맞지 않습니다.';
   }
   return '';
+};
+
+export const validateShopData = (shopData: AssignShopInfoData): boolean => {
+  if (
+    shopData.address1 &&
+    shopData.address2 &&
+    shopData.category &&
+    shopData.description &&
+    shopData.imageUrl &&
+    shopData.name &&
+    shopData.originalHourlyPay
+  ) {
+    return false;
+  }
+  return true;
+};
+
+export const validateNoticeData = (noticeData: AssignNoticeInfoData): boolean => {
+  if (
+    noticeData.description &&
+    noticeData.hourlyPay &&
+    noticeData.startsAt &&
+    noticeData.workhour
+  ) {
+    return false;
+  }
+  return true;
 };

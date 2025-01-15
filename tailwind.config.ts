@@ -12,6 +12,8 @@ const config: Config = {
       // => @media (min-width: 744px) 태블릿
       lg: '1440px',
       // => @media (min-width: 1440px) PC
+      xl: '1810px',
+      // => @media (min-width: 1810px) PC2
     },
     colors: {
       primary: '#EA3C12',

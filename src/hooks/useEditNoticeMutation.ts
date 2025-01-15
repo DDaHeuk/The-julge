@@ -9,8 +9,8 @@ import { AxiosError } from 'axios';
 // shopId를 포함한 새로운 타입 정의
 interface EditShopVariables {
   data: EditNoticeInfoData;
-  shopId: string;
-  noticeId: string;
+  shopId: string | undefined;
+  noticeId: string | undefined;
   token: string | undefined;
 }
 

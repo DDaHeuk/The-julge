@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
 import Button from '@/components/commonComponents/button';
+import useStoreNoticeInfo from '@/stores/storeNoticeInfo';
 import HourlypayCalc from '../../commonComponents/hourlypayCalc';
 
 interface NoticeDetailContainerProps {
@@ -39,6 +40,7 @@ export default function NoticeDetailContainer({
   const { userId } = useUserId();
   const { userAddress } = useAddress();
   const { userApplication, setUserApplication } = useApplication();
+  const { setNoticeData } = useStoreNoticeInfo();
   const router = useRouter();
   const handleApplyClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -70,6 +72,15 @@ export default function NoticeDetailContainer({
     router.push(`/myprofile/${userId}`);
   };
 
+  const handleEditClick = () => {
+    setNoticeData({
+      hourlyPay: noticeInfo?.hourlyPay,
+      description: noticeInfo?.description,
+      workhour: noticeInfo?.workhour,
+      startsAt: noticeInfo?.startsAt,
+    });
+  };
+
   const isApplied = userApplication.includes(userApplicationData?.id);
 
   return (
@@ -97,7 +108,7 @@ export default function NoticeDetailContainer({
             <div className="flex flex-col gap-6 md:gap-10 lg:w-[40%]">
               <div className="flex flex-col gap-2 md:gap-3">
                 <p className="text-[14px] text-primary font-bold md:text-[16px]">시급</p>
-                <div className="flex gap-2">
+                <div className="flex gap-2 lg:flex-col xl:flex-row">
                   <p className="text-[24px] text-black font-bold md:text-[28px]">
                     {formatCurrency(noticeInfo?.hourlyPay)}원
                   </p>
@@ -122,15 +133,9 @@ export default function NoticeDetailContainer({
 
               {myType === 'employer' ? (
                 <Link
-                  href={{
-                    pathname: `/editnotice/${shopId}/${noticeId}`,
-                    query: {
-                      hourlyPay: noticeInfo?.hourlyPay,
-                      startsAt: noticeInfo?.startsAt,
-                      workhour: noticeInfo?.workhour,
-                      description: noticeInfo?.description,
-                    },
-                  }}
+                  href={`/editnotice/${shopId}/${noticeId}`}
+                  onClick={handleEditClick}
+                  type="button"
                 >
                   <Button type="button" color="noFilled" className="w-full h-[38px] md:h-[48px]">
                     공고 편집하기

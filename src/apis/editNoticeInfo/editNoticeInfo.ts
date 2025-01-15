@@ -3,8 +3,8 @@ import { AssignNoticeInfoData } from '@/types/assignNoticeInfoData';
 
 const editNotice = async (
   data: AssignNoticeInfoData,
-  shopId: string,
-  noticeId: string,
+  shopId: string | undefined,
+  noticeId: string | undefined,
   token: string | undefined,
 ) => {
   if (!token) {

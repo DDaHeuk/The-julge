@@ -80,7 +80,11 @@ const CustomNotice = () => {
           </div>
         ) : (
           <Slider {...settings}>
-            {fetchData?.map((notice) => <NoticeList key={notice.item.id} noticeData={notice} />)}
+            {fetchData?.map((notice) => (
+              <div className="slider-item px-1" key={notice.item.id}>
+                <NoticeList noticeData={notice} />
+              </div>
+            ))}
           </Slider>
         )}
       </div>

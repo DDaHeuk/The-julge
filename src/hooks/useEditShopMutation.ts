@@ -10,7 +10,7 @@ import { ErrorResponseData } from '@/types/errorResponseData';
 // shopId를 포함한 새로운 타입 정의
 interface EditShopVariables {
   data: AssignShopInfoData;
-  shopId: string;
+  shopId: string | undefined;
   token: string | undefined;
 }
 

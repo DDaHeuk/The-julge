@@ -12,6 +12,7 @@ import getUserAlert from '@/apis/alert/getUserAlert';
 import useDetailedFilterData from '@/stores/storeDetailedFilter';
 import { NotificationItem } from '@/types/notificationItem';
 import NotificationModal from '@/components/homeComponents/notificationModal';
+import Logo from './logo';
 
 const NavigationBar = () => {
   const router = useRouter(); // useRouter 훅 사용
@@ -169,7 +170,7 @@ const NavigationBar = () => {
     );
   } else {
     content = (
-      <div className="inline-flex justify-center items-center gap-[16px] md:gap-[12px] lg:gap-[30px] w-[240px]">
+      <div className="inline-flex justify-end items-center gap-[16px] md:gap-[12px] lg:gap-[30px] w-full">
         <Link href="/signin">
           <span className="text-black text-[14px] font-bold md:text-[16px] leading-[20px] cursor-pointer">
             로그인
@@ -186,40 +187,29 @@ const NavigationBar = () => {
 
   return (
     <div className="bg-white h-[102px] md:h-[70px] py-[10px] px-[20px] md:px-[32px] md:py-[15px] lg:px-[300px]">
-      <div className="flex flex-col">
-        <div className="flex justify-between">
-          <div className="pr-[2.362px] md:pr-[3.15px] py-[7.5px] md:py-[10px] inline-flex justify-center items-center shrink-0">
-            <Link href="/">
-              <Image
-                className="md:w-[108.851px] md:h-[20px]"
-                src="/images/logo.svg"
-                alt="로고 이미지"
-                width={81.638}
-                height={15}
-              />
-            </Link>
-          </div>
-          <div className="hidden w-[100%] md:flex lg:max-w-[450px] md:max-w-[344px] p-[10px] items-start gap-[10px] rounded-[10px] bg-gray10 ml-[10px]">
-            <Image
-              className="md:w-[20px] md:h-[20px]"
-              src="/icons/search.svg"
-              alt="검색 아이콘"
-              width={16}
-              height={16}
-            />
-            <input
-              className="flex text-[14px] h-[20px] flex-col justify-center outline-none shrink-0 bg-gray10 text-gray40 md:leading-[22px] "
-              placeholder="가게 이름으로 찾아보세요"
-              value={inputValue} // 상태값으로 제어
-              onChange={handleKeywordChange}
-              onKeyDown={handleKeyDown} // 엔터 키 입력 처리
-              onBlur={handleFocusOut} // 포커스 아웃 처리
-            />
-          </div>
-          {content}
+      <div className="grid grid-rows-[auto,auto] gap-y-4 grid-cols-[auto,auto] md:grid-rows-1 md:grid-cols-[auto,1fr,auto] ">
+        <Logo />
+        <div className="w-[100%] row-start-2 col-start-1 col-span-2 md:col-span-1 md:row-start-1 md:col-start-2 flex lg:max-w-[450px] md:max-w-[344px] p-[10px] items-start gap-[10px] rounded-[10px] bg-gray10 md:ml-[30px]">
+          <Image
+            className="md:w-[20px] md:h-[20px]"
+            src="/icons/search.svg"
+            alt="검색 아이콘"
+            width={16}
+            height={16}
+          />
+          <input
+            className="flex text-[14px] h-[20px] flex-col justify-center outline-none shrink-0 bg-gray10 text-gray40 md:leading-[22px] "
+            placeholder="가게 이름으로 찾아보세요"
+            value={inputValue} // 상태값으로 제어
+            onChange={handleKeywordChange}
+            onKeyDown={handleKeyDown} // 엔터 키 입력 처리
+            onBlur={handleFocusOut} // 포커스 아웃 처리
+          />
         </div>
+        {content}
+      </div>
 
-        <div className="flex md:hidden w-[100%] p-[8px] items-center gap-[8px] rounded-[10px] bg-gray10 mt-[16px]">
+      {/* <div className="flex md:hidden w-[100%] p-[8px] items-center gap-[8px] rounded-[10px] bg-gray10 mt-[16px]">
           <Image src="/icons/search.svg" alt="검색 아이콘" width={16} height={16} />
           <input
             className="flex text-[12px] w-[233px] outline-none h-[20px] flex-col justify-center shrink-0 leading-[16px] bg-gray10 text-gray40"
@@ -229,8 +219,7 @@ const NavigationBar = () => {
             onKeyDown={handleKeyDown} // 엔터 키 입력 처리
             onBlur={handleFocusOut} // 포커스 아웃 처리
           />
-        </div>
-      </div>
+        </div> */}
     </div>
   );
 };

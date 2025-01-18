@@ -74,13 +74,13 @@ const ShopDetailContainer = ({ shopId }: ShopDetailContainerProps) => {
         </div>
       </div>
       {shopId && (
-        <div className="flex  px-[12px] pt-[40px] pb-[80px] md:px-[32px] md:pt-[60px] md:pb-[120px] lg:px-[400px]  flex-col items-start gap-[8px]">
+        <div className="flex px-[12px] pt-[40px] pb-[80px] md:px-[32px] md:pt-[60px] md:pb-[120px] lg:px-[400px]  flex-col items-start gap-[8px]">
           <div className="flex-col w-[100%] gap-[16px] md:gap-[32px]">
             <span className="text-black font-bold text-[20px] md:text-[28px]">
               {myNoticeData?.pages[0].count !== 0 ? '내가 등록한 공고' : '등록한 공고'}
             </span>
             {myNoticeData?.pages[0].count !== 0 ? (
-              <div className="grid grid-cols-2 gap-x-[9px] gap-y-[16px] md:gap-x-[14px] md:gap-y-[32px] lg:grid-cols-3">
+              <div className="grid grid-cols-2 gap-x-[9px] gap-y-[16px] md:gap-x-[14px] md:gap-y-[32px] lg:grid-cols-3 mt-[12px]">
                 {myNoticeData?.pages
                   .flatMap((page) => page.items)
                   .map((notice) => (

@@ -4,6 +4,8 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 import FetchAllNotice from '@/apis/notice/fetchAllNotice';
 import AllNotices from '@/components/homeComponents/allNotices';
 import NavigationBar from '@/components/commonComponents/navigationBar';
+import { Suspense } from 'react';
+import SkeletonList from '@/components/commonComponents/skeleton/skeletonNoticeList';
 
 export default async function Home() {
   const queryClient = new QueryClient();
@@ -22,7 +24,9 @@ export default async function Home() {
           <NavigationBar />
           <div className="flex flex-col w-[100%]">
             <CustomNotice />
-            <AllNotices />
+            <Suspense fallback={<SkeletonList number={6} />}>
+              <AllNotices />
+            </Suspense>
           </div>
         </div>
         <Footer />

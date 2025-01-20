@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import { useSearchParams } from 'next/navigation';
-import { PulseLoader } from 'react-spinners';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useSuspenseQuery } from '@tanstack/react-query';
@@ -27,7 +26,7 @@ const CustomNotice = () => {
     setKeyword(keywordParams);
   }, [searchParams]);
 
-  const { data, isFetching } = useSuspenseQuery<NoticeListResponse>({
+  const { data } = useSuspenseQuery<NoticeListResponse>({
     queryKey: ['noticeAll', userAddress],
     queryFn: () =>
       FetchAllNotice({
@@ -52,19 +51,13 @@ const CustomNotice = () => {
     <div className="flex px-[30px] md:px-[36px] lg:px-[400px] py-[40px] md:py-[60px] flex-col items-start bg-red10 mt-[10px]">
       <div className="flex flex-col gap-[20px] w-[100%]">
         <span className="text-[20px] md:text-[28px] font-bold">맞춤 공고</span>
-        {isFetching ? (
-          <div className="flex w-[100%] justify-center items-center py-11">
-            <PulseLoader color="red" speedMultiplier={2} />
-          </div>
-        ) : (
-          <Slider {...sliderSettings}>
-            {fetchData?.map((notice) => (
-              <div className="slider-item px-1" key={notice.item.id}>
-                <NoticeList noticeData={notice} />
-              </div>
-            ))}
-          </Slider>
-        )}
+        <Slider {...sliderSettings}>
+          {fetchData?.map((notice) => (
+            <div className="slider-item px-1" key={notice.item.id}>
+              <NoticeList noticeData={notice} />
+            </div>
+          ))}
+        </Slider>
       </div>
     </div>
   );

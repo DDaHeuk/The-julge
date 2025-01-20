@@ -9,7 +9,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import FetchAllNotice from '@/apis/notice/fetchAllNotice';
 import { useAddress } from '@/stores/storeUserInfo';
-import CustomArrow from '../../commonComponents/customArrow';
+import sliderSettings from '@/constant/sliderSetting';
 import NoticeList from '../../noticeComponents/noticeList';
 import { NoticeListResponse } from '../allNotices';
 
@@ -44,28 +44,6 @@ const CustomNotice = () => {
 
   const fetchData = data?.items;
 
-  const settings = {
-    dots: false,
-    arrows: true,
-    autoplay: true,
-    autoplaySpeed: 2500,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    nextArrow: <CustomArrow />,
-    prevArrow: <CustomArrow />,
-    responsive: [
-      {
-        breakpoint: 743, // 모바일 사이즈
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
-
   if (keyword) {
     return null;
   }
@@ -79,7 +57,7 @@ const CustomNotice = () => {
             <PulseLoader color="red" speedMultiplier={2} />
           </div>
         ) : (
-          <Slider {...settings}>
+          <Slider {...sliderSettings}>
             {fetchData?.map((notice) => (
               <div className="slider-item px-1" key={notice.item.id}>
                 <NoticeList noticeData={notice} />

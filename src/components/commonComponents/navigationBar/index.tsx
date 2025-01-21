@@ -86,9 +86,9 @@ const NavigationBar = () => {
     if (e.key === 'Enter') {
       setKeyword(inputValue); // 엔터 키를 눌렀을 때 keyword 업데이트
       if (inputValue) {
-        router.push(`?keyword=${inputValue}&page=1`);
+        router.push(`/results?keyword=${inputValue}`);
       } else {
-        router.push(`?page=1`);
+        router.push(`/results`);
       }
     }
   };
@@ -96,9 +96,9 @@ const NavigationBar = () => {
   const handleFocusOut = () => {
     setKeyword(inputValue); // 포커스 아웃 시 keyword 업데이트
     if (inputValue) {
-      router.push(`?keyword=${inputValue}&page=1`);
+      router.push(`/results?keyword=${inputValue}`);
     } else {
-      router.push(`?page=1`);
+      router.push(`/results`);
     }
   };
 
@@ -208,18 +208,6 @@ const NavigationBar = () => {
         </div>
         {content}
       </div>
-
-      {/* <div className="flex md:hidden w-[100%] p-[8px] items-center gap-[8px] rounded-[10px] bg-gray10 mt-[16px]">
-          <Image src="/icons/search.svg" alt="검색 아이콘" width={16} height={16} />
-          <input
-            className="flex text-[12px] w-[233px] outline-none h-[20px] flex-col justify-center shrink-0 leading-[16px] bg-gray10 text-gray40"
-            placeholder="가게 이름으로 찾아보세요"
-            value={inputValue} // 상태값으로 제어
-            onChange={handleKeywordChange}
-            onKeyDown={handleKeyDown} // 엔터 키 입력 처리
-            onBlur={handleFocusOut} // 포커스 아웃 처리
-          />
-        </div> */}
     </div>
   );
 };

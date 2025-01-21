@@ -3,6 +3,7 @@ import { ShopDetailData } from '@/types/shopDetailData';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import useStoreShopInfo from '@/stores/storeShopInfo';
+import useStoreNoticeInfo from '@/stores/storeNoticeInfo';
 
 interface MyShopInfoProps {
   shopInfo: ShopDetailData['item'];
@@ -12,9 +13,11 @@ interface MyShopInfoProps {
 const MyShopInfo = ({ shopInfo, shopId }: MyShopInfoProps) => {
   const router = useRouter();
   const { setShopData } = useStoreShopInfo();
+  const { resetAll } = useStoreNoticeInfo();
 
   const moveToAssignPage = () => {
     router.push('/assignnotice');
+    resetAll();
   };
 
   const handleEditClick = () => {

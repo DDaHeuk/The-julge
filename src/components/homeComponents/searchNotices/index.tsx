@@ -1,6 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+// import { SORTING_OPTIONS } from '@/types/sortingOptions';
+import { useSearchParams } from 'next/navigation';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import FetchAllNotice from '@/apis/notice/fetchAllNotice';
 import useDetailedFilterData from '@/stores/storeDetailedFilter';
@@ -44,14 +46,34 @@ const SORTING_OPTIONS = [
   { label: '가나다순', value: 'shop' },
 ];
 
-const AllNotices = () => {
+const SearchNotices = () => {
   const { keyword, address, startsAtGte, hourlyPayGte } = useDetailedFilterData();
-  const [page, setPage] = useState(0);
+  const searchParams = useSearchParams();
+  const [page, setPage] = useState(
+    searchParams.get('page') ? Number(searchParams.get('page')) - 1 : 0,
+  );
   const [selectedSort, setSelectedSort] = useState<'time' | 'pay' | 'hour' | 'shop' | string>(
     SORTING_OPTIONS[0].value,
   );
   const limit = 6; // 한 페이지당 나오는 item 개수. 임의로 설정. 추후 변경 필요
   const offset = page * limit;
+  const [allNoticeTitle, setAllNoticeTitle] = useState<string>('전체 공고');
+
+  useEffect(() => {
+    if (searchParams.get('page')) {
+      setPage(Number(searchParams.get('page')) - 1);
+    } else {
+      setPage(0);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (keyword) {
+      setAllNoticeTitle(keyword);
+    } else {
+      setAllNoticeTitle('전체 공고');
+    }
+  }, [keyword]);
 
   const { data } = useSuspenseQuery<NoticeListResponse>({
     queryKey: [
@@ -101,7 +123,14 @@ const AllNotices = () => {
     <div className="flex px-[12px] md:px-[32px] lg:px-[400px] pt-[40px] md:pt-[60px] pb-[80px] md:pb-[60px] flex-col items-center gap-[8px]">
       <div className="relative flex flex-col gap-[16px] items-start md:flex-row md:justify-between md:items-center w-[100%]">
         <div className="flex flex-row">
-          <span className={`text-[20px] md:text-[28px] font-bold  'text-black'`}>전체 공고</span>
+          <span
+            className={`text-[20px] md:text-[28px] font-bold ${allNoticeTitle !== '전체 공고' ? 'text-red40' : 'text-black'}`}
+          >
+            {allNoticeTitle}
+          </span>
+          {allNoticeTitle !== '전체 공고' && (
+            <span className="text-[20px] md:text-[28px] font-bold ">에 대한 공고 목록</span>
+          )}
         </div>
         <div className=" flex items-center gap-[10px]">
           <div className="w-[120px]">
@@ -133,4 +162,4 @@ const AllNotices = () => {
   );
 };
 
-export default AllNotices;
+export default SearchNotices;

@@ -5,7 +5,6 @@ import FetchAllNotice from '@/apis/notice/fetchAllNotice';
 import AllNotices from '@/components/homeComponents/allNotices';
 import NavigationBar from '@/components/commonComponents/navigationBar';
 import { Suspense } from 'react';
-import SkeletonList from '@/components/commonComponents/skeleton/skeletonNoticeList';
 
 export default async function Home() {
   const queryClient = new QueryClient();
@@ -25,12 +24,8 @@ export default async function Home() {
             <NavigationBar />
           </Suspense>
           <div className="flex flex-col w-[100%]">
-            <Suspense>
-              <CustomNotice />
-            </Suspense>
-            <Suspense fallback={<SkeletonList number={6} />}>
-              <AllNotices />
-            </Suspense>
+            <CustomNotice />
+            <AllNotices />
           </div>
         </div>
         <Footer />

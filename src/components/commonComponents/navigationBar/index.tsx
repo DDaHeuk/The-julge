@@ -111,10 +111,10 @@ const NavigationBar = () => {
     setMyType('');
     setUserId('');
     setUserAddress('');
-    document.cookie = 'shopId=; path=/; max-age=0;';
-    document.cookie = 'userId=; path=/; max-age=0;';
-    document.cookie = 'myType=; path=/; max-age=0;';
-    document.cookie = 'token=; path=/; max-age=0;';
+    const cookiesToClear = ['shopId', 'userId', 'myType', 'token'];
+    cookiesToClear.forEach((cookieName) => {
+      document.cookie = `${cookieName}=; path=/; max-age=0;`;
+    });
     setIsAuthorized(false);
   };
 

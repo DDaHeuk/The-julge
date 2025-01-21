@@ -4,8 +4,8 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 import FetchAllNotice from '@/apis/notice/fetchAllNotice';
 import AllNotices from '@/components/homeComponents/allNotices';
 import NavigationBar from '@/components/commonComponents/navigationBar';
-// import { cookies } from 'next/headers';
 import { Suspense } from 'react';
+import SkeletonList from '@/components/commonComponents/skeleton/skeletonNoticeList';
 
 export default async function Home() {
   const queryClient = new QueryClient();
@@ -27,6 +27,8 @@ export default async function Home() {
           <div className="flex flex-col w-[100%]">
             <Suspense>
               <CustomNotice />
+            </Suspense>
+            <Suspense fallback={<SkeletonList number={6} />}>
               <AllNotices />
             </Suspense>
           </div>

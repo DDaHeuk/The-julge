@@ -4,7 +4,6 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 import FetchAllNotice from '@/apis/notice/fetchAllNotice';
 import AllNotices from '@/components/homeComponents/allNotices';
 import NavigationBar from '@/components/commonComponents/navigationBar';
-// import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 
 export default async function Home() {
@@ -25,10 +24,8 @@ export default async function Home() {
             <NavigationBar />
           </Suspense>
           <div className="flex flex-col w-[100%]">
-            <Suspense>
-              <CustomNotice />
-              <AllNotices />
-            </Suspense>
+            <CustomNotice />
+            <AllNotices />
           </div>
         </div>
         <Footer />

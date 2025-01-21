@@ -31,18 +31,23 @@ export async function middleware(req: NextRequest) {
     type = cookieType.value;
   }
 
-  const shopIdFromPath = pathname.startsWith('/myshop') ? pathname.split('/myshop/')[1] : null;
+  // '/myshop' 또는 '/myshop/[shopId]' 경로 처리
+  if (pathname.startsWith('/myshop')) {
+    const shopIdFromPath = pathname.split('/')[2] || null;
+    const cookieShopIdValue = cookieShopId?.value;
 
-  if (pathname.startsWith('/myshop') && cookieShopId) {
-    const cookieShopIdValue = cookieShopId.value;
-    if (shopIdFromPath !== cookieShopIdValue) {
+    // '/myshop'로 접근한 경우
+    if (!shopIdFromPath && cookieShopIdValue) {
+      return NextResponse.redirect(new URL(`/myshop/${cookieShopIdValue}`, req.url));
+    }
+
+    // '/myshop/[shopId]'로 접근한 경우
+    if (shopIdFromPath && cookieShopIdValue && shopIdFromPath !== cookieShopIdValue) {
       return NextResponse.redirect(new URL(`/myshop/${cookieShopIdValue}`, req.url));
     }
   }
 
-  const userIdIdFromPath = pathname.startsWith('/myprofile')
-    ? pathname.split('/myprofile/')[1]
-    : null;
+  const userIdIdFromPath = pathname.startsWith('/myprofile') ? pathname.split('/')[2] : null;
 
   if (pathname.startsWith('/myprofile') && cookieUserId) {
     const cookieUserIdValue = cookieUserId.value;

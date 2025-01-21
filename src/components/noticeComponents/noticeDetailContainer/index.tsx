@@ -9,7 +9,13 @@ import { formatWorkSchedule } from '@/utils/dateTimeFormat';
 import formatCurrency from '@/utils/currencyFormat';
 import Link from 'next/link';
 import useApplyNotice from '@/hooks/useApplyNoticeMutation';
-import { useAddress, useApplication, useMyType, useUserId } from '@/stores/storeUserInfo';
+import {
+  useAddress,
+  useApplication,
+  useMyType,
+  useShopId,
+  useUserId,
+} from '@/stores/storeUserInfo';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
@@ -36,6 +42,7 @@ export default function NoticeDetailContainer({
   const shopInfo = data?.item?.shop?.item;
   const noticeInfo = data?.item;
   const { mutate: applyNotice } = useApplyNotice();
+  const { shopId: myShopId } = useShopId();
   const { myType } = useMyType();
   const { userId } = useUserId();
   const { userAddress } = useAddress();
@@ -131,39 +138,47 @@ export default function NoticeDetailContainer({
                 <p className="text-[14px text-black md:text-[16px]">{shopInfo?.description}</p>
               </div>
 
-              {myType === 'employer' ? (
-                <Link
-                  href={`/editnotice/${shopId}/${noticeId}`}
-                  onClick={handleEditClick}
-                  type="button"
-                >
-                  <Button type="button" color="noFilled" className="w-full h-[38px] md:h-[48px]">
-                    공고 편집하기
-                  </Button>
-                </Link>
-              ) : (
-                <>
-                  {!isApplied ? (
-                    <Button
-                      onClick={handleApplyClick}
+              {myType === 'employer'
+                ? // 사장님일 경우
+                  myShopId === shopId && (
+                    <Link
+                      href={`/editnotice/${shopId}/${noticeId}`}
+                      onClick={handleEditClick}
                       type="button"
-                      color="filled"
-                      className="w-full h-[38px] md:h-[48px]"
                     >
-                      신청하기
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={handleCancelClick}
-                      type="button"
-                      color="noFilled"
-                      className="w-full h-[38px] md:h-[48px]"
-                    >
-                      취소하기
-                    </Button>
+                      <Button
+                        type="button"
+                        color="noFilled"
+                        className="w-full h-[38px] md:h-[48px]"
+                      >
+                        공고 편집하기
+                      </Button>
+                    </Link>
+                  )
+                : // 사용자일 경우
+                  myShopId !== shopId && (
+                    <>
+                      {!isApplied ? (
+                        <Button
+                          onClick={handleApplyClick}
+                          type="button"
+                          color="filled"
+                          className="w-full h-[38px] md:h-[48px]"
+                        >
+                          신청하기
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={handleCancelClick}
+                          type="button"
+                          color="noFilled"
+                          className="w-full h-[38px] md:h-[48px]"
+                        >
+                          취소하기
+                        </Button>
+                      )}
+                    </>
                   )}
-                </>
-              )}
             </div>
           </div>
         </div>

@@ -35,6 +35,7 @@ export default function SignInForm() {
     password: '',
   });
 
+  const [isLoading, setIsLoading] = useState(false);
   const { mutate: signIn } = useSignIn();
 
   const { setMyType } = useMyType();
@@ -55,6 +56,7 @@ export default function SignInForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     signIn(
       {
         email: signinInfo.email,
@@ -111,6 +113,9 @@ export default function SignInForm() {
 
           toast.error(errorMessage);
         },
+        onSettled: () => {
+          setIsLoading(false);
+        },
       },
     );
   };
@@ -136,7 +141,13 @@ export default function SignInForm() {
           <Input label="비밀번호" variant="password" name="password" onChange={handleChange} />
         </div>
         <div>
-          <Button color="filled" type="submit" className="w-[350px]" disabled={!isFormValid}>
+          <Button
+            color="filled"
+            type="submit"
+            className="w-[350px]"
+            disabled={!isFormValid || isLoading}
+            pending={isLoading}
+          >
             로그인 하기
           </Button>
         </div>

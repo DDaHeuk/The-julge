@@ -27,6 +27,7 @@ export default function SignUpForm() {
     type: '',
   });
 
+  const [isLoading, setIsLoading] = useState(false);
   const { mutate: signUp } = useSignUp();
   const router = useRouter();
 
@@ -47,6 +48,7 @@ export default function SignUpForm() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     signUp(
       {
         email: userInfo.email,
@@ -70,6 +72,9 @@ export default function SignUpForm() {
           }
 
           toast.error(errorMessage);
+        },
+        onSettled: () => {
+          setIsLoading(false);
         },
       },
     );
@@ -124,7 +129,13 @@ export default function SignUpForm() {
           </div>
         </div>
         <div>
-          <Button type="submit" color="filled" disabled={!isFormValid} className="w-[350px]">
+          <Button
+            color="filled"
+            type="submit"
+            className="w-[350px]"
+            disabled={!isFormValid || isLoading}
+            pending={isLoading}
+          >
             가입하기
           </Button>
         </div>

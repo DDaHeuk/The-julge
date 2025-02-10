@@ -19,8 +19,9 @@ interface ManageNoticeInfoProps {
 }
 
 const ManageNoticeInfo = ({ token, manageType, shopId, noticeId }: ManageNoticeInfoProps) => {
-  const { mutate: assignNotice } = useAssignNotice();
-  const { mutate: editNotice } = useEditNotice();
+  const { mutate: assignNotice, isPending: isAssigning } = useAssignNotice();
+  const { mutate: editNotice, isPending: isEditing } = useEditNotice();
+  const isLoading = isAssigning || isEditing;
 
   const { noticeData } = useStoreNoticeInfo();
 
@@ -50,7 +51,8 @@ const ManageNoticeInfo = ({ token, manageType, shopId, noticeId }: ManageNoticeI
           type="submit"
           className="w-[100%] md:w-[312px]"
           color="filled"
-          disabled={validateNoticeData(noticeData)}
+          disabled={validateNoticeData(noticeData) || isLoading}
+          pending={isLoading}
         >
           {`${manageType}하기`}
         </Button>

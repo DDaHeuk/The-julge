@@ -22,8 +22,9 @@ interface ManageMyShopInfoProps {
 const ManageMyShopInfo = ({ token, manageType, shopId }: ManageMyShopInfoProps) => {
   const { shopData } = useStoreShopInfo();
 
-  const { mutate: assignShop } = useAssignShop();
-  const { mutate: editShop } = useEditShop();
+  const { mutate: assignShop, isPending: isAssigning } = useAssignShop();
+  const { mutate: editShop, isPending: isEditing } = useEditShop();
+  const isLoading = isAssigning || isEditing;
 
   useBeforeUnload();
 
@@ -53,7 +54,8 @@ const ManageMyShopInfo = ({ token, manageType, shopId }: ManageMyShopInfoProps) 
           type="submit"
           className="w-[100%] md:w-[312px]"
           color="filled"
-          disabled={validateShopData(shopData)}
+          disabled={validateShopData(shopData) || isLoading}
+          pending={isLoading}
         >
           {`${manageType}하기`}
         </Button>

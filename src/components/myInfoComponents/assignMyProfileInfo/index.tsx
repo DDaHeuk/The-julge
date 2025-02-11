@@ -21,7 +21,7 @@ const AssignMyProfileInfo = ({ token }: AssignMyProfileInfoProps) => {
     bio: searchParams.get('bio') ?? '',
   });
 
-  const { mutate: assignProfile } = useEditProfile();
+  const { mutate: assignProfile, isPending } = useEditProfile();
 
   // Input 컴포넌트에 관한 데이터 저장
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -100,7 +100,13 @@ const AssignMyProfileInfo = ({ token }: AssignMyProfileInfoProps) => {
 
       {/* 등록 버튼 */}
       <div className="flex justify-center mt-[4px] md:mt-[8px]">
-        <Button type="submit" className="w-[100%] md:w-[312px]" color="filled">
+        <Button
+          type="submit"
+          className="w-[100%] md:w-[312px]"
+          color="filled"
+          disabled={isPending}
+          pending={isPending}
+        >
           등록하기
         </Button>
       </div>
